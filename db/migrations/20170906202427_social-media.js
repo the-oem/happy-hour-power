@@ -17,8 +17,8 @@ exports.up = (knex, Promise) => Promise.all([
 
 
 exports.down = (knex, Promise) => Promise.all([
-  knex.schema.dropTable('social_media'),
   knex.schema.table('location', (table) => {
     table.dropColumn('social_media_id');
   }),
+  knex.schema.dropTable('social_media'),
 ]);
