@@ -11,7 +11,7 @@ exports.up = (knex, Promise) => Promise.all([
 
   knex.schema.table('location', (table) => {
     table.integer('social_media_id').unsigned();
-    table.foreign('social_media_id').references('social_media');
+    table.foreign('social_media_id').references('social_media.id');
   }),
 ]);
 
