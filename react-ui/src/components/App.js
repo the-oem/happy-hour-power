@@ -3,12 +3,17 @@ import logo from './logo.svg';
 import '../styles/App.css';
 import { Map } from './Map';
 
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: null,
-      fetching: true
+      markers: [{
+        position: {
+          lat: 39.750840,
+          lng: -104.996529,
+        },
+        defaultAnimation: 2,
+      }],
     };
   }
 
@@ -33,11 +38,13 @@ class App extends Component {
           <Map
             containerElement={<div className="map-container"></div>}
             mapElement={<div className="map-element"></div>}
+            onMapLoad={this.handleMapLoad}
+            onMapClick={this.handleMapClick}
+            markers={this.state.markers}
+            onMarkerRightClick={this.handleMarkerRightClick}
           />
         </div>
       </div>
     );
   }
 }
-
-export default App;
