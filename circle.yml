@@ -15,3 +15,4 @@ test:
   override:
     # - npm run lint
     - npm run test
+    - cd react-ui/ && npm run test:once
