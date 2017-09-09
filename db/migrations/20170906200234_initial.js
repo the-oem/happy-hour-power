@@ -3,8 +3,8 @@ exports.up = (knex, Promise) => Promise.all([
   knex.schema.createTable('location', (table) => {
     table.increments('id').primary();
     table.string('name');
-    table.decimal('latitude');
-    table.decimal('longitude');
+    table.float('latitude');
+    table.float('longitude');
     table.string('phone_number');
     table.string('website_url');
     table.timestamps(true, true);
