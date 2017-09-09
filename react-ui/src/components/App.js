@@ -36,8 +36,8 @@ export default class App extends Component {
         <div className="App-header">
           <h1>Happy Hour Power</h1>
           <Map
-            containerElement={<div className="map-container"></div>}
-            mapElement={<div className="map-element"></div>}
+            containerElement={<div className="map-container"/>}
+            mapElement={<div className="map-element"/>}
             onMapLoad={this.handleMapLoad}
             onMapClick={this.handleMapClick}
             markers={this.state.markers}
