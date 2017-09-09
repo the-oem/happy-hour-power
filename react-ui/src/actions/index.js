@@ -1,22 +1,6 @@
-export const specifyLocation = (location, id) => {
+export const renderMap = (map) => {
   return {
-    type: SPECIFY_LOCATION,
-    location,
-    id
-  }
-}
-
-export const chooseEstablishment = (establishment, id) => {
-  return {
-    type: CHOOSE_ESTABLISHMENT,
-    establishment,
-    id
-  }
-}
-
-export const viewDetails = (details) => {
-  return {
-    type: VIEW_DETAILS,
-    details
+    type: 'RENDER_MAP',
+    map
   }
 }
