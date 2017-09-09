@@ -15,9 +15,9 @@ test:
   override:
     # - npm run lint
     ## - Run tests for the server app
-    - npm run test
+    - npm test
     ## - Run tests for the front-end app
-    - cd react-ui/ && npm run test:once
+    - cd react-ui/ && npm test
 
 deployment:
   staging:
