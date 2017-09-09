@@ -15,4 +15,5 @@ test:
   override:
     # - npm run lint
     - npm run test
+    - bin/build-frontend.sh
     - cd react-ui/ && npm run test:once
