@@ -26,9 +26,6 @@ app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
 });
 
-
-
-
 app.post('/api/v1/admin/', (req, res) => {
 	const payload = req.body;
 
@@ -56,15 +53,12 @@ app.route('/api/v1/location')
 	})
 	.catch(error => console.log(`ERROR: GET /api/v1/location:`, error))
 })
-
-
-
 .post(checkAuth, (req, res) => {
-	const locationType = req.body.locationType;
+	const locationType 			= req.body.locationType;
 	const newSocialMedia 	= req.body.socialMedia;
-	const newLocation 	= req.body.location;
-	const statusType 		= req.body.statusType;
-	const newHappyHour = req.body.happyHour;
+	const newLocation 				= req.body.location;
+	const statusType 					= req.body.statusType;
+	const newHappyHour 			= req.body.happyHour;
 
 	for (let requiredParams of ["name","latitude","longitude"]) {
 		if (!newLocation[requiredParams]) {
@@ -105,11 +99,6 @@ db('location_type').insert(locationType, 'id')
 	})
 	.catch(error => res.status(500).json({ error }))
 })
-
-
-
-
-
 
 app.listen(PORT, function () {
   console.log(`Listening on port ${PORT}`);
