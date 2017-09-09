@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import '../styles/App.css';
 
-import RenderMap from './RenderMap';
+import RenderMapContainer from '../containers/RenderMapContainer';
 import { Map } from './Map';
 
 const App = () => {
@@ -14,7 +14,7 @@ const App = () => {
       </header>
       <main>
         <div className="Map">
-          <RenderMap />
+          <RenderMapContainer />
         </div>
       </main>
     </div>
