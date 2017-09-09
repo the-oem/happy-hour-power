@@ -15,13 +15,11 @@
     "react-ui/node_modules"
   ],
   "dependencies": {
-<<<<<<< HEAD
     "express": "^4.14.1",
-    "google-maps-react": "^1.1.0"
-=======
+    "google-maps-react": "^1.1.0",
     "body-parser": "^1.17.2",
-    "express": "^4.14.1"
->>>>>>> begin test sweet for server side testing. running npm test cannot find test files matching pattern: test
+    "jsonwebtoken": "^7.4.3",
+    "dotenv": "^4.0.0"
   },
   "repository": {
     "type": "git",
