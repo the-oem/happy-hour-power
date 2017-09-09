@@ -17,6 +17,7 @@
   },
   "dependencies": {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-google-maps": "^7.3.0",
@@ -25,6 +26,10 @@
 =======
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+=======
+    "react": "^15.6.1",
+    "react-dom": "15.6.1",
+>>>>>>> Build out store
     "react-google-maps": "^7.3.0"
 >>>>>>> add map to DOM
   },
