@@ -13,15 +13,15 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('/api')
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        console.log('/api data: ', json)
-      }).catch(e => {
-        console.log('error: ', e)
-      })
+    // fetch('/api')
+    //   .then(response => {
+    //     return response.json();
+    //   })
+    //   .then(json => {
+    //     console.log('/api data: ', json)
+    //   }).catch(e => {
+    //     console.log('error: ', e)
+    //   })
   }
 
 
