@@ -24,22 +24,3 @@ export const Map = withGoogleMap((props) => {
     </GoogleMap>
   )
 })
-
-// export class Map extends Component {
-//   constructor() {
-//     super();
-//     this.state = initialState;
-//   }
-//
-//   render() {
-//     return withGoogleMap((props) => {
-//
-//
-//       return (
-//         <div>
-//
-//         </div>
-//       );
-//     });
-//   }
-// }
