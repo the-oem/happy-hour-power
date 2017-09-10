@@ -9,7 +9,7 @@ exports.up = (knex, Promise) => Promise.all([
     table.string('facebook');
   }),
 
-  knex.schema.table('location', (table) => {
+  knex.schema.table('locations', (table) => {
     table.integer('social_media_id').unsigned();
     table.foreign('social_media_id').references('social_media.id');
   }),
@@ -17,7 +17,7 @@ exports.up = (knex, Promise) => Promise.all([
 
 
 exports.down = (knex, Promise) => Promise.all([
-  knex.schema.table('location', (table) => {
+  knex.schema.table('locations', (table) => {
     table.dropColumn('social_media_id');
   }),
   knex.schema.dropTable('social_media'),
