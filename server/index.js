@@ -1,16 +1,16 @@
-const 		express 				= require('express');
-const 		app 								= express();
-const 		path 							= require('path');
-const 		bodyParser 	= require('body-parser');
-const 		jwt 								= require('jsonwebtoken');
-const { checkAuth } = require('./serverMiddleware');
-																						require('dotenv').config();
+const 		express 										= require('express');
+const 		app 														= express();
+const 		path 													= require('path');
+const 		bodyParser 							= require('body-parser');
+const 		jwt 														= require('jsonwebtoken');
+const { checkAuth,
+								happyHourParams } = require('./serverMiddleware');
+																												require('dotenv').config();
 
-const PORT 									= process.env.PORT || 5000;
-
-const environment 		= process.env.NODE_ENV || 'development'
-const configuration = require('../knexfile')[environment]
-const db 											= require('knex')(configuration)
+const PORT 															= process.env.PORT || 5000;
+const environment 								= process.env.NODE_ENV || 'development'
+const configuration 						= require('../knexfile')[environment]
+const db 																	= require('knex')(configuration)
 
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
@@ -31,7 +31,7 @@ app.post('/api/v1/admin/', (req, res) => {
 
 	for (let requiredParams of ['businessID', "email"]) {
 		if (!req.body[requiredParams]) {
-			return res.status.json({ error: `Mising requried parameter "${requiredParams}"`})
+			return res.status(422).json({ error: `Mising required parameter "${requiredParams}"`})
 		}
 	}
 
@@ -104,6 +104,42 @@ app.route('/api/v1/location/')
 				.catch(error => res.status(500).json({ error }))
 			})
 		.catch(error => res.status(500).json({ error }))
+})
+
+app.route('/api/v1/happyhour/:id')
+.put(checkAuth, (req, res) => {
+	const id 														= req.params.id;
+	const newHappyHourData = req.body;
+
+	if (req.headers.statusType !== 'controller') {
+		res.status(500).json({
+			message:"You are not qualified to modify this business."
+		})
+	}
+
+	for (let requiredParams of ['timeslot','drink_specials','food_specials','menu_pictures']) {
+		if (!newHappyHourData[requiredParams]) {
+			res.status(422).json({
+				error: `Missing required parameter ${requiredParams}`
+			})
+		}
+	}
+
+	db('happy_hour').where('id', id).select()
+	.update(newHappyHourData, '*')
+	.then(data => res.status(200).json({ data }))
+	.catch(error => res.status(500).json({ error }))
+	})
+.patch(happyHourParams, checkAuth, (req, res) => {
+	const id 					= req.params.id;
+	const newData = req.body;
+
+
+
+	db('happy_hour').where('id', id).select(`${ newData }`)
+	.update(newData, '*')
+	.then(data => res.status(200).json({ data }))
+	.catch(error => res.status(500).json({ error }))
 })
 
 
