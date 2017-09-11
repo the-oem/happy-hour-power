@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
-import '../styles/App.css';
-=======
 // import '../styles/App.css';
->>>>>>> cb32afec6a66602fae8887dff1ccf249432476c3
 
 import { Map } from './Map';
 
@@ -38,11 +34,7 @@ export default class RenderMap extends Component {
       <div className="map-area">
           <Map
             map={this.props.map}
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> cb32afec6a66602fae8887dff1ccf249432476c3
             containerElement={<div className="map-container"/>}
             mapElement={<div className="map-element"/>}
             onMapLoad={this.handleMapLoad}
