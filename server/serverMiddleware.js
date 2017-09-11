@@ -5,7 +5,7 @@ const checkAuth = (req, res, next) => {
 
   if (!tokenPiece) {
     return res.status(403).json({
-      message: 'You must have be authorized to do this action. Contact your computer guy',
+      message: 'You must have be authorized to proceed. Contact your nearest computer guy',
     });
   }
 
@@ -13,16 +13,15 @@ const checkAuth = (req, res, next) => {
   jwt.verify(tokenPiece, 'FAKE-process.env.SECRET_KEY', (error, decoded) => {
     if (error) {
       return res.status(403).json({
-        message: 'Gandalf says you shall not pass',
-        error,
+        message: 'Gandalf says you shall not pass.', error
       })
     }
 
     if (decoded.admin) {
-      Object.assign(decoded, { statusType:'controller' })
+      Object.assign(req.headers, { statusType:'controller' }, { businessID:decoded.businessID })
       next()
     } else {
-      Object.assign(decoded, { statusType:"user" })
+      Object.assign(req.headers, { statusType:"user" })
       next()
     }
     return null
@@ -30,7 +29,18 @@ const checkAuth = (req, res, next) => {
   return null
 }
 
+const happyHourParams = (req, res, next) => {
+  const paramsOptions = ['timeslot','drink_specials','food_specials','menu_pictures'];
+  const newParamKey = Object.keys(req.body)[0];
+
+  if (paramsOptions.indexOf(newParamKey) === -1) {
+    res.status(422).json({ message:`${newParamKey} is not a valid key` })
+  } else {
+    next()
+  }
+}
 
 module.exports = {
-  checkAuth
+  checkAuth,
+  happyHourParams
 };
