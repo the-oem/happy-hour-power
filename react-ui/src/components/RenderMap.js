@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import '../styles/App.css';
-
+import MapContainer from '../containers/MapContainer';
 import { Map } from './Map';
 
 export default class RenderMap extends Component {
@@ -32,7 +32,7 @@ export default class RenderMap extends Component {
   render() {
     return (
       <div className="map-area">
-          <Map
+          <MapContainer
             map={this.props.map}
 
             containerElement={<div className="map-container"/>}

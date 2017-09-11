@@ -46,7 +46,6 @@ export class Map extends Component {
     service.nearbySearch(request, (results, status) => {
       if (status === 'OK') {
         const markers = results.map(place => {
-          console.log(place);
           const { location } = place.geometry;
           return {
             position: {
@@ -62,12 +61,16 @@ export class Map extends Component {
     });
   }
 
+  componentWillMount() {
+    this.props.geolocate();
+  }
+
   render() {
     return (
       <BaseMap
         ref={googleMap => this.gmap = googleMap}
-        containerElement={<div className="map-container"/>}
-        mapElement={<div className="map-element"/>}
+        containerElement={<div className='map-container'/>}
+        mapElement={<div className='map-element'/>}
         onMapLoad={this.handleMapLoad}
         markers={this.state.markers}
         onMapClick={this.handleMapClick}
