@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-
     "babel-jest": "^21.0.2",
     "enzyme": "^2.9.1",
     "ignore-styles": "^5.0.1",
@@ -16,22 +15,11 @@
     "mocha": "^3.5.0"
   },
   "dependencies": {
-<<<<<<< HEAD
-<<<<<<< HEAD
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-google-maps": "^7.3.0",
     "react-redux": "^5.0.6",
     "redux": "^3.6.0"
-=======
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-=======
-    "react": "^15.6.1",
-    "react-dom": "15.6.1",
->>>>>>> Build out store
-    "react-google-maps": "^7.3.0"
->>>>>>> add map to DOM
   },
   "scripts": {
     "start": "react-scripts start",
