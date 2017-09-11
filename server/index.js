@@ -106,9 +106,9 @@ app.route('/api/v1/location/')
 		.catch(error => res.status(500).json({ error }))
 })
 
-app.route('/api/v1/happyhour/:id')
+app.route('/api/v1/happyhour/update')
 .put(checkAuth, (req, res) => {
-	const id 														= req.params.id;
+	const id 														= req.headers.businessID;
 	const newHappyHourData = req.body;
 
 	if (req.headers.statusType !== 'controller') {
@@ -131,10 +131,8 @@ app.route('/api/v1/happyhour/:id')
 	.catch(error => res.status(500).json({ error }))
 	})
 .patch(happyHourParams, checkAuth, (req, res) => {
-	const id 					= req.params.id;
+	const id 					= req.headers.businessID;
 	const newData = req.body;
-
-
 
 	db('happy_hour').where('id', id).select(`${ newData }`)
 	.update(newData, '*')
@@ -142,10 +140,8 @@ app.route('/api/v1/happyhour/:id')
 	.catch(error => res.status(500).json({ error }))
 })
 
-
-
 app.delete('/api/v1/location/destroy/', checkAuth, (req, res) => {
-	const id = req.headers.businessID;
+	const id 										= req.headers.businessID;
 	const businessName = req.body.businessName;
 
 		if (req.headers.statusType !== 'controller') {
@@ -176,7 +172,6 @@ app.delete('/api/v1/location/destroy/', checkAuth, (req, res) => {
 	})
 	.catch(error => res.status(500).json({ error }))
 })
-
 
 app.listen(PORT, function () {
   console.log(`Listening on port ${ PORT }`);
