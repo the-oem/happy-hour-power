@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
-
-const DEFAULT_LOCATION = {
-  name: 'Turing School of Software and Design',
-  coordinates: {
-    lat: 39.750840,
-    lng: -104.996529,
-  }
-}
+import { DEFAULT_LOCATION } from '../utils/constants';
 
 const BaseMap = withGoogleMap((props) => {
   const markers = props.markers.map((marker) => (
