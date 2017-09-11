@@ -1,4 +1,4 @@
-export const  location = [
+const locations = [
 	{
 		"id": 1,
 		"name":  "Brothers",
@@ -17,7 +17,7 @@ export const  location = [
 	}
 ]
 
-export const happy_hour = [
+const happy_hours = [
 	{
 		"id": 1,
 		"timeslot": "mon:16:00-20:00",
@@ -61,21 +61,19 @@ export const happy_hour = [
 ]
 
 exports.seed = (knex, Promise) => {
-	return knex('happy_hour').del()
-			.then(() => {
-				return knex('location').del()
-			})
+	return knex('happy_hours').del()
+			.then(() => knex('locations').del())
 			.then(() => {
 				return Promise.all(
-					location.map(location => {
-						return knex('location').insert(location);
+					locations.map(location => {
+						return knex('locations').insert(location);
 					}))
 			})
 			.then(() => {
-				return Promise.all(happy_hour.map(happyHour => {
-					return knex('happy_hour').insert(happyHour)
+				return Promise.all(happy_hours.map(happyHour => {
+					return knex('happy_hours').insert(happyHour)
 				}))
 			})
-			.then(() => console.log('Re-seeding complete'))
-			.catch(() => console.log({error: 'Error seeding data'}))
+			.then(() => console.log('Seeding complete'))
+			.catch((error) => console.log({ error }))
 }
