@@ -74,6 +74,5 @@ exports.seed = (knex, Promise) => {
 					return knex('happy_hours').insert(happyHour)
 				}))
 			})
-			.then(() => console.log('Seeding complete'))
 			.catch((error) => console.log({ error }))
 }
