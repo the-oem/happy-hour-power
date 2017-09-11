@@ -43,14 +43,11 @@ app.post('/api/v1/admin/', (req, res) => {
 	return res.status(200).json({ token })
 })
 
-app.route('/api/v1/location')
+app.route('/api/v1/location/')
 .get((req, res) => {
 	db('location').select()
-	.then(location =>  res.status(200).json({ location }) )
-	.then(info => {
-		console.log('some info fer da conole: ', info)
-	})
-	.catch(error => console.log(`ERROR: GET /api/v1/location:`, error))
+	.then(allLocations =>  res.status(200).json({ allLocations }) )
+	.catch(error => res.status(500).json({ ERROR: 'GET /api/v1/location/', error }))
 })
 .post(checkAuth, (req, res) => {
 	const locationType 			= req.body.locationType;
@@ -67,31 +64,46 @@ app.route('/api/v1/location')
 		}
 	}
 
-db('location_type').insert(locationType, 'id')
-.then(locTypeID => {
-		Object.assign(newLocation, { location_type_id:locTypeID[0] })
-		db('social_media').insert(newSocialMedia, 'id')
-		.then(socialMediaID => {
-			Object.assign(newLocation, { social_media_id:socialMediaID[0] })
-			db('location').insert(newLocation, ['id'])
-			.then(newLocID => {
-				db('status_type').insert(statusType, 'id')
-				.then(statusID => {
-					Object.assign(newHappyHour, { status_type_id:statusID[0] }, { location_id:newLocID[0].id })
-					db('happy_hour').insert(newHappyHour, ['location_id'])
-					.then(locID => {
-						db('location').where('id', locID[0].location_id).select()
-						.then(data => res.status(200).json({ data }))
+	db('location').where('name', newLocation.name).select()
+	.then(data => {
+		if (data.length > 0) {
+			let ids = []
+			for(let i=0;i<data.length;i++) {
+				ids.push(data[i].id)
+			}
+			res.status(300).json({
+				message:`Warning, ${data.length} business(s) with the name ${newLocation.name} already exists in our database`,
+				businessID: ids
+			 })
+		} 
+	})
+	.catch(error => res.status(500).json({ error }))
+
+		db('location_type').insert(locationType, 'id')
+		.then(locTypeID => {
+				Object.assign(newLocation, { location_type_id:locTypeID[0] })
+				db('social_media').insert(newSocialMedia, 'id')
+				.then(socialMediaID => {
+					Object.assign(newLocation, { social_media_id:socialMediaID[0] })
+					db('location').insert(newLocation, ['id'])
+					.then(newLocID => {
+						db('status_type').insert(statusType, 'id')
+						.then(statusID => {
+							Object.assign(newHappyHour, { status_type_id:statusID[0] }, { location_id:newLocID[0].id })
+							db('happy_hour').insert(newHappyHour, ['location_id'])
+							.then(locID => {
+								db('location').where('id', locID[0].location_id).select()
+								.then(data => res.status(200).json({ data }))
+							})
+							.catch(error => res.status(500).json({ error }))
+						})
+						.catch(error => res.status(500).json({ error }))
 					})
 					.catch(error => res.status(500).json({ error }))
 				})
 				.catch(error => res.status(500).json({ error }))
 			})
-			.catch(error => res.status(500).json({ error }))
-		})
 		.catch(error => res.status(500).json({ error }))
-	})
-	.catch(error => res.status(500).json({ error }))
 })
 
 
