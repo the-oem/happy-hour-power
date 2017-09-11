@@ -1,8 +1,7 @@
 import React from 'react';
 import '../styles/App.css';
-
-import RenderMapContainer from '../containers/RenderMapContainer';
 import { Map } from './Map';
+import RenderMapContainer from '../containers/RenderMapContainer';
 
 const App = () => {
 
