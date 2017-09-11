@@ -64,32 +64,38 @@ app.route('/api/v1/location/')
 
 	db('location').where('name', newLocation.name).select()
 	.then(data => {
+
 		if (data.length > 0) {
 			let ids = []
-			for(let i=0;i<data.length;i++) {
-				ids.push(data[i].id)
-			}
-			res.status(300).json({
+			for(let i=0;i<data.length;i++) { ids.push(data[i].id) }
+
+			return res.status(300).json({
 				message:`Warning, ${data.length} business(s) with the name ${newLocation.name} already exists in our database`,
 				businessID: ids
 			 })
-		} 
+		}
+
 	})
 	.catch(error => res.status(500).json({ error }))
 
 		db('location_type').insert(locationType, 'id')
 		.then(locTypeID => {
 				Object.assign(newLocation, { location_type_id:locTypeID[0] })
+
 				db('social_media').insert(newSocialMedia, 'id')
 				.then(socialMediaID => {
 					Object.assign(newLocation, { social_media_id:socialMediaID[0] })
+
 					db('location').insert(newLocation, ['id'])
 					.then(newLocID => {
+
 						db('status_type').insert(statusType, 'id')
 						.then(statusID => {
 							Object.assign(newHappyHour, { status_type_id:statusID[0] }, { location_id:newLocID[0].id })
+
 							db('happy_hour').insert(newHappyHour, ['location_id'])
 							.then(locID => {
+
 								db('location').where('id', locID[0].location_id).select()
 								.then(data => res.status(200).json({ data }))
 							})
@@ -111,7 +117,7 @@ app.route('/api/v1/happyhour/update')
 
 	if (req.headers.statusType !== 'controller') {
 		res.status(500).json({
-			message:"You are not qualified to modify this business."
+			message:"You are not qualified to modify this business"
 		})
 	}
 
@@ -144,7 +150,7 @@ app.delete('/api/v1/location/destroy/', checkAuth, (req, res) => {
 
 	if (req.headers.statusType !== 'controller') {
 		res.status(401).json({
-			message:"You are not qualified to remove this business from the database."
+			message:"You are not qualified to remove this business from the database"
 		})
 	}
 
@@ -158,7 +164,7 @@ app.delete('/api/v1/location/destroy/', checkAuth, (req, res) => {
 				.then(id => {
 					db('status_type').where('id', id).del()
 					.then(id => {
-						res.status(200).json({ message:`All data pertaining to ${businessName} has been permanantly destroyed.` })
+						res.status(200).json({ message:`All data pertaining to ${businessName} has been permanantly destroyed` })
 					})
 					.catch(error => res.status(500).json({ error }))
 				})
@@ -171,22 +177,40 @@ app.delete('/api/v1/location/destroy/', checkAuth, (req, res) => {
 	.catch(error => res.status(500).json({ error }))
 });
 
-app.route('/api/v1/locationtype/update/')
-.put(checkAuth, (req, res) => {
-	const id 													= req.headers.businessID
-	const newLocationType = req.body.locationType;
 
+
+
+
+
+app.route('/api/v1/locationtype/update/')
+.patch(checkAuth, (req, res) => {
+	const id 													= req.headers.businessID;
+	const newLocationType = req.body;
+	
 	if (req.headers.statusType !== 'controller') {
 		res.status(401).json({
-			message:'you are not qualified to edit this modify this business'
+			message:'you are not qualified to modify this business'
 		})
 	}
 
-	db('location_type').where('id', id).select()
-	.update(newLocationType, '*')
-	.then(data => res.status(200).json({ data }))
+		for (let requiredParams of ['location_type']) {
+		if (!newLocationType[requiredParams]) {
+			res.status(422).json({
+				error:`Missing required parameter ${requiredParams}` 
+			})
+		}
+	}
+
+		db('location_type').where('id', id).select('type')
+	.update(newLocationType, 'type')
+	.then(replacementType => res.status(200).json({ replacementType }))
 	.catch(error => res.status(500).json({ error }))
 })
+
+
+
+
+
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${ PORT }`);
