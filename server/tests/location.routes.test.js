@@ -1,8 +1,9 @@
-process.env.NODE_ENV = "test";
+require('dotenv').config();
+
 const chai = require('chai');
-const should = chia.should();
+const should = chai.should();
 const chaiHTTP = require('chai-http');
-const server = require('../index');
+const server = require('../index.js');
 
 const environment = process.env.NODE_ENV;
 const configuration = require('../../knexfile.js')[environment]
@@ -10,16 +11,15 @@ const db = require('knex')(configuration);
 
 chai.use(chaiHTTP)
 
-
-describe() {
- beforeEach(done => {
+describe('Testing Location API Routes', () => {
+ beforeEach((done) => {
     db.migrate.latest()
-    .then(() => db.seed.run())
+    // .then(() => db.seed.run())
     .then(() => done())
     .catch(error => console.log(error))
   })
 
-	it('does', () => {
-		console.log('seeding shit')
+	it('does a thing', () => {
+		console.log('in the test')
 	})
-}
+})

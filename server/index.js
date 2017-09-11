@@ -4,13 +4,13 @@ const 		path 							= require('path');
 const 		bodyParser 	= require('body-parser');
 const 		jwt 								= require('jsonwebtoken');
 const { checkAuth } = require('./serverMiddleware');
-																						require('dotenv').config();
+require('dotenv').config();
 
-const PORT 									= process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
-const environment 		= process.env.NODE_ENV || 'development'
+const environment = process.env.NODE_ENV || 'development'
 const configuration = require('../knexfile')[environment]
-const db 											= require('knex')(configuration)
+const db = require('knex')(configuration)
 
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
@@ -19,40 +19,39 @@ app.use(bodyParser.json());
 // app.set('secretKey', process.env.SECRET_KEY);
 app.set('secretKey', 'FAKE-process.env.SECRET_KEY');
 
-
-
 // All remaining requests return the React app, so it can handle routing.
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
 });
 
-app.post('/api/v1/admin/', (req, res) => {
+app.post('/api/v1/auth', (req, res) => {
 	const payload = req.body;
 
-	for (let requiredParams of ['userType', "email"]) {
+	for (let requiredParams of ['userType', 'email']) {
 		if (!req.body[requiredParams]) {
-			return res.status.json({ error: `Mising requried parameter "${requiredParams}"`})
+			return res.status(422).json({ error: `Missing required parameter (${requiredParams})`})
 		}
 	}
 
 	if (payload.email.endsWith('@controllerAdmin.com')) {
 		Object.assign(payload, { admin:true })
-	} else { Object.assign(payload, { admin:false }) }
+	} else {
+		Object.assign(payload, { admin:false })
+	}
 
-	const token = jwt.sign(payload, app.get('secretKey'), {expiresIn: '7d'})
+	const token = jwt.sign(payload, app.get('secretKey'), { expiresIn: '7d' })
 	return res.status(200).json({ token })
 })
 
 // GET ALL LOCATIONS
-app.route('/api/v1/location')
+app.route('/api/v1/locations')
 .get((req, res) => {
-	db('location').select()
-	.then(location =>  res.status(200).json({ location }) )
-	.then(info => {
-		console.log('some info fer da conole: ', info)
-	})
-	.catch(error => console.log(`ERROR: GET /api/v1/location:`, error))
+	db('locations').select()
+	.then(locations => res.status(200).json({ locations }))
+	.then(info => console.log('some info fer da conole: ', info))
+	.catch(error => console.log(`ERROR: GET /api/v1/locations:`, error))
 })
+
 .post(checkAuth, (req, res) => {
 	const locationType 			= req.body.locationType;
 	const newSocialMedia 	= req.body.socialMedia;
@@ -60,11 +59,9 @@ app.route('/api/v1/location')
 	const statusType 					= req.body.statusType;
 	const newHappyHour 			= req.body.happyHour;
 
-	for (let requiredParams of ["name","latitude","longitude"]) {
+	for (let requiredParams of ['name', 'latitude', 'longitude']) {
 		if (!newLocation[requiredParams]) {
-			return res.status(422).json({
-				error: `missing required parameter ${requiredParams}`
-			})
+			return res.status(422).json({ error: `Missing required parameter (${requiredParams})`})
 		}
 	}
 
