@@ -38,6 +38,7 @@ export class Map extends Component {
       location: new window.google.maps.LatLng(39.750840,-104.996529),
       radius: '500',
       type: ['restaurant'],
+      openNow: true,
     }
 
     const service = new window.google.maps.places.PlacesService(map);
@@ -45,6 +46,7 @@ export class Map extends Component {
     service.nearbySearch(request, (results, status) => {
       if (status === 'OK') {
         const markers = results.map(place => {
+          console.log(place);
           const { location } = place.geometry;
           return {
             position: {
