@@ -30,7 +30,6 @@ app.get('/', (req, res) => {
 });
 
 app.post('/api/v1/admin/', (req, res) => {
-
   const payload = req.body;
 
   for (let requiredParams of ['businessID', 'email']) {
