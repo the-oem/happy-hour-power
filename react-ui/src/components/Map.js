@@ -3,8 +3,8 @@ import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import { DEFAULT_LOCATION } from '../utils/constants';
 
 const BaseMap = withGoogleMap((props) => {
-  const markers = props.markers.map((marker) => (
-    <Marker {...marker} />
+  const markers = props.locations.map((location) => (
+    <Marker {...location.marker} />
   ));
 
   return (
@@ -64,7 +64,7 @@ export class Map extends Component {
         containerElement={<div className="map-container" />}
         mapElement={<div className="map-element" />}
         onMapLoad={this.handleMapLoad}
-        markers={this.props.locations}
+        locations={this.props.locations}
         onMapClick={this.handleMapClick}
         onMarkerRightClick={this.handleMarkerRightClick}
       />
