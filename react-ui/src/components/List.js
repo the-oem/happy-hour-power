@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Location from './Location';
 
 export class List extends Component {
   render() {
@@ -10,12 +11,3 @@ export class List extends Component {
     return <div>{displayLocation}</div>;
   }
 }
-
-const Location = ({ name, vicinity }) => {
-  return (
-    <div>
-      <h2>{name}</h2>
-      <p>Address: {vicinity}</p>
-    </div>
-  );
-};
