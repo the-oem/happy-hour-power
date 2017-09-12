@@ -7,13 +7,15 @@ export default class RenderMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      markers: [{
-        position: {
-          lat: 39.750840,
-          lng: -104.996529,
-        },
-        defaultAnimation: 2,
-      }],
+      markers: [
+        {
+          position: {
+            lat: 39.75084,
+            lng: -104.996529
+          },
+          defaultAnimation: 2
+        }
+      ]
     };
   }
 
@@ -23,25 +25,25 @@ export default class RenderMap extends Component {
         return response.json();
       })
       .then(json => {
-        console.log('/api data: ', json)
-      }).catch(e => {
-        console.log('error: ', e)
+        console.log('/api data: ', json);
       })
+      .catch(e => {
+        console.log('error: ', e);
+      });
   }
 
   render() {
     return (
       <div className="map-area">
-          <MapContainer
-            map={this.props.map}
-
-            containerElement={<div className="map-container"/>}
-            mapElement={<div className="map-element"/>}
-            onMapLoad={this.handleMapLoad}
-            onMapClick={this.handleMapClick}
-            markers={this.state.markers}
-            onMarkerRightClick={this.handleMarkerRightClick}
-          />
+        <MapContainer
+          map={this.props.map}
+          containerElement={<div className="map-container" />}
+          mapElement={<div className="map-element" />}
+          onMapLoad={this.handleMapLoad}
+          onMapClick={this.handleMapClick}
+          markers={this.state.markers}
+          onMarkerRightClick={this.handleMarkerRightClick}
+        />
       </div>
     );
   }

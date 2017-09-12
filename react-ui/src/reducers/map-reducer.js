@@ -1,12 +1,11 @@
-const mapReducer = (state=[], action) => {
-  switch(action.type){
+const mapReducer = (state = [], action) => {
+  switch (action.type) {
     case 'SPECIFY_LOCATION':
+      return [...action.location];
 
-    return [...action.location]
-    
-  default:
-  return state
+    default:
+      return state;
   }
-}
+};
 
 export default mapReducer;

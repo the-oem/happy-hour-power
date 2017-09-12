@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
+import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import { DEFAULT_LOCATION } from '../utils/constants';
 
-const BaseMap = withGoogleMap((props) => {
-  const markers = props.markers.map((marker) => (
-    <Marker {...marker}/>
-  ));
+const BaseMap = withGoogleMap(props => {
+  const markers = props.markers.map(marker => <Marker {...marker} />);
 
   return (
     <GoogleMap
@@ -16,14 +14,14 @@ const BaseMap = withGoogleMap((props) => {
     >
       {markers}
     </GoogleMap>
-  )
-})
+  );
+});
 
 export class Map extends Component {
   constructor() {
     super();
     this.state = {
-      markers: [],
+      markers: []
     };
     this.handleMapLoad = this.handleMapLoad.bind(this);
   }
@@ -35,11 +33,11 @@ export class Map extends Component {
 
     const { map } = this.gmap.state;
     const request = {
-      location: new window.google.maps.LatLng(39.750840,-104.996529),
+      location: new window.google.maps.LatLng(39.75084, -104.996529),
       radius: '500',
       type: ['restaurant'],
-      openNow: true,
-    }
+      openNow: true
+    };
 
     const service = new window.google.maps.places.PlacesService(map);
 
@@ -50,13 +48,13 @@ export class Map extends Component {
           return {
             position: {
               lat: location.lat(),
-              lng: location.lng(),
+              lng: location.lng()
             },
-            defaultAnimation: 2,
-          }
-        })
+            defaultAnimation: 2
+          };
+        });
 
-        this.setState({ markers })
+        this.setState({ markers });
       }
     });
   }
@@ -68,14 +66,14 @@ export class Map extends Component {
   render() {
     return (
       <BaseMap
-        ref={googleMap => this.gmap = googleMap}
-        containerElement={<div className='map-container'/>}
-        mapElement={<div className='map-element'/>}
+        ref={googleMap => (this.gmap = googleMap)}
+        containerElement={<div className="map-container" />}
+        mapElement={<div className="map-element" />}
         onMapLoad={this.handleMapLoad}
         markers={this.state.markers}
         onMapClick={this.handleMapClick}
         onMarkerRightClick={this.handleMarkerRightClick}
       />
-    )
+    );
   }
 }

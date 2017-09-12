@@ -6,7 +6,7 @@ import locationsReducer from './locationsReducer';
 const rootReducer = combineReducers({
   MapReducer,
   geolocation: geolocationReducer,
-  locations: locationsReducer,
-})
+  locations: locationsReducer
+});
 
 export default rootReducer;
