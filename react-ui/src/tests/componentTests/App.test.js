@@ -2,14 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import configureMockStore from 'redux-mock-store';
-
+import configureStore from 'redux-mock-store'
 import App from '../../components/App';
+
+const middlewares = []
+const mockStore = configureStore(middlewares)
+
 
 describe('App', () => {
 
   it('should render', () => {
-    const mockedStore = configureMockStore({})
+    const mockedStore = mockStore({});
     const wrapper = shallow(<Provider store={mockedStore}><App /></Provider>)
   })
 
