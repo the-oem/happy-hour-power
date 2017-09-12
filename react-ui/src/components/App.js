@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/App.css';
 import RenderMapContainer from '../containers/RenderMapContainer';
+import RenderList from './RenderList';
 
 const App = () => {
   return (
@@ -11,6 +12,9 @@ const App = () => {
       <main>
         <div className="Map">
           <RenderMapContainer />
+        </div>
+        <div className="List">
+          <RenderList />
         </div>
       </main>
     </div>
