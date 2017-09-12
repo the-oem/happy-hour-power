@@ -1,5 +1,5 @@
 const locationsReducer = (state=[], action) => {
-  switch (expression) {
+  switch (action.type) {
     case 'LOCATION_EXAMPLE':
       return state;
     default:
