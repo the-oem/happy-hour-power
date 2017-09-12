@@ -1,16 +1,15 @@
-const 		express 										= require('express');
-const 		app 														= express();
-const 		path 													= require('path');
-const 		bodyParser 							= require('body-parser');
-const 		jwt 														= require('jsonwebtoken');
-const { checkAuth,
-								happyHourParams } = require('./serverMiddleware');
-																												require('dotenv').config();
+const express = require('express');
+const app = express();
+const path = require('path');
+const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
+const { checkAuth, happyHourParams } = require('./serverMiddleware');
+require('dotenv').config();
 
-const PORT 															= process.env.PORT || 5000;
-const environment 								= process.env.NODE_ENV || 'development';
-const configuration 						= require('../knexfile')[environment];
-const db 																	= require('knex')(configuration);
+const PORT = process.env.PORT || 5000;
+const environment = process.env.NODE_ENV || 'development';
+const configuration = require('../knexfile')[environment];
+const db = require('knex')(configuration);
 
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
@@ -22,7 +21,7 @@ app.set('secretKey', 'FAKE-process.env.SECRET_KEY');
 // All remaining requests return the React app, so it can handle routing.
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
-})
+});
 
 app.post('/api/v1/auth', (req, res) => {
 	const payload = req.body;
@@ -177,11 +176,6 @@ app.delete('/api/v1/location/destroy/', checkAuth, (req, res) => {
 	.catch(error => res.status(500).json({ error }))
 });
 
-
-
-
-
-
 app.route('/api/v1/locationtype/update/')
 .patch(checkAuth, (req, res) => {
 	const id 													= req.headers.businessID;
@@ -207,13 +201,8 @@ app.route('/api/v1/locationtype/update/')
 	.catch(error => res.status(500).json({ error }))
 })
 
-
-
-
-
-
 app.listen(PORT, () => {
-  console.log(`Listening on port ${ PORT }`);
+  console.log(`Listening on port ${PORT}`);
 });
 
 module.exports = app;
