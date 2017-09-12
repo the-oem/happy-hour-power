@@ -1,12 +1,11 @@
-const MapReducer = (state=[], action) => {
-  switch(action.type){
+const MapReducer = (state = [], action) => {
+  switch (action.type) {
     case 'RENDER_MAP':
+      return action.map;
 
-    return action.map
-
-  default:
-  return state
+    default:
+      return state;
   }
-}
+};
 
 export default MapReducer;
