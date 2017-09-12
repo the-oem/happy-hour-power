@@ -128,7 +128,7 @@ const happyHour = [
     drink_specials: '1/3 Price Drinks',
     food_specials: '9lb Burgers for $1.95',
     menu_pictures: 'somepicture.jpg',
-    location_id: 2
+    location_id: 1
   },
   {
     id: 3,
@@ -136,7 +136,7 @@ const happyHour = [
     drink_specials: '3x Price Drinks',
     food_specials: '6inch Burger for $12.95',
     menu_pictures: 'somepicture.jpg',
-    location_id: 3
+    location_id: 1
   },
   {
     id: 4,
@@ -144,7 +144,7 @@ const happyHour = [
     drink_specials: '3x Price Drinks',
     food_specials: '6inch hotdog for $12.95',
     menu_pictures: 'somepicture.jpg',
-    location_id: 4
+    location_id: 2
   },
   {
     id: 5,
@@ -152,58 +152,27 @@ const happyHour = [
     drink_specials: '$4.00 Cuban Missle Crisis',
     food_specials: '4inch hotdog for $14.95',
     menu_pictures: 'somepicture.jpg',
-    location_id: 5
-  }
-];
-
-const statusType = [
-  {
-    id: 1,
-    type: 'establishment_approved'
-  },
-  {
-    id: 2,
-    type: 'establishment_approved'
-  },
-  {
-    id: 3,
-    type: 'user_submitted'
-  },
-  {
-    id: 4,
-    type: 'user_submitted'
-  },
-  {
-    id: 5,
-    type: 'crowdsourced_approved'
+    location_id: 2
   }
 ];
 
 exports.seed = (knex, Promise) => {
-  return knex('happy_hour')
+  return knex('happy_hours')
     .del()
-    .then(() => knex('location').del())
-    .then(() => knex('social_media').del())
-    .then(() => knex('location_type').del())
-    .then(() => knex('status_type').del())
+    .then(() => knex('locations').del())
     .then(() => {
       return Promise.all(
-        locationType.map(locType => {
-          return knex('location_type').insert(locType, 'id');
-        }),
-        socialMedia.map(mediaType => {
-          return knex('social_media').insert(mediaType, 'id');
-        }),
-        location.map(loc => {
-          return knex('location').insert(loc, 'id');
-        }),
-        statusType.map(statType => {
-          return knex('status_type').insert(statType, 'id');
-        }),
-        happyHour.map(hapHour => {
-          return knex('happy_hour').insert(hapHour, 'id');
+        locations.map(location => {
+          return knex('locations').insert(location);
         })
-      ).catch(error => console.log({ error }));
+      );
+    })
+    .then(() => {
+      return Promise.all(
+        happy_hours.map(happyHour => {
+          return knex('happy_hours').insert(happyHour);
+        })
+      );
     })
     .catch(error => console.log({ error }));
 };
