@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import MapReducer from './MapReducer';
-import geolocationReducer from './geolocationReducer';
+import currentLocationReducer from './currentLocationReducer';
 import locationsReducer from './locationsReducer';
 
 const rootReducer = combineReducers({
   MapReducer,
-  geolocation: geolocationReducer,
-  locations: locationsReducer
-});
+  currentLocation: currentLocationReducer,
+  locations: locationsReducer,
+})
 
 export default rootReducer;

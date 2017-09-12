@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { renderMap } from '../actions';
 import RenderMap from '../components/RenderMap';
 
 const mapStateToProps = state => {

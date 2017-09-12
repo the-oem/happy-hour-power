@@ -1,7 +1,5 @@
 import React from 'react';
 import '../styles/App.css';
-
-import { Map } from './Map';
 import RenderMapContainer from '../containers/RenderMapContainer';
 
 const App = () => {

@@ -5,7 +5,6 @@ import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import App from './components/App';
 import './styles/index.css';
 
