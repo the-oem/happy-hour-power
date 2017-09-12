@@ -1,4 +1,76 @@
-const locations = [
+const locationType = [
+  {
+    id: 1,
+    type: 'bar'
+  },
+  {
+    id: 2,
+    type: 'bar'
+  },
+  {
+    id: 3,
+    type: 'bar'
+  },
+  {
+    id: 4,
+    type: 'taphouse'
+  },
+  {
+    id: 5,
+    type: 'brewery'
+  }
+];
+
+const socialMedia = [
+  {
+    id: 1,
+    yelp:
+      'https://www.yelp.com/biz/brothers-bar-and-grill-denver-5?osq=Brothers+Bar+%26+Grill',
+    instagram:
+      'https://www.instagram.com/explore/locations/539908/brothers-bar-grill-denver/',
+    twitter: 'https://twitter.com/brothersbariu?lang=en',
+    pinterest: 'https://www.pinterest.com/brothers4all/brothers-bar-grill/',
+    facebook:
+      'https://www.facebook.com/brothersbarandgrillDenver/?rf=131729000209987'
+  },
+  {
+    id: 2,
+    yelp: 'https://www.yelp.com/biz/lodos-bar-and-grill-downtown-denver-3',
+    instagram: 'https://www.instagram.com/explore/locations/18473302/',
+    twitter: 'https://twitter.com/lodosrg',
+    pinterest: '',
+    facebook: 'https://www.facebook.com/lodos.bar/'
+  },
+  {
+    id: 3,
+    yelp: 'https://www.yelp.com/biz/the-giggling-grizzly-denver',
+    instagram: 'https://www.instagram.com/explore/locations/599338374/',
+    twitter: 'https://twitter.com/gigglinggriz',
+    pinterest: '',
+    facebook: 'https://www.facebook.com/Giggling-Grizzly-766370203439098/'
+  },
+  {
+    id: 4,
+    yelp: 'https://www.yelp.com/biz/falling-rock-tap-house-denver',
+    instagram:
+      'https://www.instagram.com/explore/locations/205896/falling-rock-tap-house/',
+    twitter: 'https://twitter.com/fallingrocktap?lang=en',
+    pinterest: 'https://www.pinterest.com/pin/480337116489846225/',
+    facebook: 'https://www.facebook.com/FRTH1997/'
+  },
+  {
+    id: 5,
+    yelp: 'https://www.yelp.com/biz/jagged-mountain-craft-brewery-denver-2',
+    instagram:
+      'https://www.instagram.com/explore/locations/149341791/jagged-mountain-craft-brewery/',
+    twitter:
+      'https://twitter.com/JaggedMtnCB?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor',
+    pinterest: 'https://www.pinterest.com/pin/164592561357296235/',
+    facebook: 'https://www.facebook.com/JaggedMountain/'
+  }
+];
+
+const location = [
   {
     id: 1,
     name: 'Brothers',
@@ -14,10 +86,34 @@ const locations = [
     longitude: 104.9937,
     phone_number: '(303)293-8555',
     website_url: 'www.lodobar.com'
+  },
+  {
+    id: 3,
+    name: 'Giggling Grizzly',
+    latitude: 39.7534,
+    longitude: 104.9933,
+    phone_number: '(303)297-8300',
+    website_url: 'www.giggling-grizzly.com'
+  },
+  {
+    id: 4,
+    name: 'Falling Rock Taphouse',
+    latitude: 39.7539,
+    longitude: 104.9955,
+    phone_number: '(303)293-8338',
+    website_url: 'www.fallingrocktaphouse.com'
+  },
+  {
+    id: 5,
+    name: 'Jagged Mountain Craft Brewery',
+    latitude: 39.7523,
+    longitude: 104.9914,
+    phone_number: '(720)689-2337',
+    website_url: 'www.jaggedmountainbrewery.com'
   }
 ];
 
-const happy_hours = [
+const happyHour = [
   {
     id: 1,
     timeslot: 'mon:16:00-20:00',
@@ -32,7 +128,7 @@ const happy_hours = [
     drink_specials: '1/3 Price Drinks',
     food_specials: '9lb Burgers for $1.95',
     menu_pictures: 'somepicture.jpg',
-    location_id: 1
+    location_id: 2
   },
   {
     id: 3,
@@ -40,7 +136,7 @@ const happy_hours = [
     drink_specials: '3x Price Drinks',
     food_specials: '6inch Burger for $12.95',
     menu_pictures: 'somepicture.jpg',
-    location_id: 1
+    location_id: 3
   },
   {
     id: 4,
@@ -48,7 +144,7 @@ const happy_hours = [
     drink_specials: '3x Price Drinks',
     food_specials: '6inch hotdog for $12.95',
     menu_pictures: 'somepicture.jpg',
-    location_id: 2
+    location_id: 4
   },
   {
     id: 5,
@@ -56,27 +152,58 @@ const happy_hours = [
     drink_specials: '$4.00 Cuban Missle Crisis',
     food_specials: '4inch hotdog for $14.95',
     menu_pictures: 'somepicture.jpg',
-    location_id: 2
+    location_id: 5
+  }
+];
+
+const statusType = [
+  {
+    id: 1,
+    type: 'establishment_approved'
+  },
+  {
+    id: 2,
+    type: 'establishment_approved'
+  },
+  {
+    id: 3,
+    type: 'user_submitted'
+  },
+  {
+    id: 4,
+    type: 'user_submitted'
+  },
+  {
+    id: 5,
+    type: 'crowdsourced_approved'
   }
 ];
 
 exports.seed = (knex, Promise) => {
-  return knex('happy_hours')
+  return knex('happy_hour')
     .del()
-    .then(() => knex('locations').del())
+    .then(() => knex('location').del())
+    .then(() => knex('social_media').del())
+    .then(() => knex('location_type').del())
+    .then(() => knex('status_type').del())
     .then(() => {
       return Promise.all(
-        locations.map(location => {
-          return knex('locations').insert(location);
+        locationType.map(locType => {
+          return knex('location_type').insert(locType, 'id');
+        }),
+        socialMedia.map(mediaType => {
+          return knex('social_media').insert(mediaType, 'id');
+        }),
+        location.map(loc => {
+          return knex('location').insert(loc, 'id');
+        }),
+        statusType.map(statType => {
+          return knex('status_type').insert(statType, 'id');
+        }),
+        happyHour.map(hapHour => {
+          return knex('happy_hour').insert(hapHour, 'id');
         })
-      );
-    })
-    .then(() => {
-      return Promise.all(
-        happy_hours.map(happyHour => {
-          return knex('happy_hours').insert(happyHour);
-        })
-      );
+      ).catch(error => console.log({ error }));
     })
     .catch(error => console.log({ error }));
 };
