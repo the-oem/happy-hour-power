@@ -4,8 +4,7 @@ const 		path 														= require('path');
 const 		bodyParser 								= require('body-parser');
 const 		jwt 															= require('jsonwebtoken');
 const { checkAuth,
-								happyHourParams,
-								statusTypeParams } = require('./serverMiddleware');
+								happyHourParams		} = require('./serverMiddleware');
 																													require('dotenv').config();
 
 const PORT 																= process.env.PORT || 5000;
@@ -63,37 +62,32 @@ app.route('/api/v1/location/')
 		}
 	}
 
-	db('location').where('name', newLocation.name).select()
-	.then(data => {
-		if (data.length > 0) {
-			let ids = []
-			for (let i=0;i<data.length;i++) { ids.push(data[i].id) }
-			return res.status(300).json({
-				message:`Warning, ${data.length} business(s) with the name ${newLocation.name} already exists in our database`,
-				businessID: ids
-			 })
-			}
-	})
-	.catch(error => res.status(500).json({ error }))
+	// db('location').where('name', newLocation.name).select()
+	// .then(data => {
+	// 	if (data.length > 0) {
+	// 		let ids = []
+	// 		for (let i=0;i<data.length;i++) { ids.push(data[i].id) }
+	// 		return res.status(300).json({
+	// 			message:`Warning, ${data.length} business(s) with the name ${newLocation.name} already exists in our database`,
+	// 			businessID: ids
+	// 		 })
+	// 		}
+	// })
+	// .catch(error => res.status(500).json({ error }))
 
 		db('location_type').insert(locationType, 'id')
 		.then(locTypeID => {
 				Object.assign(newLocation, { location_type_id:locTypeID[0] })
-
 				db('social_media').insert(newSocialMedia, 'id')
 				.then(socialMediaID => {
 					Object.assign(newLocation, { social_media_id:socialMediaID[0] })
-
 					db('location').insert(newLocation, ['id'])
 					.then(newLocID => {
-
 						db('status_type').insert(statusType, 'id')
 						.then(statusID => {
 							Object.assign(newHappyHour, { status_type_id:statusID[0] }, { location_id:newLocID[0].id })
-
 							db('happy_hour').insert(newHappyHour, ['location_id'])
 							.then(locID => {
-
 								db('location').where('id', locID[0].location_id).select()
 								.then(data => res.status(200).json({ data }))
 							})
@@ -195,10 +189,20 @@ app.route('/api/v1/locationtype/update/')
 		}
 	}
 
-		db('location_type').where('id', id).select('type')
+	db('location_type').where('id', id).select('type')
 	.update(newLocationType, 'type')
 	.then(replacementType => res.status(200).json({ replacementType }))
 	.catch(error => res.status(500).json({ error }))
+})
+
+app.get('/api/v1/locationtype/:type', (req,res) => {
+	const newType = req.params.type;
+
+	db('location_type').where('type', newType).select('*')
+	.then(data => {
+		res.status(200).json({ data })
+	})
+	.catch(error => res.status(400).json({ error }))
 })
 
 app.route('/api/v1/statustype/update/')
@@ -228,22 +232,17 @@ app.route('/api/v1/statustype/update/')
 
 app.get('/api/v1/statustype/:type', (req, res) => {
 	const newType = req.params.type;
-
 	db('status_type').where('type', newType).select('id')
-	.then(data => {
-		res.status(200).json({ data })
-	})
+	.then(data => res.status(200).json({ data }))
 })
 
 app.get('/api/v1/statustype', (req, res) => {
 	db('status_type').select('*')
-	.then(data => {
-		res.status(200).json({ data })
-	})
+	.then(data =>  res.status(200).json({ data }))
 })
 
 app.listen(PORT, () => {
-  console.log(`Listening on port ${ PORT }`);
+  console.log(`Listening on port ${PORT}`);
 });
 
 module.exports = app;

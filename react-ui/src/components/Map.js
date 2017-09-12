@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
-
-const DEFAULT_LOCATION = {
-  name: 'Turing School of Software and Design',
-  coordinates: {
-    lat: 39.750840,
-    lng: -104.996529,
-  }
-}
+import { DEFAULT_LOCATION } from '../utils/constants';
 
 const BaseMap = withGoogleMap((props) => {
   const markers = props.markers.map((marker) => (
@@ -45,6 +38,7 @@ export class Map extends Component {
       location: new window.google.maps.LatLng(39.750840,-104.996529),
       radius: '500',
       type: ['restaurant'],
+      openNow: true,
     }
 
     const service = new window.google.maps.places.PlacesService(map);
@@ -67,12 +61,16 @@ export class Map extends Component {
     });
   }
 
+  componentWillMount() {
+    this.props.geolocate();
+  }
+
   render() {
     return (
       <BaseMap
         ref={googleMap => this.gmap = googleMap}
-        containerElement={<div className="map-container"/>}
-        mapElement={<div className="map-element"/>}
+        containerElement={<div className='map-container'/>}
+        mapElement={<div className='map-element'/>}
         onMapLoad={this.handleMapLoad}
         markers={this.state.markers}
         onMapClick={this.handleMapClick}
@@ -81,4 +79,3 @@ export class Map extends Component {
     )
   }
 }
-
