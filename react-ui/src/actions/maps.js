@@ -1,24 +1,22 @@
 import { DEFAULT_LOCATION } from '../utils/constants';
 
-export const updateLocation = (location) => {
+export const updateLocation = location => {
   return {
     type: 'GEOLOCATE',
-    location,
-  }
-}
+    location
+  };
+};
 
 export const geolocate = () => {
-  return (dispatch) => {
-
+  return dispatch => {
     if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
+      navigator.geolocation.getCurrentPosition(position => {
         const { latitude, longitude } = position.coords;
 
         dispatch(updateLocation({ latitude, longitude }));
       });
     } else {
-
-      dispatch(updateLocation(DEFAULT_LOCATION.coordinates))
+      dispatch(updateLocation(DEFAULT_LOCATION.coordinates));
     }
-  }
-}
+  };
+};

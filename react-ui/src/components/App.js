@@ -5,7 +5,6 @@ import { Map } from './Map';
 import RenderMapContainer from '../containers/RenderMapContainer';
 
 const App = () => {
-
   return (
     <div className="App">
       <header className="App-header">
@@ -18,6 +17,6 @@ const App = () => {
       </main>
     </div>
   );
-}
+};
 
 export default App;
