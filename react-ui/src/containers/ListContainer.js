@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { List } from '../components/List';
-import { listLocations } from '../actions';
 
 const mapStateToProps = state => {
   return {
@@ -8,12 +7,4 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    displayLocation: data => {
-      dispatch(listLocations(data));
-    }
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(List);
+export default connect(mapStateToProps, null)(List);
