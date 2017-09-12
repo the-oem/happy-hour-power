@@ -35,14 +35,10 @@ export class Map extends Component {
     const { lat, lng } = this.props.currentLocation;
 
     const request = {
-<<<<<<< HEAD
-      location: new window.google.maps.LatLng(39.75084, -104.996529),
-=======
       location: new window.google.maps.LatLng(
         lat || DEFAULT_LOCATION.coordinates.lat,
         lng || DEFAULT_LOCATION.coordinates.lng,
       ),
->>>>>>> update Map to send data to redux store
       radius: '500',
       type: ['restaurant'],
       openNow: true
@@ -52,7 +48,6 @@ export class Map extends Component {
 
     service.nearbySearch(request, (results, status) => {
       if (status === 'OK') {
-<<<<<<< HEAD
         const markers = results.map(place => {
           const { location } = place.geometry;
           return {
@@ -64,10 +59,7 @@ export class Map extends Component {
           };
         });
 
-        this.setState({ markers });
-=======
         this.props.nearbyLocations(results);
->>>>>>> update Map to send data to redux store
       }
     });
   }

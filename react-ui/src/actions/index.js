@@ -1,4 +1,4 @@
-export * from './maps';
+export * from './googleMaps';
 
 export const renderMap = map => {
   return {
