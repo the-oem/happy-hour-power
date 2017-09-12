@@ -48,17 +48,6 @@ export class Map extends Component {
 
     service.nearbySearch(request, (results, status) => {
       if (status === 'OK') {
-        const markers = results.map(place => {
-          const { location } = place.geometry;
-          return {
-            position: {
-              lat: location.lat(),
-              lng: location.lng()
-            },
-            defaultAnimation: 2
-          };
-        });
-
         this.props.nearbyLocations(results);
       }
     });
