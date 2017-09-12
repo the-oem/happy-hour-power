@@ -190,10 +190,21 @@ app.route('/api/v1/locationtype/update/')
 		}
 	}
 
-		db('location_type').where('id', id).select('type')
+	db('location_type').where('id', id).select('type')
 	.update(newLocationType, 'type')
 	.then(replacementType => res.status(200).json({ replacementType }))
 	.catch(error => res.status(500).json({ error }))
+})
+
+app.get('/api/v1/locationtype/:type', (req,res) => {
+	const newType = req.params.type;
+
+
+	db('location_type').where('type', newType).select('*')
+	.then(data => {
+		res.status(200).json({ data })
+	})
+	.catch(error => res.status(400).json({ error }))
 })
 
 app.route('/api/v1/statustype/update/')
@@ -225,12 +236,11 @@ app.get('/api/v1/statustype/:type', (req, res) => {
 	const newType = req.params.type;
 
 	db('status_type').where('type', newType).select('id')
-	.then(data => {
-		res.status(200).json({ data })
-	})
+	.then(data => res.status(200).json({ data }))
+	.catch(error => res.status(400).json({ error }))
 })
 
-app.get('/api/v1/statustype', (req, res) => {
+app.get('/api/v1/statustype', (req,res) => {
 	db('status_type').select('*')
 	.then(data => {
 		res.status(200).json({ data })
