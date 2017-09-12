@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import { DEFAULT_LOCATION } from '../utils/constants';
 
-const BaseMap = withGoogleMap(props => {
-  const markers = props.markers.map(marker => <Marker {...marker} />);
+const BaseMap = withGoogleMap((props) => {
+  const markers = props.markers.map((marker) => (
+    <Marker {...marker} />
+  ));
 
   return (
     <GoogleMap
@@ -27,13 +29,20 @@ export class Map extends Component {
   }
 
   handleMapLoad(googleMap) {
-    if (!this.gmap) {
-      return;
-    }
+    if (!this.gmap) return;
 
     const { map } = this.gmap.state;
+    const { lat, lng } = this.props.currentLocation;
+
     const request = {
+<<<<<<< HEAD
       location: new window.google.maps.LatLng(39.75084, -104.996529),
+=======
+      location: new window.google.maps.LatLng(
+        lat || DEFAULT_LOCATION.coordinates.lat,
+        lng || DEFAULT_LOCATION.coordinates.lng,
+      ),
+>>>>>>> update Map to send data to redux store
       radius: '500',
       type: ['restaurant'],
       openNow: true
@@ -43,6 +52,7 @@ export class Map extends Component {
 
     service.nearbySearch(request, (results, status) => {
       if (status === 'OK') {
+<<<<<<< HEAD
         const markers = results.map(place => {
           const { location } = place.geometry;
           return {
@@ -55,11 +65,14 @@ export class Map extends Component {
         });
 
         this.setState({ markers });
+=======
+        this.props.nearbyLocations(results);
+>>>>>>> update Map to send data to redux store
       }
     });
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.geolocate();
   }
 
@@ -70,7 +83,7 @@ export class Map extends Component {
         containerElement={<div className="map-container" />}
         mapElement={<div className="map-element" />}
         onMapLoad={this.handleMapLoad}
-        markers={this.state.markers}
+        markers={this.props.locations}
         onMapClick={this.handleMapClick}
         onMarkerRightClick={this.handleMarkerRightClick}
       />
