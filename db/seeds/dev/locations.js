@@ -70,7 +70,7 @@ const socialMedia = [
   }
 ];
 
-const location = [
+const locations = [
   {
     id: 1,
     name: 'Brothers',
@@ -113,7 +113,7 @@ const location = [
   }
 ];
 
-const happyHour = [
+const happyHours = [
   {
     id: 1,
     timeslot: 'mon:16:00-20:00',
@@ -159,6 +159,7 @@ const happyHour = [
 exports.seed = (knex, Promise) => {
   return knex('happy_hours')
     .del()
+    .then(() => knex('social_media').del())
     .then(() => knex('locations').del())
     .then(() => {
       return Promise.all(
@@ -169,8 +170,15 @@ exports.seed = (knex, Promise) => {
     })
     .then(() => {
       return Promise.all(
-        happy_hours.map(happyHour => {
+        happyHours.map(happyHour => {
           return knex('happy_hours').insert(happyHour);
+        })
+      );
+    })
+    .then(() => {
+      return Promise.all(
+        socialMedia.map(media => {
+          return knex('social_media').insert(media);
         })
       );
     })
