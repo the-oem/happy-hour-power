@@ -1,0 +1,37 @@
+.list {
+  background-color: #2f5366;
+  background-color: #6b8b9b;
+  padding-bottom: 10px;
+  font-family: 'Josefin Slab', serif;
+}
+
+.location {
+  border: 2px solid #dbb330;
+  margin: 10px 15px;
+  text-align: left;
+  padding-left: 20px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #98b1bc;
+}
+
+p,
+h2 {
+  margin: 8px;
+}
+
+.location-header {
+  padding: 25px 10px 15px 10px;
+}
+
+.location-name {
+  font-family: 'Poiret One', cursive;
+}
+
+.see-more-icon {
+  height: 20px;
+  margin: 10px;
+  padding: 5px;
+  border: 0.5px solid #dbb330;
+  background-color: #6b8b9b;
+}

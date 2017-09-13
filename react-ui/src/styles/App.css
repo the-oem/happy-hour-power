@@ -2,27 +2,35 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
 .App-header {
-  background-color: #222;
-  height: 150px;
+  background-color: #05344c;
+  height: 60px;
   padding: 20px;
-  color: white;
 }
 
-.App-intro {
-  font-size: large;
+.title {
+  font-family: 'Poiret One', cursive;
+  font-size: 40px;
+  letter-spacing: 0.05em;
+  color: #dbb330;
+  margin: 10px 0 0 0;
 }
 
-.App a {
-  color: #f60;
+footer {
+  background-color: #05344c;
+  height: 40px;
+  color: #dbb330;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+.footer-text {
+  font-family: 'Poiret One', cursive;
+  letter-spacing: 0.1em;
+  font-size: 14px;
+  font-weight: 300;
+  padding-top: 10px;
 }
