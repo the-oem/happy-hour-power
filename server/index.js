@@ -21,8 +21,7 @@ const db = require('knex')(configuration);
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 app.use(bodyParser.json());
 
-// app.set('secretKey', process.env.SECRET_KEY);
-app.set('secretKey', 'FAKE-process.env.SECRET_KEY');
+app.set('secretKey', process.env.SECRET_KEY);
 
 // All remaining requests return the React app, so it can handle routing.
 app.get('/', (req, res) => {
@@ -51,7 +50,7 @@ app.post('/api/v1/admin/', (req, res) => {
   }
 
   const token = jwt.sign(payload, app.get('secretKey'), { expiresIn: '7d' });
-  return res.status(200).json({ token });
+  return res.status(201).json({ token });
 });
 
 //----> HAPPY_HOUR <----//
