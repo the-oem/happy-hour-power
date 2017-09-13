@@ -49,6 +49,7 @@ export class Map extends Component {
     service.nearbySearch(request, (results, status) => {
       if (status === 'OK') {
         this.props.nearbyLocations(results);
+        this.props.getLocations();
       }
     });
   }

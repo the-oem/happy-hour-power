@@ -1,20 +1,28 @@
+import Marker from '../model/Marker';
+
 const locationsReducer = (state = [], action) => {
   switch (action.type) {
     case 'NEARBY_LOCATIONS':
-      return action.data.map(place => {
-        const { geometry: { location }, place_id } = place;
+      return action.data;
 
-        return Object.assign({}, place, {
-          marker: {
-            position: {
-              lat: location.lat(),
-              lng: location.lng(),
-            },
-            defaultAnimation: 2,
-            key: place_id,
-          }
+    case 'DATABASE_LOCATIONS':
+      const newState = [...state].map((place) => {
+        const { geometry: { location }, id } = place;
+        const position = {
+          lat: location.lat(),
+          lng: location.lng(),
+        }
+
+        const inTable = !! action.locations.find((loc) => {
+          return loc.google_maps_id === id;
         })
-      });
+        return Object.assign({}, place, {
+          marker: new Marker(position, id, inTable, 2)
+        })
+      })
+
+
+      return newState;
 
     default:
       return state;
