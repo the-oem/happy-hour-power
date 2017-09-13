@@ -4,7 +4,7 @@ import { DEFAULT_LOCATION } from '../utils/constants';
 
 const BaseMap = withGoogleMap((props) => {
   const markers = props.locations.map((location) => (
-    <Marker {...location.marker} />
+    <Marker {...location.marker} onClick={() => props.handleMarkerClick(location)}/>
   ));
 
   return (
@@ -65,6 +65,7 @@ export class Map extends Component {
         containerElement={<div className="map-container" />}
         mapElement={<div className="map-element" />}
         onMapLoad={this.handleMapLoad}
+        handleMarkerClick={this.props.handleMarkerClick}
         locations={this.props.locations}
         onMapClick={this.handleMapClick}
         onMarkerRightClick={this.handleMarkerRightClick}
