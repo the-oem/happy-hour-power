@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import RenderMapContainer from '../containers/RenderMapContainer';
 import RenderList from './RenderList';
-import '../styles/App.css';
+import '../styles/Controls.css';
 
 export default class Controls extends Component {
   constructor() {
@@ -24,10 +24,14 @@ export default class Controls extends Component {
 
     return (
       <div>
-        <button className="toggle-btn" onClick={() => this.toggleClass()}>
-          {buttonText}
-        </button>
-
+        <div className="controls-container">
+          <p className="slogan">
+            Search for the best Happy Hour deals near you!
+          </p>
+          <button className="toggle-btn" onClick={() => this.toggleClass()}>
+            {buttonText}
+          </button>
+        </div>
         <div className="map-list-view">{display}</div>
       </div>
     );

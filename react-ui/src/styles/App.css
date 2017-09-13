@@ -9,33 +9,11 @@
 }
 
 .title {
-  /*font-family: 'Bubbler One', sans-serif;*/
   font-family: 'Poiret One', cursive;
   font-size: 40px;
   letter-spacing: 0.05em;
   color: #dbb330;
   margin: 10px 0 0 0;
-}
-
-.controls {
-  background-color: #05344c;
-}
-
-.toggle-btn {
-  height: 40px;
-  width: 70px;
-  margin: 0 15px 15px 0;
-  margin-left: 80%;
-  background-color: #dbb330;
-  font-size: 18px;
-  letter-spacing: 0.2em;
-  border: none;
-  outline: none;
-  /*font-family: 'Josefin Slab', serif;*/
-  font-family: 'Poiret One', cursive;
-  font-weight: bold;
-  padding-left: 10px;
-  /*font-family: 'Crushed', cursive;*/
 }
 
 footer {
@@ -50,7 +28,8 @@ h6 {
 }
 
 .footer-text {
-  font-family: 'Josefin Slab', serif;
+  font-family: 'Poiret One', cursive;
+  letter-spacing: 0.1em;
   font-size: 14px;
   font-weight: 300;
   padding-top: 10px;
