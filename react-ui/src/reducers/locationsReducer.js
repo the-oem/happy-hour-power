@@ -12,13 +12,13 @@ const locationsReducer = (state = [], action) => {
           lat: location.lat(),
           lng: location.lng(),
         }
-
         const inTable = !! action.locations.find((loc) => {
           return loc.google_maps_id === id;
         })
+
         return Object.assign({}, place, {
-          marker: new Marker(position, id, inTable, 2)
-        })
+          marker: new Marker(position, id, place.name, inTable, 2)
+        }, { inTable })
       })
 
 
