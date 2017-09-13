@@ -55,6 +55,7 @@ export class Map extends Component {
 
   componentDidMount() {
     this.props.geolocate();
+    this.props.getLocations();
   }
 
   render() {
