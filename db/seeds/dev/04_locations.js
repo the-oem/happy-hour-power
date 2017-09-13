@@ -60,6 +60,7 @@ const locations = [
     longitude: 104.8921,
     phone_number: '(303)953-0229',
     website_url: 'www.doordash.com',
+    google_maps_id: '',
     location_type_id: 2
   },
   {
@@ -69,6 +70,7 @@ const locations = [
     longitude: 104.9937,
     phone_number: '(303)293-8555',
     website_url: 'www.lodobar.com',
+    google_maps_id: '77f3fe6ff0041c29505b77ae12c34350bf033be5',
     location_type_id: 2
   },
   {
@@ -78,6 +80,7 @@ const locations = [
     longitude: 104.9933,
     phone_number: '(303)297-8300',
     website_url: 'www.giggling-grizzly.com',
+    google_maps_id: '',
     location_type_id: 2
   },
   {
@@ -87,6 +90,7 @@ const locations = [
     longitude: 104.9955,
     phone_number: '(303)293-8338',
     website_url: 'www.fallingrocktaphouse.com',
+    google_maps_id: '',
     location_type_id: 6
   },
   {
@@ -96,6 +100,7 @@ const locations = [
     longitude: 104.9914,
     phone_number: '(720)689-2337',
     website_url: 'www.jaggedmountainbrewery.com',
+    google_maps_id: '',
     location_type_id: 3
   }
 ];
