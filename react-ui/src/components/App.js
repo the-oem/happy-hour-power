@@ -13,6 +13,9 @@ const App = () => {
           <ControlsContainer />
         </div>
       </main>
+      <footer>
+        <h6 className="footer-text">Copyright 2017</h6>
+      </footer>
     </div>
   );
 };
