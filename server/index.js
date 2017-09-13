@@ -80,7 +80,7 @@ app
       }
     }
 
-    db('happy_hour')
+    db('happy_hours')
       .where('id', id)
       .select()
       .update(newHappyHourData, '*')
@@ -91,7 +91,7 @@ app
     const id = req.headers.businessID;
     const newData = req.body;
 
-    db('happy_hour')
+    db('happy_hours')
       .where('id', id)
       .select(`${newData}`)
       .update(newData, '*')
@@ -99,11 +99,21 @@ app
       .catch(error => res.status(500).json({ error }));
   });
 
+// app.get('/api/v1/happyhour/days', (req, res) => {
+//   const dayRange = req.headers.day;
+
+//   db('happy_hours').select('timeslot')
+//   .then(times => {
+
+//     console.log(times)
+//   })
+// })
+
 //----> LOCATION <----//
 app
   .route('/api/v1/location/')
   .get((req, res) => {
-    db('location')
+    db('locations')
       .select()
       .then(allLocations => res.status(200).json({ allLocations }))
       .catch(error =>
@@ -125,44 +135,30 @@ app
       }
     }
 
-    // db('location').where('name', newLocation.name).select()
-    // .then(data => {
-    // 	if (data.length > 0) {
-    // 		let ids = []
-    // 		for (let i=0;i<data.length;i++) { ids.push(data[i].id) }
-    // 		return res.status(300).json({
-    // 			message:`Warning, ${data.length} business(s) with the name ${newLocation.name} already exists in our database`,
-    // 			businessID: ids
-    // 		 })
-    // 		}
-    // })
-    // .catch(error => res.status(500).json({ error }))
-
     db('location_type')
       .insert(locationType, 'id')
       .then(locTypeID => {
         Object.assign(newLocation, { location_type_id: locTypeID[0] });
         db('social_media')
-          .insert(newSocialMedia, ['id'])
+          .insert(newSocialMedia, 'id')
           .then(socialMediaID => {
             Object.assign(newLocation, { social_media_id: socialMediaID[0] });
-            db('location')
-              .insert(newLocation, ['id'])
+            db('locations')
+              .insert(newLocation, 'id')
               .then(newLocID => {
+                Object.assign(newHappyHour, { location_id: newLocID[0] });
                 db('status_type')
-                  .insert(statusType, ['id'])
+                  .insert(statusType, 'id')
                   .then(statusID => {
-                    Object.assign(
-                      newHappyHour,
-                      { status_type_id: statusID[0] },
-                      { location_id: newLocID[0].id }
-                    );
-                    db('happy_hour')
-                      .insert(newHappyHour, ['location_id'])
+                    Object.assign(newHappyHour, {
+                      status_type_id: statusID[0]
+                    });
+                    db('happy_hours')
+                      .insert(newHappyHour, 'location_id')
                       .then(locID => {
-                        db('location')
-                          .where('id', locID[0].location_id)
-                          .select()
+                        db('locations')
+                          .where('id', locID[0])
+                          .select('*')
                           .then(data => res.status(200).json({ data }));
                       })
                       .catch(error => res.status(500).json({ error }));
@@ -186,11 +182,11 @@ app.delete('/api/v1/location/destroy/', checkAuth, (req, res) => {
     });
   }
 
-  db('happy_hour')
+  db('happy_hours')
     .where('id', id)
     .del()
     .then(id => {
-      db('location')
+      db('locations')
         .where('id', id)
         .del()
         .then(id => {
@@ -284,7 +280,7 @@ app.route('/api/v1/statustype/update/').put(checkAuth, (req, res) => {
     .where('id', id)
     .update(newStatus)
     .then(statusID => {
-      db('location')
+      db('locations')
         .where('id', id)
         .select('*')
         .then(updatedLocation => {
