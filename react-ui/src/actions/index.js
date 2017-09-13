@@ -1,8 +1,8 @@
 export * from './googleMaps';
 
-export const renderMap = map => {
+export const toggleMapView = view => {
   return {
-    type: 'RENDER_MAP',
-    map,
-  }
-}
+    type: 'TOGGLE_VIEW',
+    view
+  };
+};

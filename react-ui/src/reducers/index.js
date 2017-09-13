@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import MapReducer from './MapReducer';
 import currentLocationReducer from './currentLocationReducer';
 import locationsReducer from './locationsReducer';
+import toggleMapViewReducer from './ToggleMapViewReducer';
 
 const rootReducer = combineReducers({
-  MapReducer,
   currentLocation: currentLocationReducer,
   locations: locationsReducer,
-})
+  toggleMapView: toggleMapViewReducer
+});
 
 export default rootReducer;
