@@ -1,17 +1,13 @@
 import { connect } from 'react-redux';
 import Controls from '../components/Controls';
-import toggleMapView from '../actions';
+// import toggleMapView from '../actions';
 
 const mapDispatchToProps = dispatch => {
-  return {
-    toggleMapView: view => dispatch(toggleMapView(view))
-  };
+  return {};
 };
 
 const mapStateToProps = state => {
-  return {
-    view: state.toggleMapViewReducer
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Controls);

@@ -1,4 +1,4 @@
-const toggleMapViewReducer = (state = true, action) => {
+const toggleMapViewReducer = (state = [], action) => {
   switch (action.type) {
     case 'TOGGLE_VIEW':
       return action.view;
