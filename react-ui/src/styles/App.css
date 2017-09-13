@@ -4,7 +4,7 @@
 
 .App-header {
   background-color: #05344c;
-  height: 80px;
+  height: 60px;
   padding: 20px;
 }
 
@@ -14,13 +14,17 @@
   font-size: 40px;
   letter-spacing: 0.05em;
   color: #dbb330;
-  margin: 18px 0 0 0;
+  margin: 10px 0 0 0;
+}
+
+.controls {
+  background-color: #05344c;
 }
 
 .toggle-btn {
   height: 40px;
   width: 70px;
-  margin: 10px;
+  margin: 0 15px 15px 0;
   margin-left: 80%;
   background-color: #dbb330;
   font-size: 18px;
@@ -32,4 +36,7 @@
   font-weight: bold;
   padding-left: 10px;
   /*font-family: 'Crushed', cursive;*/
+}
+
+.map-list-view {
 }

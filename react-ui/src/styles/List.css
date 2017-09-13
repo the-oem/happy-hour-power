@@ -1,1 +1,24 @@
+.list {
+  background-color: #2f5366;
+  background-color: #6b8b9b;
+  padding-bottom: 10px;
+  font-family: 'Josefin Slab', serif;
+  /*font-family: 'Poiret One', cursive;*/
+}
 
+.location {
+  border: 0.8px solid #dbb330;
+  margin: 10px 15px;
+  text-align: left;
+  padding-left: 20px;
+}
+
+p,
+h2 {
+  margin: 8px;
+}
+
+.location-name {
+  /*font-weight: 700;*/
+  font-family: 'Poiret One', cursive;
+}

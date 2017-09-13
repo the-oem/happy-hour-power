@@ -8,8 +8,8 @@ const App = () => {
       <header className="App-header">
         <h1 className="title">Happy Hour Power</h1>
       </header>
-      <main>
-        <div>
+      <main className="main-content">
+        <div className="controls">
           <ControlsContainer />
         </div>
       </main>

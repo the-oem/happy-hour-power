@@ -28,7 +28,7 @@ export default class Controls extends Component {
           {buttonText}
         </button>
 
-        <div>{display}</div>
+        <div className="map-list-view">{display}</div>
       </div>
     );
   }

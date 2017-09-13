@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Location from './Location';
+import '../styles/List.css';
 
 export class List extends Component {
   render() {
