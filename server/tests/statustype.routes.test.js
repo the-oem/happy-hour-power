@@ -11,7 +11,7 @@ const db = require('knex')(configuration);
 
 chai.use(chaiHTTP);
 
-describe('Testing HappyHour API Routes', () => {
+describe('Testing StatusType API Routes', () => {
   beforeEach(done => {
     db.migrate.rollback().then(() => {
       db.migrate.latest().then(() => {
@@ -22,7 +22,7 @@ describe('Testing HappyHour API Routes', () => {
     });
   });
 
-  describe('GET /api/v1/happyhours', () => {
+  describe('GET /api/v1/statustype', () => {
     it('does a thing', done => {
       done();
     });
