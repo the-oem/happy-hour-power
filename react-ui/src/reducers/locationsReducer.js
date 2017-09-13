@@ -1,7 +1,7 @@
 const locationsReducer = (state = [], action) => {
   switch (action.type) {
     case 'NEARBY_LOCATIONS':
-      return action.data.map(place => {
+      return [...state, ...action.data.map(place => {
         const { geometry: { location }, place_id } = place;
 
         return Object.assign({}, place, {
@@ -21,7 +21,10 @@ const locationsReducer = (state = [], action) => {
             title:"Hello World!"
           }
         })
-      });
+      })];
+
+    case 'DATABASE_LOCATIONS':
+      return [...state, ...action.locations];
 
     default:
       return state;
