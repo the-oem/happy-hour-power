@@ -12,6 +12,13 @@ const locationsReducer = (state = [], action) => {
             },
             defaultAnimation: 2,
             key: place_id,
+            icon: {
+              path: window.google.maps.SymbolPath.CIRCLE,
+              strokeColor: "blue",
+              scale: 3
+            },
+            strokeColor: 'blue',
+            title:"Hello World!"
           }
         })
       });
