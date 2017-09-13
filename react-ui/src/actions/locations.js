@@ -1,5 +1,4 @@
 export const databaseLocations = (locations) => {
-  console.log(locations)
   return {
     type: 'DATABASE_LOCATIONS',
     locations,
