@@ -7,6 +7,7 @@ exports.up = (knex, Promise) =>
       table.float('longitude');
       table.string('phone_number');
       table.string('website_url');
+      table.string('google_maps_id');
       table.timestamps(true, true);
     }),
 
