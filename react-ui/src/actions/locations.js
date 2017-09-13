@@ -14,7 +14,7 @@ export const locationsError = (error) => {
 
 export const getLocations = () => {
   return (dispatch) => {
-    fetch('/api/v1/locations')
+    fetch('/api/v1/location')
       .then(res => res.json())
       .then(({allLocations}) => {
         dispatch(databaseLocations(allLocations));

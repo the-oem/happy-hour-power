@@ -1,11 +1,6 @@
-const handleMarkerClick = (mapObj) => {
-  const { lat, lng } = mapObj.latLng;
-  
+export const handleMarkerClick = (marker) => {
   return {
     type: 'HANDLE_MARKER_CLICK',
-    position: {
-      lat: lat(),
-      lng: lng(),
-    }
-  }
-}
+    marker,
+  };
+};
