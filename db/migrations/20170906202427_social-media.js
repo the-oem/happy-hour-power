@@ -7,18 +7,10 @@ exports.up = (knex, Promise) =>
       table.string('twitter');
       table.string('pinterest');
       table.string('facebook');
-    }),
-
-    knex.schema.table('locations', table => {
-      table.integer('social_media_id').unsigned();
-      table.foreign('social_media_id').references('social_media.id');
+      table.integer('location_id').unsigned();
+      table.foreign('location_id').references('locations.id');
     })
   ]);
 
 exports.down = (knex, Promise) =>
-  Promise.all([
-    knex.schema.table('locations', table => {
-      table.dropColumn('social_media_id');
-    }),
-    knex.schema.dropTable('social_media')
-  ]);
+  Promise.all([knex.schema.dropTable('social_media')]);
