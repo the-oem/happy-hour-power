@@ -4,13 +4,20 @@ import '../styles/List.css';
 const Location = ({ name, vicinity, rating }) => {
   return (
     <div className="location">
-      <h2 className="location-name">{name}</h2>
-      <p>
-        <b>Address:</b> {vicinity}
-      </p>
-      <p>
-        <b>Rating:</b> {rating}
-      </p>
+      <div className="location-container">
+        <h2 className="location-name">{name}</h2>
+        <p>
+          <b>Address:</b> {vicinity}
+        </p>
+        <p>
+          <b>Rating:</b> {rating}
+        </p>
+      </div>
+      <img
+        className="see-more-icon"
+        src={require('../../assets/right-arrow.png')}
+        alt="link to see more details"
+      />
     </div>
   );
 };
