@@ -39,4 +39,33 @@ describe('POST /api/v1/auth', () => {
         done();
       });
   });
+
+  it('should return a JWT with admin privileges when given a admin email address.', done => {
+    chai
+      .request(server)
+      .post('/api/v1/admin')
+      .send({
+        businessID: 1,
+        email: 'me@controllerAdmin.com'
+      })
+      .end((err, res) => {
+        const token = res.body.token;
+        const secret = process.env.SECRET_KEY;
+        let decoded;
+
+        try {
+          decoded = jwt.verify(token, secret);
+        } catch (error) {
+          return error;
+        }
+
+        should.not.exist(err);
+        res.status.should.equal(201);
+        res.type.should.equal('application/json');
+        res.body.should.include.keys('token');
+        decoded.should.include.keys('email', 'businessID', 'iat', 'exp');
+        decoded.admin.should.equal(true);
+        done();
+      });
+  });
 });
