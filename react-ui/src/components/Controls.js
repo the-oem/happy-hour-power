@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RenderMapContainer from '../containers/RenderMapContainer';
 import RenderList from './RenderList';
+import '../styles/App.css';
 
 export default class Controls extends Component {
   constructor() {
@@ -19,11 +20,13 @@ export default class Controls extends Component {
   render() {
     const display =
       this.state.view === true ? <RenderMapContainer /> : <RenderList />;
-    const buttonText = this.state.view === true ? 'Map' : 'List';
+    const buttonText = this.state.view === true ? 'LIST' : 'MAP';
 
     return (
       <div>
-        <button onClick={() => this.toggleClass()}>{buttonText}</button>
+        <button className="toggle-btn" onClick={() => this.toggleClass()}>
+          {buttonText}
+        </button>
 
         <div>{display}</div>
       </div>

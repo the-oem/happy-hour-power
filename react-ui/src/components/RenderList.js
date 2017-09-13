@@ -1,5 +1,6 @@
 import React from 'react';
 import ListContainer from '../containers/ListContainer';
+import '../styles/List.css';
 
 const RenderList = props => {
   return (

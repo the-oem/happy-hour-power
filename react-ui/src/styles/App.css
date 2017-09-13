@@ -2,27 +2,34 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
 .App-header {
-  background-color: #222;
-  height: 150px;
+  background-color: #05344c;
+  height: 80px;
   padding: 20px;
-  color: white;
 }
 
-.App-intro {
-  font-size: large;
+.title {
+  /*font-family: 'Bubbler One', sans-serif;*/
+  font-family: 'Poiret One', cursive;
+  font-size: 40px;
+  letter-spacing: 0.05em;
+  color: #dbb330;
+  margin: 18px 0 0 0;
 }
 
-.App a {
-  color: #f60;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.toggle-btn {
+  height: 40px;
+  width: 70px;
+  margin: 10px;
+  margin-left: 80%;
+  background-color: #dbb330;
+  font-size: 18px;
+  letter-spacing: 0.2em;
+  border: none;
+  outline: none;
+  /*font-family: 'Josefin Slab', serif;*/
+  font-family: 'Poiret One', cursive;
+  font-weight: bold;
+  padding-left: 10px;
+  /*font-family: 'Crushed', cursive;*/
 }
