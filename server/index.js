@@ -50,7 +50,7 @@ app.post('/api/v1/admin/', (req, res) => {
   }
 
   const token = jwt.sign(payload, app.get('secretKey'), { expiresIn: '7d' });
-  return res.status(200).json({ token });
+  return res.status(201).json({ token });
 });
 
 //----> HAPPY_HOUR <----//
