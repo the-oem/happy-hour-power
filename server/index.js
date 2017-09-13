@@ -10,7 +10,7 @@ const {
   socialMediaParams,
   patchSocialMedia
 } = require('./serverMiddleware');
-require('dotenv').config();
+require('dotenv').config({ path: '../.env' });
 
 const PORT = process.env.PORT || 5000;
 const environment = process.env.NODE_ENV || 'development';
@@ -21,8 +21,7 @@ const db = require('knex')(configuration);
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 app.use(bodyParser.json());
 
-// app.set('secretKey', process.env.SECRET_KEY);
-app.set('secretKey', 'FAKE-process.env.SECRET_KEY');
+app.set('secretKey', process.env.SECRET_KEY);
 
 // All remaining requests return the React app, so it can handle routing.
 app.get('/', (req, res) => {

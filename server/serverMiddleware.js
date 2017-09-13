@@ -10,11 +10,11 @@ const checkAuth = (req, res, next) => {
     });
   }
 
-  // jwt.verify(tokenPiece, process.env.SECRET_KEY, (error, decoded) => {
-  jwt.verify(tokenPiece, 'FAKE-process.env.SECRET_KEY', (error, decoded) => {
+  jwt.verify(tokenPiece, process.env.SECRET_KEY, (error, decoded) => {
     if (error) {
       return res.status(403).json({
-        message: 'Gandalf says you shall not pass.',
+        message:
+          'Gandalf says you shall not pass because you are not authorized.',
         error
       });
     }
