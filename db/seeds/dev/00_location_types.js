@@ -18,6 +18,10 @@ const location_types = [
   {
     id: 5,
     type: 'winery'
+  },
+  {
+    id: 6,
+    type: 'taphouse'
   }
 ];
 

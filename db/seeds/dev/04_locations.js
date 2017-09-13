@@ -1,26 +1,3 @@
-const locationType = [
-  {
-    id: 1,
-    type: 'bar'
-  },
-  {
-    id: 2,
-    type: 'bar'
-  },
-  {
-    id: 3,
-    type: 'bar'
-  },
-  {
-    id: 4,
-    type: 'taphouse'
-  },
-  {
-    id: 5,
-    type: 'brewery'
-  }
-];
-
 const socialMedia = [
   {
     id: 1,
@@ -31,7 +8,8 @@ const socialMedia = [
     twitter: 'https://twitter.com/brothersbariu?lang=en',
     pinterest: 'https://www.pinterest.com/brothers4all/brothers-bar-grill/',
     facebook:
-      'https://www.facebook.com/brothersbarandgrillDenver/?rf=131729000209987'
+      'https://www.facebook.com/brothersbarandgrillDenver/?rf=131729000209987',
+    location_id: 1
   },
   {
     id: 2,
@@ -39,7 +17,8 @@ const socialMedia = [
     instagram: 'https://www.instagram.com/explore/locations/18473302/',
     twitter: 'https://twitter.com/lodosrg',
     pinterest: '',
-    facebook: 'https://www.facebook.com/lodos.bar/'
+    facebook: 'https://www.facebook.com/lodos.bar/',
+    location_id: 2
   },
   {
     id: 3,
@@ -47,7 +26,8 @@ const socialMedia = [
     instagram: 'https://www.instagram.com/explore/locations/599338374/',
     twitter: 'https://twitter.com/gigglinggriz',
     pinterest: '',
-    facebook: 'https://www.facebook.com/Giggling-Grizzly-766370203439098/'
+    facebook: 'https://www.facebook.com/Giggling-Grizzly-766370203439098/',
+    location_id: 3
   },
   {
     id: 4,
@@ -56,7 +36,8 @@ const socialMedia = [
       'https://www.instagram.com/explore/locations/205896/falling-rock-tap-house/',
     twitter: 'https://twitter.com/fallingrocktap?lang=en',
     pinterest: 'https://www.pinterest.com/pin/480337116489846225/',
-    facebook: 'https://www.facebook.com/FRTH1997/'
+    facebook: 'https://www.facebook.com/FRTH1997/',
+    location_id: 4
   },
   {
     id: 5,
@@ -66,18 +47,20 @@ const socialMedia = [
     twitter:
       'https://twitter.com/JaggedMtnCB?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor',
     pinterest: 'https://www.pinterest.com/pin/164592561357296235/',
-    facebook: 'https://www.facebook.com/JaggedMountain/'
+    facebook: 'https://www.facebook.com/JaggedMountain/',
+    location_id: 5
   }
 ];
 
-const location = [
+const locations = [
   {
     id: 1,
     name: 'Brothers',
     latitude: 39.7812,
     longitude: 104.8921,
     phone_number: '(303)953-0229',
-    website_url: 'www.doordash.com'
+    website_url: 'www.doordash.com',
+    location_type_id: 2
   },
   {
     id: 2,
@@ -85,7 +68,8 @@ const location = [
     latitude: 39.7533,
     longitude: 104.9937,
     phone_number: '(303)293-8555',
-    website_url: 'www.lodobar.com'
+    website_url: 'www.lodobar.com',
+    location_type_id: 2
   },
   {
     id: 3,
@@ -93,7 +77,8 @@ const location = [
     latitude: 39.7534,
     longitude: 104.9933,
     phone_number: '(303)297-8300',
-    website_url: 'www.giggling-grizzly.com'
+    website_url: 'www.giggling-grizzly.com',
+    location_type_id: 2
   },
   {
     id: 4,
@@ -101,7 +86,8 @@ const location = [
     latitude: 39.7539,
     longitude: 104.9955,
     phone_number: '(303)293-8338',
-    website_url: 'www.fallingrocktaphouse.com'
+    website_url: 'www.fallingrocktaphouse.com',
+    location_type_id: 6
   },
   {
     id: 5,
@@ -109,11 +95,12 @@ const location = [
     latitude: 39.7523,
     longitude: 104.9914,
     phone_number: '(720)689-2337',
-    website_url: 'www.jaggedmountainbrewery.com'
+    website_url: 'www.jaggedmountainbrewery.com',
+    location_type_id: 3
   }
 ];
 
-const happyHour = [
+const happyHours = [
   {
     id: 1,
     timeslot: 'mon:16:00-20:00',
@@ -159,6 +146,7 @@ const happyHour = [
 exports.seed = (knex, Promise) => {
   return knex('happy_hours')
     .del()
+    .then(() => knex('social_media').del())
     .then(() => knex('locations').del())
     .then(() => {
       return Promise.all(
@@ -169,8 +157,15 @@ exports.seed = (knex, Promise) => {
     })
     .then(() => {
       return Promise.all(
-        happy_hours.map(happyHour => {
+        happyHours.map(happyHour => {
           return knex('happy_hours').insert(happyHour);
+        })
+      );
+    })
+    .then(() => {
+      return Promise.all(
+        socialMedia.map(media => {
+          return knex('social_media').insert(media);
         })
       );
     })
