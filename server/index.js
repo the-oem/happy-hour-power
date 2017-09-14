@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const router = require('./router');
 
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -21,36 +22,13 @@ const db = require('knex')(configuration);
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 app.use(bodyParser.json());
 
+app.use('/api', router);
+
 app.set('secretKey', process.env.SECRET_KEY);
 
 // All remaining requests return the React app, so it can handle routing.
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
-});
-
-app.post('/api/v1/admin/', (req, res) => {
-  const payload = req.body;
-
-  for (let requiredParams of ['businessID', 'email']) {
-    if (!req.body[requiredParams]) {
-      return res
-        .status(422)
-        .json({ error: `Mising required parameter "${requiredParams}"` });
-    }
-  }
-
-  if (payload.email.endsWith('@controllerAdmin.com')) {
-    Object.assign(
-      payload,
-      { admin: true },
-      { businessID: req.body.businessID }
-    );
-  } else {
-    Object.assign(payload, { admin: false });
-  }
-
-  const token = jwt.sign(payload, app.get('secretKey'), { expiresIn: '7d' });
-  return res.status(201).json({ token });
 });
 
 //----> HAPPY_HOUR <----//
@@ -108,142 +86,34 @@ app
 //   })
 // })
 
-//----> LOCATION <----//
-app
-  .route('/api/v1/location/')
-  .get((req, res) => {
-    db('locations')
-      .select()
-      .then(allLocations => res.status(200).json({ allLocations }))
-      .catch(error =>
-        res.status(500).json({ ERROR: 'GET /api/v1/location/', error })
-      );
-  })
-  .post(checkAuth, (req, res) => {
-    const locationType = req.body.locationType;
-    const newSocialMedia = req.body.socialMedia;
-    const newLocation = req.body.location;
-    const statusType = req.body.statusType;
-    const newHappyHour = req.body.happyHour;
-
-    for (let requiredParams of ['name', 'latitude', 'longitude']) {
-      if (!newLocation[requiredParams]) {
-        return res.status(422).json({
-          error: `missing required parameter ${requiredParams}`
-        });
-      }
-    }
-
-    db('location_type')
-      .insert(locationType, 'id')
-      .then(locTypeID => {
-        Object.assign(newLocation, { location_type_id: locTypeID[0] });
-        db('social_media')
-          .insert(newSocialMedia, 'id')
-          .then(socialMediaID => {
-            Object.assign(newLocation, { social_media_id: socialMediaID[0] });
-            db('locations')
-              .insert(newLocation, 'id')
-              .then(newLocID => {
-                Object.assign(newHappyHour, { location_id: newLocID[0] });
-                db('status_type')
-                  .insert(statusType, 'id')
-                  .then(statusID => {
-                    Object.assign(newHappyHour, {
-                      status_type_id: statusID[0]
-                    });
-                    db('happy_hours')
-                      .insert(newHappyHour, 'location_id')
-                      .then(locID => {
-                        db('locations')
-                          .where('id', locID[0])
-                          .select('*')
-                          .then(data => res.status(200).json({ data }));
-                      })
-                      .catch(error => res.status(500).json({ error }));
-                  })
-                  .catch(error => res.status(500).json({ error }));
-              })
-              .catch(error => res.status(500).json({ error }));
-          })
-          .catch(error => res.status(500).json({ error }));
-      })
-      .catch(error => res.status(500).json({ error }));
-  });
-
-app.delete('/api/v1/location/destroy/', checkAuth, (req, res) => {
-  const id = req.headers.businessID;
-  const businessName = req.body.businessName;
-
-  if (req.headers.statusType !== 'controller') {
-    return res.status(401).json({
-      message: 'You are not qualified to remove this business from the database'
-    });
-  }
-
-  db('happy_hours')
-    .where('id', id)
-    .del()
-    .then(id => {
-      db('locations')
-        .where('id', id)
-        .del()
-        .then(id => {
-          db('social_media')
-            .where('id', id)
-            .del()
-            .then(id => {
-              db('location_type')
-                .where('id', id)
-                .del()
-                .then(id => {
-                  db('status_type')
-                    .where('id', id)
-                    .del()
-                    .then(id => {
-                      res.status(200).json({
-                        message: `All data pertaining to '${businessName}' has been permanantly destroyed`
-                      });
-                    })
-                    .catch(error => res.status(500).json({ error }));
-                })
-                .catch(error => res.status(500).json({ error }));
-            })
-            .catch(error => res.status(500).json({ error }));
-        })
-        .catch(error => res.status(500).json({ error }));
-    })
-    .catch(error => res.status(500).json({ error }));
-});
-
 //----> LOCATION_TYPE <----//
 
 //----??---> NOT WORKING AND I DON'T KNOW WHY <---??----//
-app.route('/api/v1/locationtype/update/').patch(checkAuth, (req, res) => {
-  const id = req.headers.businessID;
-  const newLocationType = req.body;
+// app.route('/api/v1/locationtype/update/').patch(checkAuth, (req, res) => {
+//   const id = req.headers.businessID;
+//   const newLocationType = req.body;
 
-  if (req.headers.statusType !== 'controller') {
-    return res.status(401).json({
-      message: 'you are not qualified to modify this business'
-    });
-  }
+//   if (req.headers.statusType !== 'controller') {
+//     return res.status(401).json({
+//       message: 'you are not qualified to modify this business'
+//     });
+//   }
 
-  for (let requiredParams of ['location_type']) {
-    if (!newLocationType[requiredParams]) {
-      return res.status(422).json({
-        error: `Missing required parameter ${requiredParams}`
-      });
-    }
-  }
+//   for (let requiredParams of ['location_type']) {
+//     if (!newLocationType[requiredParams]) {
+//       return res.status(422).json({
+//         error: `Missing required parameter ${requiredParams}`
+//       });
+//     }
+//   }
 
-  db('location_type')
-    .where('id', id)
-    .select('type')
-    .update(newLocationType, 'type')
-    .then(replacementType => res.status(200).json({ replacementType }))
-    .catch(error => res.status(500).json({ error }));
-});
+//   db('location_type')
+//     .where('id', id)
+//     .select('type')
+//     .update(newLocationType, 'type')
+//     .then(replacementType => res.status(200).json({ replacementType }))
+//     .catch(error => res.status(500).json({ error }));
+// });
 
 app.get('/api/v1/locationtype/:type', (req, res) => {
   const newType = req.params.type;
@@ -253,13 +123,6 @@ app.get('/api/v1/locationtype/:type', (req, res) => {
     .select('*')
     .then(data => res.status(200).json({ data }))
     .catch(error => res.status(400).json({ error }));
-});
-
-app.get('/api/v1/locationtype', (req, res) => {
-  db('location_type')
-    .select()
-    .then(data => res.status(200).json({ data }))
-    .catch(error => res.status(500).json({ error }));
 });
 
 //----> STATUS_TYPE <----//
