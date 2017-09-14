@@ -7,7 +7,9 @@ export default class RenderMap extends Component {
     return (
       <div className="map-area">
         <MapContainer map={this.props.map} />
-        <LocationDetailsContainer />
+        <LocationDetailsContainer
+          currentLocation={this.props.currentLocation}
+        />
       </div>
     );
   }
