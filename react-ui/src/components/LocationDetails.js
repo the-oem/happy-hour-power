@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../styles/LocationDetails.css';
 
 export default class LocationDetails extends Component {
   constructor(props) {
@@ -10,10 +11,9 @@ export default class LocationDetails extends Component {
     const location = this.props.currentLocation;
 
     return (
-      <div>
-        <h2>{location.name}</h2>
-        <p>{location.vicinity}</p>
-        <p>{location.rating}</p>
+      <div className="current-location">
+        <h3 className="loc-name">{location.name}</h3>
+        <p className="loc-details">{location.vicinity}</p>
       </div>
     );
   }
