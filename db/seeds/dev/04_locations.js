@@ -1,6 +1,5 @@
 const socialMedia = [
   {
-    id: 1,
     yelp:
       'https://www.yelp.com/biz/brothers-bar-and-grill-denver-5?osq=Brothers+Bar+%26+Grill',
     instagram:
@@ -12,7 +11,6 @@ const socialMedia = [
     location_id: 1
   },
   {
-    id: 2,
     yelp: 'https://www.yelp.com/biz/lodos-bar-and-grill-downtown-denver-3',
     instagram: 'https://www.instagram.com/explore/locations/18473302/',
     twitter: 'https://twitter.com/lodosrg',
@@ -21,7 +19,6 @@ const socialMedia = [
     location_id: 2
   },
   {
-    id: 3,
     yelp: 'https://www.yelp.com/biz/the-giggling-grizzly-denver',
     instagram: 'https://www.instagram.com/explore/locations/599338374/',
     twitter: 'https://twitter.com/gigglinggriz',
@@ -30,7 +27,6 @@ const socialMedia = [
     location_id: 3
   },
   {
-    id: 4,
     yelp: 'https://www.yelp.com/biz/falling-rock-tap-house-denver',
     instagram:
       'https://www.instagram.com/explore/locations/205896/falling-rock-tap-house/',
@@ -40,7 +36,6 @@ const socialMedia = [
     location_id: 4
   },
   {
-    id: 5,
     yelp: 'https://www.yelp.com/biz/jagged-mountain-craft-brewery-denver-2',
     instagram:
       'https://www.instagram.com/explore/locations/149341791/jagged-mountain-craft-brewery/',
@@ -54,7 +49,6 @@ const socialMedia = [
 
 const locations = [
   {
-    id: 1,
     name: 'Brothers',
     latitude: 39.7812,
     longitude: 104.8921,
@@ -64,7 +58,6 @@ const locations = [
     location_type_id: 2
   },
   {
-    id: 2,
     name: 'Lodos Bar and Grill',
     latitude: 39.7533,
     longitude: 104.9937,
@@ -74,7 +67,6 @@ const locations = [
     location_type_id: 2
   },
   {
-    id: 3,
     name: 'Giggling Grizzly',
     latitude: 39.7534,
     longitude: 104.9933,
@@ -84,7 +76,6 @@ const locations = [
     location_type_id: 2
   },
   {
-    id: 4,
     name: 'Falling Rock Taphouse',
     latitude: 39.7539,
     longitude: 104.9955,
@@ -94,7 +85,6 @@ const locations = [
     location_type_id: 6
   },
   {
-    id: 5,
     name: 'Jagged Mountain Craft Brewery',
     latitude: 39.7523,
     longitude: 104.9914,
@@ -104,7 +94,6 @@ const locations = [
     location_type_id: 3
   },
   {
-    id: 6,
     name: 'Panzano',
     latitude: 39.7477889,
     longitude: -104.99290229999997,
@@ -113,12 +102,10 @@ const locations = [
     google_maps_id: '602c42e453cf6eb524c5f0dfaaeaeac49f42e5ff',
     location_type_id: 3
   }
-
 ];
 
 const happyHours = [
   {
-    id: 1,
     timeslot: 'mon:16:00-20:00',
     drink_specials: '1/2 Price Drinks',
     food_specials: '2lb Burgers for $0.95',
@@ -126,7 +113,6 @@ const happyHours = [
     location_id: 1
   },
   {
-    id: 2,
     timeslot: 'tue:16:00-20:00',
     drink_specials: '1/3 Price Drinks',
     food_specials: '9lb Burgers for $1.95',
@@ -134,7 +120,6 @@ const happyHours = [
     location_id: 1
   },
   {
-    id: 3,
     timeslot: 'wed:16:00-20:00',
     drink_specials: '3x Price Drinks',
     food_specials: '6inch Burger for $12.95',
@@ -142,7 +127,6 @@ const happyHours = [
     location_id: 1
   },
   {
-    id: 4,
     timeslot: 'wed:16:00-20:00',
     drink_specials: '3x Price Drinks',
     food_specials: '6inch hotdog for $12.95',
@@ -150,7 +134,6 @@ const happyHours = [
     location_id: 2
   },
   {
-    id: 5,
     timeslot: 'wed:21:00-23:00',
     drink_specials: '$4.00 Cuban Missle Crisis',
     food_specials: '4inch hotdog for $14.95',
