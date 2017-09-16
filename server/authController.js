@@ -6,20 +6,20 @@ const checkAuth = (req, res, next) => {
   const tokenPiece = req.headers.authorization;
 
   if (!tokenPiece) {
-    return res.status(403).json({
-      message:
-        'You must have be authorized to proceed. Contact your nearest computer guy'
-    });
+    return res
+      .status(403)
+      .json({ message: 'You must be authorized to access this endpoint.' });
   }
 
   jwt.verify(tokenPiece, process.env.SECRET_KEY, (error, decoded) => {
     if (error) {
       return res.status(403).json({
-        message:
-          'Gandalf says you shall not pass because you are not authorized.',
+        message: 'Error decoding JWT token.',
         error
       });
     }
+
+    // console.log(decoded);
 
     if (decoded.admin) {
       Object.assign(
@@ -38,28 +38,27 @@ const checkAuth = (req, res, next) => {
 };
 
 const getAuth = (req, res) => {
-  const payload = req.body;
+  const email = req.body.email;
+  const appName = req.body.appName;
+  const secret = process.env.SECRET_KEY;
 
-  for (let requiredParams of ['businessName', 'email']) {
+  for (let requiredParams of ['email', 'appName']) {
     if (!req.body[requiredParams]) {
-      return res.status(422).json({
-        error: `Mising required parameter "${requiredParams}"`
-      });
+      return res
+        .status(422)
+        .json({ error: `Missing required parameter (${requiredParams}).` });
     }
   }
 
-  if (payload.email.endsWith('@controllerAdmin.com')) {
-    Object.assign(
-      payload,
-      { admin: true },
-      { businessName: req.body.businessName }
-    );
-  } else {
-    Object.assign(payload, { admin: false });
-  }
-
-  const token = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '7d' });
-  return res.status(200).json({ token });
+  const admin =
+    email.toLowerCase().endsWith('happyhourpower.com') &&
+    appName === 'HappyHourPower'
+      ? { admin: true }
+      : { admin: false };
+  const initPayload = { email, appName };
+  const finalPayload = Object.assign(initPayload, admin);
+  const token = jwt.sign(finalPayload, secret, { expiresIn: '7d' });
+  res.status(201).json({ token });
 };
 
 module.exports = {

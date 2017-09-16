@@ -1,8 +1,8 @@
 const db = require('./knex');
 
-const postLocations = (req, res) => {
-  const newLocation = req.body;
-  console.log(newLocation);
+const addLocation = (req, res) => {
+  const location = req.body;
+  console.log(location);
 
   for (let requiredParams of [
     'name',
@@ -12,22 +12,36 @@ const postLocations = (req, res) => {
     'website_url',
     'location_type_id'
   ]) {
-    if (!newLocation[requiredParams]) {
-      return res.status(422).json({
-        error: `missing required parameter ${requiredParams}`
-      });
+    if (!location[requiredParams]) {
+      return res
+        .status(422)
+        .json({ error: `Missing required parameter (${requiredParams}).` });
     }
   }
 
   db('locations')
-    .insert(newLocation, '*')
-    .then(newLocation => {
-      res.status(200).json({ newLocation });
-    })
+    .insert(location, '*')
+    .then(location => res.status(200).json({ data: location }))
     .catch(error => res.status(500).json({ error }));
 };
 
-const getAllLocations = (req, res) => {
+const addItem = (req, res) => {
+  const item = req.body;
+  for (const requiredParameter of ['name', 'staleness_reason', 'cleanliness']) {
+    if (!item[requiredParameter]) {
+      return res.status(422).json({
+        error: `Missing required parameter of (${requiredParameter}).`
+      });
+    }
+  }
+
+  DB('items')
+    .insert(req.body, '*')
+    .then(item => res.status(201).json({ data: item[0] }))
+    .catch(error => res.status(500).json({ error }));
+};
+
+const getLocations = (req, res) => {
   db('locations')
     .where(req.query)
     .select()
@@ -62,7 +76,7 @@ const deleteLocation = (req, res) => {
 };
 
 module.exports = {
-  postLocations,
-  getAllLocations,
+  addLocation,
+  getLocations,
   deleteLocation
 };
