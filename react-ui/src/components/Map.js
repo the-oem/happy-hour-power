@@ -38,20 +38,26 @@ export class Map extends Component {
       markers: []
     };
     this.handleMapLoad = this.handleMapLoad.bind(this);
-    this.onDragEnd = this.onDragEnd.bind(this);
+    this.onIdle = this.onIdle.bind(this);
   }
 
   handleMapLoad(googleMap) {
     if (!this.gmap) return;
 
+    this.nearbySearch()
+  }
+
+  nearbySearch() {
     const { map } = this.gmap.state;
-    const { lat, lng } = this.props.currentLocation;
+    const { center } = this.props;
+    const location = (center.lat && center.lng)
+      ? center
+      : new window.google.maps.LatLng(
+          DEFAULT_LOCATION.coordinates.lat,
+          DEFAULT_LOCATION.coordinates.lng)
 
     const request = {
-      location: new window.google.maps.LatLng(
-        lat || DEFAULT_LOCATION.coordinates.lat,
-        lng || DEFAULT_LOCATION.coordinates.lng,
-      ),
+      location,
       radius: '500',
       type: ['restaurant'],
       openNow: true
@@ -71,6 +77,7 @@ export class Map extends Component {
     const { center } = this.gmap.state.map;
 
     this.props.mapCenter(center);
+    this.nearbySearch();
   }
 
   componentDidMount() {
@@ -78,7 +85,6 @@ export class Map extends Component {
   }
 
   render() {
-    // console.log(this.props.center);
     return (
       <BaseMap
         ref={googleMap => (this.gmap = googleMap)}
