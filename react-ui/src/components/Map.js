@@ -23,6 +23,7 @@ const BaseMap = withGoogleMap((props) => {
       defaultZoom={16}
       defaultCenter={DEFAULT_LOCATION.coordinates}
       onClick={props.onMapClick}
+      onDragEnd={props.onDragEnd}
     >
       {currentLocation}
       {markers}
@@ -79,6 +80,7 @@ export class Map extends Component {
         handleMarkerClick={this.props.handleMarkerClick}
         locations={this.props.locations}
         currentLocation={this.props.currentLocation}
+        onDragEnd={() => console.log(this)}
         // onMapClick={this.handleMapClick}
         // onMarkerRightClick={this.handleMarkerRightClick}
       />

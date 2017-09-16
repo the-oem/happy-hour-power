@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { geolocate, nearbyLocations, getLocations, handleMarkerClick } from '../actions';
+import { geolocate, nearbyLocations, getLocations, handleMarkerClick, mapCenter } from '../actions';
 import { Map } from '../components/Map';
 
 const mapDispatchToProps = dispatch => {
@@ -8,6 +8,7 @@ const mapDispatchToProps = dispatch => {
     getLocations: () => dispatch(getLocations()),
     nearbyLocations: (locations) => dispatch(nearbyLocations(locations)),
     handleMarkerClick: (position) => dispatch(handleMarkerClick(position)),
+    mapCenter: (position) => dispatch(mapCenter(position))
   }
 }
 
@@ -16,6 +17,7 @@ const mapStateToProps = state => {
     currentLocation: state.currentLocation,
     locations: state.locations,
     activeLocation: state.activeLocation,
+    center: state.center,
   }
 }
 
