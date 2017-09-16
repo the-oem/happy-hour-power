@@ -4,6 +4,7 @@ const router = require('./router');
 
 const path = require('path');
 const bodyParser = require('body-parser');
+const { checkAuth } = require('./authController');
 const {
   happyHourParams,
   socialMediaParams,
