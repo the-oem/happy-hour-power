@@ -19,6 +19,7 @@ router.delete(
   authController.checkAuth,
   locationsController.deleteLocation
 );
+
 router.get('/v1/locationtype', locationTypeController.getAllLocationTypes);
 
 module.exports = router;
