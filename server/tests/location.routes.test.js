@@ -72,6 +72,31 @@ describe('Testing Location API Routes', () => {
         });
     });
 
+    it('should respond with a 200 response and all locations, filtered by a query param with spaces', done => {
+      chai
+        .request(server)
+        .get('/api/v1/locations?name=Giggling Grizzly')
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(200);
+          res.type.should.equal('application/json');
+          res.body.data.length.should.equal(1);
+          res.body.data[0].should.include.keys(
+            'id',
+            'name',
+            'latitude',
+            'longitude',
+            'phone_number',
+            'website_url',
+            'google_maps_id',
+            'created_at',
+            'updated_at',
+            'location_type_id'
+          );
+          done();
+        });
+    });
+
     it('should respond with a 200 response and an empty array if no filtered items are found', done => {
       chai
         .request(server)
