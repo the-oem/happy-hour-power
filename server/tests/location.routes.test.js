@@ -186,4 +186,43 @@ describe('Testing Location API Routes', () => {
         });
     });
   });
+
+  describe('GET /api/v1/locations/:id/happyhours', () => {
+    it('should respond with a 200 status and the happy hours for a specific location', done => {
+      chai
+        .request(server)
+        .get('/api/v1/locations/1/happyhours')
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(200);
+          res.type.should.equal('application/json');
+          res.body.should.include.keys('data');
+          res.body.data.length.should.equal(3);
+          res.body.data[0].should.include.keys(
+            'id',
+            'timeslot',
+            'drink_specials',
+            'food_specials',
+            'menu_pictures',
+            'location_id',
+            'status_type_id'
+          );
+          done();
+        });
+    });
+
+    it('should respond with a 200 status and an empty array if no happy hours exist', done => {
+      chai
+        .request(server)
+        .get('/api/v1/locations/10/happyhours')
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(200);
+          res.type.should.equal('application/json');
+          res.body.should.include.keys('data');
+          res.body.data.length.should.equal(0);
+          done();
+        });
+    });
+  });
 });

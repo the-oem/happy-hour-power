@@ -75,8 +75,19 @@ const deleteLocation = (req, res) => {
     .catch(error => res.status(500).json({ error }));
 };
 
+const getHappyHoursByLocation = (req, res) => {
+  const locationId = parseInt(req.params.id, 10);
+
+  db('happy_hours')
+    .where('location_id', locationId)
+    .select()
+    .then(happyhours => res.status(200).json({ data: happyhours }))
+    .catch(error => res.status(500).json({ error }));
+};
+
 module.exports = {
   addLocation,
   getLocations,
-  deleteLocation
+  deleteLocation,
+  getHappyHoursByLocation
 };

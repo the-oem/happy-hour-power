@@ -24,6 +24,10 @@ router.delete(
   authController.checkAuth,
   locationsController.deleteLocation
 );
+router.get(
+  '/v1/locations/:id/happyhours',
+  locationsController.getHappyHoursByLocation
+);
 
 router.get('/v1/locationtype', locationTypeController.getAllLocationTypes);
 
