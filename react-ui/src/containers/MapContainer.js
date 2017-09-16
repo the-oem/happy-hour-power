@@ -1,6 +1,13 @@
 import { connect } from 'react-redux';
-import { geolocate, nearbyLocations, getLocations, handleMarkerClick, mapCenter } from '../actions';
 import { Map } from '../components/Map';
+import {
+  geolocate,
+  nearbyLocations,
+  getLocations,
+  handleMarkerClick,
+  mapCenter
+} from '../actions';
+
 
 const mapDispatchToProps = dispatch => {
   return {

@@ -23,7 +23,7 @@ const BaseMap = withGoogleMap((props) => {
       defaultZoom={16}
       defaultCenter={DEFAULT_LOCATION.coordinates}
       onClick={props.onMapClick}
-      onDragEnd={props.onDragEnd}
+      onIdle={props.onIdle}
     >
       {currentLocation}
       {markers}
@@ -38,6 +38,7 @@ export class Map extends Component {
       markers: []
     };
     this.handleMapLoad = this.handleMapLoad.bind(this);
+    this.onDragEnd = this.onDragEnd.bind(this);
   }
 
   handleMapLoad(googleMap) {
@@ -66,21 +67,28 @@ export class Map extends Component {
     });
   }
 
+  onIdle() {
+    const { center } = this.gmap.state.map;
+
+    this.props.mapCenter(center);
+  }
+
   componentDidMount() {
     this.props.geolocate();
   }
 
   render() {
+    // console.log(this.props.center);
     return (
       <BaseMap
         ref={googleMap => (this.gmap = googleMap)}
-        containerElement={<div className="map-container" />}
-        mapElement={<div className="map-element" />}
+        containerElement={<div className='map-container' />}
+        mapElement={<div className='map-element' />}
         onMapLoad={this.handleMapLoad}
         handleMarkerClick={this.props.handleMarkerClick}
         locations={this.props.locations}
         currentLocation={this.props.currentLocation}
-        onDragEnd={() => console.log(this)}
+        onIdle={this.onIdle}
         // onMapClick={this.handleMapClick}
         // onMarkerRightClick={this.handleMarkerRightClick}
       />
