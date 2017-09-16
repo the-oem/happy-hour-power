@@ -72,22 +72,18 @@ describe('Testing Location API Routes', () => {
         });
     });
 
-    it.skip(
-      'should respond with a 200 response and an empty array if no filtered items are found',
-      done => {
-        chai
-          .request(server)
-          .get('/api/v1/items?cleanliness=Clean')
-          .end((err, res) => {
-            should.not.exist(err);
-            res.status.should.equal(200);
-            res.type.should.equal('application/json');
-            res.body.data.length.should.equal(0);
-
-            done();
-          });
-      }
-    );
+    it('should respond with a 200 response and an empty array if no filtered items are found', done => {
+      chai
+        .request(server)
+        .get('/api/v1/locations?name=Brotherss')
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(200);
+          res.type.should.equal('application/json');
+          res.body.data.length.should.equal(0);
+          done();
+        });
+    });
 
     it.skip(
       'should respond with a 500 error if a filter query param is misspelled',
