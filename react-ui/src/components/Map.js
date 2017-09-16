@@ -6,6 +6,16 @@ const BaseMap = withGoogleMap((props) => {
   const markers = props.locations.map((location) => (
     <Marker {...location.marker} onClick={() => props.handleMarkerClick(location)}/>
   ));
+  const currentLocation = props.currentLocation.lat ? (
+    <Marker
+      position={props.currentLocation}
+      defaultAnimation='3'
+      icon={{
+        url: 'assets/current-location.png',
+        scaledSize: new window.google.maps.Size(75, 75),
+      }}
+    />
+  ) : ''
 
   return (
     <GoogleMap
@@ -14,6 +24,7 @@ const BaseMap = withGoogleMap((props) => {
       defaultCenter={DEFAULT_LOCATION.coordinates}
       onClick={props.onMapClick}
     >
+      {currentLocation}
       {markers}
     </GoogleMap>
   );
@@ -67,8 +78,9 @@ export class Map extends Component {
         onMapLoad={this.handleMapLoad}
         handleMarkerClick={this.props.handleMarkerClick}
         locations={this.props.locations}
-        onMapClick={this.handleMapClick}
-        onMarkerRightClick={this.handleMarkerRightClick}
+        currentLocation={this.props.currentLocation}
+        // onMapClick={this.handleMapClick}
+        // onMarkerRightClick={this.handleMarkerRightClick}
       />
     );
   }
