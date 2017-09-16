@@ -2,7 +2,6 @@ const db = require('./knex');
 
 const addLocation = (req, res) => {
   const location = req.body;
-  console.log(location);
 
   for (let requiredParams of [
     'name',
@@ -22,7 +21,7 @@ const addLocation = (req, res) => {
 
   db('locations')
     .insert(location, '*')
-    .then(location => res.status(200).json({ data: location }))
+    .then(location => res.status(201).json({ data: location }))
     .catch(error => res.status(500).json({ error }));
 };
 
