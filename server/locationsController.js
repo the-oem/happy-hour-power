@@ -30,7 +30,7 @@ const postLocations = (req, res) => {
 const getAllLocations = (req, res) => {
   db('locations')
     .select()
-    .then(allLocations => res.status(200).json({ allLocations }))
+    .then(locations => res.status(200).json({ data: locations }))
     .catch(error => res.status(500).json({ error }));
 };
 
@@ -51,11 +51,9 @@ const deleteLocation = (req, res) => {
         .where('id', businessId[0].id)
         .del()
         .then(noMore => {
-          res
-            .status(200)
-            .json({
-              deleted: `'${businessName}' with the id '${noMore}' has been deleted`
-            });
+          res.status(200).json({
+            deleted: `'${businessName}' with the id '${noMore}' has been deleted`
+          });
         })
         .catch(error => res.status(500).json({ error }));
     })
