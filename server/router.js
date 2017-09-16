@@ -29,6 +29,6 @@ router.get(
   locationsController.getHappyHoursByLocation
 );
 
-router.get('/v1/locationtype', locationTypeController.getAllLocationTypes);
+router.get('/v1/locationtypes', locationTypeController.getLocationTypes);
 
 module.exports = router;

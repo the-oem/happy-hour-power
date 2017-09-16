@@ -25,7 +25,7 @@ describe('Testing Location API Routes', () => {
   });
 
   describe('GET /api/v1/locations', () => {
-    it('should respond with a 200 response and all locations', done => {
+    it('should respond with a 200 status and all locations', done => {
       chai
         .request(server)
         .get('/api/v1/locations')
@@ -49,7 +49,7 @@ describe('Testing Location API Routes', () => {
         });
     });
 
-    it('should respond with a 200 response and all locations, filtered by a query param', done => {
+    it('should respond with a 200 status and all locations, filtered by a query param', done => {
       chai
         .request(server)
         .get('/api/v1/locations?name=Brothers')
@@ -74,7 +74,7 @@ describe('Testing Location API Routes', () => {
         });
     });
 
-    it('should respond with a 200 response and all locations, filtered by a query param with spaces', done => {
+    it('should respond with a 200 status and all locations, filtered by a query param with spaces', done => {
       chai
         .request(server)
         .get('/api/v1/locations?name=Giggling Grizzly')
@@ -99,7 +99,7 @@ describe('Testing Location API Routes', () => {
         });
     });
 
-    it('should respond with a 200 response and an empty array if no filtered items are found', done => {
+    it('should respond with a 200 status and an empty array if no filtered items are found', done => {
       chai
         .request(server)
         .get('/api/v1/locations?name=Brotherss')
@@ -112,7 +112,7 @@ describe('Testing Location API Routes', () => {
         });
     });
 
-    it('should respond with a 500 error if a filter query param is misspelled', done => {
+    it('should respond with a 500 status if a filter query param is misspelled', done => {
       chai
         .request(server)
         .get('/api/v1/locations?nam=Brothers')
@@ -128,7 +128,7 @@ describe('Testing Location API Routes', () => {
   });
 
   describe('POST /api/v1/locations', () => {
-    it('should respond with a success message and the newly added location', done => {
+    it('should respond with a 201 status and the newly added location', done => {
       chai
         .request(server)
         .post('/api/v1/locations')
@@ -163,7 +163,7 @@ describe('Testing Location API Routes', () => {
         });
     });
 
-    it('should respond with a 422 error if required parameters are missing.', done => {
+    it('should respond with a 422 status if required parameters are missing.', done => {
       chai
         .request(server)
         .post('/api/v1/locations')

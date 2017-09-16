@@ -1,40 +1,3 @@
-const jwt = require('jsonwebtoken');
-
-const checkAuth = (req, res, next) => {
-  const tokenPiece = req.headers.authorization;
-
-  if (!tokenPiece) {
-    return res.status(403).json({
-      message:
-        'You must have be authorized to proceed. Contact your nearest computer guy'
-    });
-  }
-
-  jwt.verify(tokenPiece, process.env.SECRET_KEY, (error, decoded) => {
-    if (error) {
-      return res.status(403).json({
-        message:
-          'Gandalf says you shall not pass because you are not authorized.',
-        error
-      });
-    }
-
-    if (decoded.admin) {
-      Object.assign(
-        req.headers,
-        { statusType: 'controller' },
-        { businessID: decoded.businessID }
-      );
-      next();
-    } else {
-      Object.assign(req.headers, { statusType: 'user' });
-      next();
-    }
-    return null;
-  });
-  return null;
-};
-
 const happyHourParams = (req, res, next) => {
   const paramsOptions = [
     'timeslot',
@@ -92,7 +55,6 @@ const patchSocialMedia = (req, res, next) => {
 };
 
 module.exports = {
-  checkAuth,
   happyHourParams,
   socialMediaParams,
   patchSocialMedia
