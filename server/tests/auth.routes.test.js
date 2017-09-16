@@ -85,4 +85,59 @@ describe('POST /api/v1/auth', () => {
         done();
       });
   });
+
+  it('should return a 200 response and success message if admin auth token provided.', done => {
+    chai
+      .request(server)
+      .post('/api/v1/auth/test')
+      .send({
+        token: process.env.ADMIN_TOKEN
+      })
+      .end((err, res) => {
+        should.not.exist(err);
+        res.status.should.equal(200);
+        res.type.should.equal('application/json');
+        res.body.should.include.keys('message');
+        res.body.message.should.equal('Auth check successful.');
+        done();
+      });
+  });
+
+  it('should return a 403 response and failure message if non-admin auth token provided.', done => {
+    chai
+      .request(server)
+      .post('/api/v1/auth/test')
+      .send({
+        token: process.env.NON_ADMIN_TOKEN
+      })
+      .end((err, res) => {
+        should.exist(err);
+        res.status.should.equal(403);
+        res.type.should.equal('application/json');
+        res.body.should.include.keys('message');
+        res.body.message.should.equal(
+          'You must be an administrator to use this endpoint.'
+        );
+        done();
+      });
+  });
+
+  it('should return a 403 response and failure message if no JWT auth token provided.', done => {
+    chai
+      .request(server)
+      .post('/api/v1/auth/test')
+      .send({
+        email: 'me@me.com'
+      })
+      .end((err, res) => {
+        should.exist(err);
+        res.status.should.equal(403);
+        res.type.should.equal('application/json');
+        res.body.should.include.keys('message');
+        res.body.message.should.equal(
+          'You must include an authorization token in the request.'
+        );
+        done();
+      });
+  });
 });

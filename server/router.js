@@ -7,6 +7,11 @@ const locationsController = require('./locationsController');
 const locationTypeController = require('./locationTypeController');
 
 router.post('/v1/auth', authController.getAuth);
+router.post(
+  '/v1/auth/test',
+  authController.checkAuth,
+  authController.testCheckAuth
+);
 
 router.post(
   '/v1/locations',

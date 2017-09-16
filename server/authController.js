@@ -3,38 +3,30 @@ const jwt = require('jsonwebtoken');
 const db = require('./knex');
 
 const checkAuth = (req, res, next) => {
-  const tokenPiece = req.headers.authorization;
+  const token = req.body.token;
 
-  if (!tokenPiece) {
+  if (!token) {
     return res
       .status(403)
-      .json({ message: 'You must be authorized to access this endpoint.' });
-  }
-
-  jwt.verify(tokenPiece, process.env.SECRET_KEY, (error, decoded) => {
-    if (error) {
-      return res.status(403).json({
-        message: 'Error decoding JWT token.',
-        error
+      .send({
+        message: 'You must include an authorization token in the request.'
       });
-    }
-
-    // console.log(decoded);
-
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
     if (decoded.admin) {
-      Object.assign(
-        req.headers,
-        { userStatus: 'controller' },
-        { businessName: decoded.businessName }
-      );
-      next();
-    } else {
-      Object.assign(req.headers, { userType: 'user' });
-      next();
+      delete req.body.token;
+      return next();
     }
-    return null;
-  });
-  return null;
+    return res
+      .status(403)
+      .send({ message: 'You must be an administrator to use this endpoint.' });
+  } catch (err) {
+    return res.status(403).json({
+      message: 'Error decoding JWT token.',
+      error: err
+    });
+  }
 };
 
 const getAuth = (req, res) => {
@@ -61,7 +53,12 @@ const getAuth = (req, res) => {
   res.status(201).json({ token });
 };
 
+const testCheckAuth = (req, res) => {
+  res.status(200).json({ message: 'Auth check successful.' });
+};
+
 module.exports = {
   checkAuth,
-  getAuth
+  getAuth,
+  testCheckAuth
 };

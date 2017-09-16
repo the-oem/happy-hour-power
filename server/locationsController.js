@@ -10,6 +10,7 @@ const addLocation = (req, res) => {
     'longitude',
     'phone_number',
     'website_url',
+    'google_maps_id',
     'location_type_id'
   ]) {
     if (!location[requiredParams]) {
