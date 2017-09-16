@@ -85,21 +85,18 @@ describe('Testing Location API Routes', () => {
         });
     });
 
-    it.skip(
-      'should respond with a 500 error if a filter query param is misspelled',
-      done => {
-        chai
-          .request(server)
-          .get('/api/v1/items?cleaniness=Dusty')
-          .end((err, res) => {
-            should.exist(err);
-            res.status.should.equal(500);
-            res.type.should.equal('application/json');
-            res.body.error.severity.should.equal('ERROR');
-            res.body.error.routine.should.equal('errorMissingColumn');
-            done();
-          });
-      }
-    );
+    it('should respond with a 500 error if a filter query param is misspelled', done => {
+      chai
+        .request(server)
+        .get('/api/v1/locations?nam=Brothers')
+        .end((err, res) => {
+          should.exist(err);
+          res.status.should.equal(500);
+          res.type.should.equal('application/json');
+          res.body.error.severity.should.equal('ERROR');
+          res.body.error.routine.should.equal('errorMissingColumn');
+          done();
+        });
+    });
   });
 });
