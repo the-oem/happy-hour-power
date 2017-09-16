@@ -102,7 +102,18 @@ const locations = [
     website_url: 'www.jaggedmountainbrewery.com',
     google_maps_id: '',
     location_type_id: 3
+  },
+  {
+    id: 6,
+    name: 'Panzano',
+    latitude: 39.7477889,
+    longitude: -104.99290229999997,
+    phone_number: '',
+    website_url: '',
+    google_maps_id: '602c42e453cf6eb524c5f0dfaaeaeac49f42e5ff',
+    location_type_id: 3
   }
+
 ];
 
 const happyHours = [

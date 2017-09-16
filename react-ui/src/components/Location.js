@@ -15,7 +15,7 @@ const Location = ({ name, vicinity, rating }) => {
       </div>
       <img
         className="see-more-icon"
-        src={require('../../assets/right-arrow.png')}
+        src={require('../../public/assets/right-arrow.png')}
         alt="link to see more details"
       />
     </div>
