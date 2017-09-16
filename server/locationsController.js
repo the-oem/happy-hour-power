@@ -29,6 +29,7 @@ const postLocations = (req, res) => {
 
 const getAllLocations = (req, res) => {
   db('locations')
+    .where(req.query)
     .select()
     .then(locations => res.status(200).json({ data: locations }))
     .catch(error => res.status(500).json({ error }));
