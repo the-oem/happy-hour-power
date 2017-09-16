@@ -1,6 +1,5 @@
 const settings = [
   {
-    id: 1,
     default_search_radius: 10.0
   }
 ];

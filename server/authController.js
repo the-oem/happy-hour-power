@@ -3,66 +3,62 @@ const jwt = require('jsonwebtoken');
 const db = require('./knex');
 
 const checkAuth = (req, res, next) => {
-  const tokenPiece = req.headers.authorization;
+  const token = req.body.token;
 
-  if (!tokenPiece) {
+  if (!token) {
+    return res
+      .status(403)
+      .send({
+        message: 'You must include an authorization token in the request.'
+      });
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    if (decoded.admin) {
+      delete req.body.token;
+      return next();
+    }
+    return res
+      .status(403)
+      .send({ message: 'You must be an administrator to use this endpoint.' });
+  } catch (err) {
     return res.status(403).json({
-      message:
-        'You must have be authorized to proceed. Contact your nearest computer guy'
+      message: 'Error decoding JWT token.',
+      error: err
     });
   }
-
-  jwt.verify(tokenPiece, process.env.SECRET_KEY, (error, decoded) => {
-    if (error) {
-      return res.status(403).json({
-        message:
-          'Gandalf says you shall not pass because you are not authorized.',
-        error
-      });
-    }
-
-    if (decoded.admin) {
-      Object.assign(
-        req.headers,
-        { userStatus: 'controller' },
-        { businessName: decoded.businessName }
-      );
-      next();
-    } else {
-      Object.assign(req.headers, { userType: 'user' });
-      next();
-    }
-    return null;
-  });
-  return null;
 };
 
 const getAuth = (req, res) => {
-  const payload = req.body;
+  const email = req.body.email;
+  const appName = req.body.appName;
+  const secret = process.env.SECRET_KEY;
 
-  for (let requiredParams of ['businessName', 'email']) {
+  for (let requiredParams of ['email', 'appName']) {
     if (!req.body[requiredParams]) {
-      return res.status(422).json({
-        error: `Mising required parameter "${requiredParams}"`
-      });
+      return res
+        .status(422)
+        .json({ error: `Missing required parameter (${requiredParams}).` });
     }
   }
 
-  if (payload.email.endsWith('@controllerAdmin.com')) {
-    Object.assign(
-      payload,
-      { admin: true },
-      { businessName: req.body.businessName }
-    );
-  } else {
-    Object.assign(payload, { admin: false });
-  }
+  const admin =
+    email.toLowerCase().endsWith('happyhourpower.com') &&
+    appName === 'HappyHourPower'
+      ? { admin: true }
+      : { admin: false };
+  const initPayload = { email, appName };
+  const finalPayload = Object.assign(initPayload, admin);
+  const token = jwt.sign(finalPayload, secret, { expiresIn: '7d' });
+  res.status(201).json({ token });
+};
 
-  const token = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '7d' });
-  return res.status(200).json({ token });
+const testCheckAuth = (req, res) => {
+  res.status(200).json({ message: 'Auth check successful.' });
 };
 
 module.exports = {
   checkAuth,
-  getAuth
+  getAuth,
+  testCheckAuth
 };

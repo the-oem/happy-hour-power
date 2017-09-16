@@ -1,6 +1,6 @@
 const db = require('./knex');
 
-const getAllLocationTypes = (req, res) => {
+const getLocationTypes = (req, res) => {
   db('location_type')
     .select()
     .then(data => res.status(200).json({ data }))
@@ -8,5 +8,5 @@ const getAllLocationTypes = (req, res) => {
 };
 
 module.exports = {
-  getAllLocationTypes
+  getLocationTypes
 };

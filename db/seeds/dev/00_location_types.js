@@ -1,26 +1,20 @@
 const location_types = [
   {
-    id: 1,
     type: 'restaurant'
   },
   {
-    id: 2,
     type: 'bar'
   },
   {
-    id: 3,
     type: 'brewery'
   },
   {
-    id: 4,
     type: 'distillery'
   },
   {
-    id: 5,
     type: 'winery'
   },
   {
-    id: 6,
     type: 'taphouse'
   }
 ];
