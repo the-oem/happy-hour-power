@@ -94,30 +94,26 @@ describe('Testing HappyHour API Routes', () => {
         });
     });
 
-    it.skip(
-      'should respond with a 422 status if required parameters are missing.',
-      done => {
-        chai
-          .request(server)
-          .post('/api/v1/locations')
-          .send({
-            latitude: '123.0034',
-            longitude: '98.033',
-            phone_number: '303-999-9999',
-            website_url: 'http://www.google.com',
-            google_maps_id: 123456,
-            location_type_id: 2,
-            token: JWT_ADMIN_TOKEN
-          })
-          .end((err, res) => {
-            should.exist(err);
-            res.status.should.equal(422);
-            res.type.should.equal('application/json');
-            res.body.should.include.keys('error');
-            res.body.error.should.equal('Missing required parameter (name).');
-            done();
-          });
-      }
-    );
+    it('should respond with a 422 status if required parameters are missing.', done => {
+      chai
+        .request(server)
+        .post('/api/v1/happyhours')
+        .send({
+          drink_specials: 'Well drinks half off',
+          food_specials: 'All appetizers buy one get one free',
+          location_id: '4',
+          token: JWT_ADMIN_TOKEN
+        })
+        .end((err, res) => {
+          should.exist(err);
+          res.status.should.equal(422);
+          res.type.should.equal('application/json');
+          res.body.should.include.keys('error');
+          res.body.error.should.equal(
+            'Missing required parameter of (timeslot).'
+          );
+          done();
+        });
+    });
   });
 });
