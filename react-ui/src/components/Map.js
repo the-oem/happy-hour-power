@@ -22,6 +22,7 @@ const BaseMap = withGoogleMap((props) => {
       ref={props.onMapLoad}
       defaultZoom={16}
       defaultCenter={DEFAULT_LOCATION.coordinates}
+      center={props.center || DEFAULT_LOCATION.coordinates}
       onClick={props.onMapClick}
       onIdle={props.onIdle}
     >
@@ -85,6 +86,16 @@ export class Map extends Component {
   }
 
   render() {
+    const { center } = this.props
+
+    // TODO: THIS CODE IS DUPLICATED: WILL NEED TO REFACTOR
+    const location = (center.lat && center.lng)
+      ? center
+      : new window.google.maps.LatLng(
+          DEFAULT_LOCATION.coordinates.lat,
+          DEFAULT_LOCATION.coordinates.lng)
+
+
     return (
       <BaseMap
         ref={googleMap => (this.gmap = googleMap)}
@@ -95,6 +106,7 @@ export class Map extends Component {
         locations={this.props.locations}
         currentLocation={this.props.currentLocation}
         onIdle={this.onIdle}
+        center={location}
         // onMapClick={this.handleMapClick}
         // onMarkerRightClick={this.handleMarkerRightClick}
       />
