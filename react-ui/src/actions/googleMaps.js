@@ -14,6 +14,13 @@ export const nearbyLocations = (data) => {
   }
 }
 
+export const mapCenter = (position) => {
+  return {
+    type: 'CENTER',
+    position
+  }
+}
+
 export const geolocate = () => {
   return (dispatch) => {
 
