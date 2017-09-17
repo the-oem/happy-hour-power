@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { DisplayLocationDetails } from './DisplayLocationDetails';
 import '../styles/LocationDetails.css';
 
 export default class LocationDetails extends Component {
@@ -6,15 +7,15 @@ export default class LocationDetails extends Component {
     super();
   }
 
-  render() {
-    console.log('props in LocationDetails: ', this.props.currentLocation);
-    const location = this.props.currentLocation;
-
-    return (
-      <div className="current-location">
-        <h3 className="loc-name">{location.name}</h3>
-        <p className="loc-details">{location.vicinity}</p>
-      </div>
+  renderDetails() {
+    return this.props.currentLocation && this.props.currentLocation.name ? (
+      <DisplayLocationDetails location={this.props.currentLocation} />
+    ) : (
+      <div className="display-none" />
     );
+  }
+
+  render() {
+    return <div className="current-location">{this.renderDetails()}</div>;
   }
 }
