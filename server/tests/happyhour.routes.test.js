@@ -132,8 +132,22 @@ describe('Testing HappyHour API Routes', () => {
         });
     });
 
+    it('should respond with a 404 status if the item doesnt exist', done => {
+      chai
+        .request(server)
+        .delete(`/api/v1/happyhours/99`)
+        .end((err, res) => {
+          should.exist(err);
+          res.should.have.status(404);
+          res.body.data.message.should.equal(
+            'HappyHour with id (99) not found.'
+          );
+          done();
+        });
+    });
+
     it.skip(
-      'should respond with a 500 status message if a FK restraint exists',
+      'should respond with a 404 status message if a FK restraint exists',
       done => {
         chai
           .request(server)

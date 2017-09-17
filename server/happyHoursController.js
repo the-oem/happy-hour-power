@@ -36,20 +36,28 @@ const updateHappyHours = (req, res) => {
 };
 
 const deleteHappyHours = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
   db('happy_hours')
     .del()
-    .where('id', parseInt(req.params.id, 10))
+    .where('id', id)
     .returning('*')
     .then(happyHour => {
-      res
-        .status(200)
-        .send({
+      if (happyHour.length) {
+        res.status(200).send({
           data: {
             message: `HappyHour with id (${happyHour[0].id}) was deleted.`
           }
         });
+      } else {
+        res.status(404).send({
+          data: {
+            message: `HappyHour with id (${id}) not found.`
+          }
+        });
+      }
     })
-    .catch(error => console.log(error));
+    .catch(error => res.status(500).json({ error }));
 };
 
 module.exports = {
