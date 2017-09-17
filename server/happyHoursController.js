@@ -35,8 +35,26 @@ const updateHappyHours = (req, res) => {
     .catch(error => res.status(500).json({ error }));
 };
 
+const deleteHappyHours = (req, res) => {
+  db('happy_hours')
+    .del()
+    .where('id', parseInt(req.params.id, 10))
+    .returning('*')
+    .then(happyHour => {
+      res
+        .status(200)
+        .send({
+          data: {
+            message: `HappyHour with id (${happyHour[0].id}) was deleted.`
+          }
+        });
+    })
+    .catch(error => console.log(error));
+};
+
 module.exports = {
   getHappyHoursByLocation,
   addHappyHours,
-  updateHappyHours
+  updateHappyHours,
+  deleteHappyHours
 };

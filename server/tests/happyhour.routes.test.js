@@ -121,21 +121,13 @@ describe('Testing HappyHour API Routes', () => {
     it('should respond with a 200 status and delete the resource', done => {
       chai
         .request(server)
-        .get('/api/v1/happyhours/1')
-        .end((err, res) => {
-          should.not.exist(err);
-          res.should.have.status(200);
-          chai
-            .request(server)
-            .delete(`/api/v1/happyhours/1`)
-            .end((err1, res1) => {
-              should.not.exist(err1);
-              res1.should.have.status(200);
-              res1.body.status.should.equal('success');
-              res1.body.data.message.should.equal(
-                'HappyHour with id (4) was deleted.'
-              );
-            });
+        .delete(`/api/v1/happyhours/1`)
+        .end((err1, res1) => {
+          should.not.exist(err1);
+          res1.should.have.status(200);
+          res1.body.data.message.should.equal(
+            'HappyHour with id (1) was deleted.'
+          );
           done();
         });
     });

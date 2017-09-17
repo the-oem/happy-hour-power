@@ -40,6 +40,7 @@ router.put(
   authController.checkAuth,
   happyHoursController.updateHappyHours
 );
+router.delete('/v1/happyhours/:id', happyHoursController.deleteHappyHours);
 
 router.get('/v1/locationtypes', locationTypeController.getLocationTypes);
 
