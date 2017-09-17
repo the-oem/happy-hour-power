@@ -18,6 +18,12 @@ describe('App', () => {
     );
   });
 
+  it('should render App with className "app"', () => {
+    const wrapper = shallow(<App />);
+
+    expect(wrapper.find('.App')).toHaveLength(1);
+  });
+
   it('should render a header', () => {
     const wrapper = shallow(<App />);
 
@@ -28,5 +34,18 @@ describe('App', () => {
     const wrapper = shallow(<App />);
 
     expect(wrapper.find('h1').text()).toEqual('Happy Hour Power');
+  });
+
+  it('should render main element that includes ControlsContainer', () => {
+    const wrapper = shallow(<App />);
+
+    expect(wrapper.find('.main-content')).toHaveLength(1);
+    expect(wrapper.find('.controls')).toHaveLength(1);
+  });
+
+  it('should render a footer', () => {
+    const wrapper = shallow(<App />);
+
+    expect(wrapper.find('footer')).toHaveLength(1);
   });
 });
