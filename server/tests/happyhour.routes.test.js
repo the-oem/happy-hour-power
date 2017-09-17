@@ -117,8 +117,51 @@ describe('Testing HappyHour API Routes', () => {
     });
   });
 
+  describe('DELETE /api/v1/happyhours/:id', () => {
+    it('should respond with a 200 status and delete the resource', done => {
+      chai
+        .request(server)
+        .get('/api/v1/happyhours/1')
+        .end((err, res) => {
+          should.not.exist(err);
+          res.should.have.status(200);
+          chai
+            .request(server)
+            .delete(`/api/v1/happyhours/1`)
+            .end((err1, res1) => {
+              should.not.exist(err1);
+              res1.should.have.status(200);
+              res1.body.status.should.equal('success');
+              res1.body.data.message.should.equal(
+                'HappyHour with id (4) was deleted.'
+              );
+            });
+          done();
+        });
+    });
+
+    it.skip(
+      'should respond with a 500 status message if a FK restraint exists',
+      done => {
+        chai
+          .request(server)
+          .delete(`/api/v1/cameras/1/${token}`)
+          .end((err, res) => {
+            should.exist(err);
+            res.should.have.status(500);
+            res.body.data.code.should.equal('23503');
+            res.body.data.detail.should.equal(
+              'Key (id)=(1) is still referenced from table "photos".'
+            );
+            res.body.data.constraint.should.equal('photos_camera_id_foreign');
+            done();
+          });
+      }
+    );
+  });
+
   describe('PUT /api/happyhours/:id', () => {
-    it('should respond with a 200 along with a single happy hour that was updated', done => {
+    it('should respond with a 200 status and a single happy hour that was updated', done => {
       chai
         .request(server)
         .put('/api/v1/happyhours/1')
