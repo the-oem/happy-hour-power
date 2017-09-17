@@ -22,9 +22,18 @@ describe('Testing LocationType API Routes', () => {
     });
   });
 
-  describe('GET /api/v1/locationtype', () => {
-    it('does a thing', done => {
-      done();
+  describe('GET /api/v1/locationtypes', () => {
+    it('should respond with a 200 status and all location types', done => {
+      chai
+        .request(server)
+        .get('/api/v1/locationtypes')
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(200);
+          res.type.should.equal('application/json');
+          res.body.data[0].should.include.keys('id', 'type');
+          done();
+        });
     });
   });
 });

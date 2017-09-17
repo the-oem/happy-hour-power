@@ -15,14 +15,11 @@ const deleteLocationType = (req, res) => {
     .where('id', parseInt(req.params.id, 10))
     .returning('*')
     .then(locationType => {
-      res
-        .status(200)
-        .send({
-          data: {
-            message: `Location Type with id (${locationType[0]
-              .id}) was deleted.`
-          }
-        });
+      res.status(200).send({
+        data: {
+          message: `Location Type with id (${locationType[0].id}) was deleted.`
+        }
+      });
     })
     .catch(error => {
       res.status(500).send({ error });
