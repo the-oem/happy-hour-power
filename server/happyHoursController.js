@@ -27,12 +27,24 @@ const addHappyHours = (req, res) => {
 };
 
 const updateHappyHours = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
   db('happy_hours')
     .update(req.body, '*')
-    .where('id', parseInt(req.params.id, 10))
+    .where('id', id)
     .returning('*')
-    .then(happyHour => res.status(200).json({ data: happyHour }))
-    .catch(error => res.status(500).json({ error }));
+    .then(happyHour => {
+      if (happyHour.length) {
+        res.status(200).json({ data: happyHour });
+      } else {
+        res.status(404).send({
+          data: {
+            message: `HappyHour with id (${id}) not found.`
+          }
+        });
+      }
+    })
+    .catch(error => console.log(error));
 };
 
 const deleteHappyHours = (req, res) => {

@@ -135,7 +135,7 @@ describe('Testing HappyHour API Routes', () => {
         });
     });
 
-    it('should respond with a 404 status if the item doesnt exist', done => {
+    it('should respond with a 404 status and message if the item doesnt exist', done => {
       chai
         .request(server)
         .delete(`/api/v1/happyhours/99`)
@@ -145,6 +145,7 @@ describe('Testing HappyHour API Routes', () => {
         .end((err, res) => {
           should.exist(err);
           res.should.have.status(404);
+          res.type.should.equal('application/json');
           res.body.data.message.should.equal(
             'HappyHour with id (99) not found.'
           );
@@ -179,6 +180,26 @@ describe('Testing HappyHour API Routes', () => {
           res.body.data[0].timeslot.should.equal('mon:1200-1650');
           res.body.data[0].drink_specials.should.equal(
             'Draft beers $2.00 each'
+          );
+          done();
+        });
+    });
+
+    it('should respond with a 404 status and message if the item doesnt exist', done => {
+      chai
+        .request(server)
+        .put('/api/v1/happyhours/99')
+        .send({
+          timeslot: 'mon:1200-1650',
+          drink_specials: 'Draft beers $2.00 each',
+          token: JWT_ADMIN_TOKEN
+        })
+        .end((err, res) => {
+          should.exist(err);
+          res.status.should.equal(404);
+          res.type.should.equal('application/json');
+          res.body.data.message.should.equal(
+            'HappyHour with id (99) not found.'
           );
           done();
         });
