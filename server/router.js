@@ -35,6 +35,11 @@ router.post(
   authController.checkAuth,
   happyHoursController.addHappyHours
 );
+router.put(
+  '/v1/happyhours/:id',
+  authController.checkAuth,
+  happyHoursController.updateHappyHours
+);
 
 router.get('/v1/locationtypes', locationTypeController.getLocationTypes);
 

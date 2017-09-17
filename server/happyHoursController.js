@@ -26,7 +26,17 @@ const addHappyHours = (req, res) => {
     .catch(error => res.status(500).json({ error }));
 };
 
+const updateHappyHours = (req, res) => {
+  db('happy_hours')
+    .update(req.body, '*')
+    .where('id', parseInt(req.params.id, 10))
+    .returning('*')
+    .then(happyHour => res.status(200).json({ data: happyHour }))
+    .catch(error => res.status(500).json({ error }));
+};
+
 module.exports = {
   getHappyHoursByLocation,
-  addHappyHours
+  addHappyHours,
+  updateHappyHours
 };

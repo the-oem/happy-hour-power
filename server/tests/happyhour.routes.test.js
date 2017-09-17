@@ -116,4 +116,36 @@ describe('Testing HappyHour API Routes', () => {
         });
     });
   });
+
+  describe('PUT /api/happyhours/:id', () => {
+    it('should respond with a 200 along with a single happy hour that was updated', done => {
+      chai
+        .request(server)
+        .put('/api/v1/happyhours/1')
+        .send({
+          timeslot: 'mon:1200-1650',
+          drink_specials: 'Draft beers $2.00 each',
+          token: JWT_ADMIN_TOKEN
+        })
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(200);
+          res.type.should.equal('application/json');
+          res.body.data[0].should.include.keys(
+            'id',
+            'timeslot',
+            'drink_specials',
+            'food_specials',
+            'menu_pictures',
+            'location_id'
+          );
+          res.body.data[0].id.should.equal(1);
+          res.body.data[0].timeslot.should.equal('mon:1200-1650');
+          res.body.data[0].drink_specials.should.equal(
+            'Draft beers $2.00 each'
+          );
+          done();
+        });
+    });
+  });
 });

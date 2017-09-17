@@ -30,61 +30,6 @@ app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
 });
 
-//----> HAPPY_HOUR <----//
-app
-  .route('/api/v1/happyhour/update')
-  .put(checkAuth, (req, res) => {
-    const id = req.headers.businessID;
-    const newHappyHourData = req.body;
-
-    if (req.headers.statusType !== 'controller') {
-      res.status(500).json({
-        message: 'You are not qualified to modify this business'
-      });
-    }
-
-    for (let requiredParams of [
-      'timeslot',
-      'drink_specials',
-      'food_specials',
-      'menu_pictures'
-    ]) {
-      if (!newHappyHourData[requiredParams]) {
-        return res.status(422).json({
-          error: `Missing required parameter '${requiredParams}'`
-        });
-      }
-    }
-
-    db('happy_hours')
-      .where('id', id)
-      .select()
-      .update(newHappyHourData, '*')
-      .then(data => res.status(200).json({ data }))
-      .catch(error => res.status(500).json({ error }));
-  })
-  .patch(happyHourParams, checkAuth, (req, res) => {
-    const id = req.headers.businessID;
-    const newData = req.body;
-
-    db('happy_hours')
-      .where('id', id)
-      .select(`${newData}`)
-      .update(newData, '*')
-      .then(data => res.status(200).json({ data }))
-      .catch(error => res.status(500).json({ error }));
-  });
-
-// app.get('/api/v1/happyhour/days', (req, res) => {
-//   const dayRange = req.headers.day;
-
-//   db('happy_hours').select('timeslot')
-//   .then(times => {
-
-//     console.log(times)
-//   })
-// })
-
 //----> LOCATION_TYPE <----//
 
 //----??---> NOT WORKING AND I DON'T KNOW WHY <---??----//
