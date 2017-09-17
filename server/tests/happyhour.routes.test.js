@@ -122,6 +122,9 @@ describe('Testing HappyHour API Routes', () => {
       chai
         .request(server)
         .delete(`/api/v1/happyhours/1`)
+        .send({
+          token: JWT_ADMIN_TOKEN
+        })
         .end((err1, res1) => {
           should.not.exist(err1);
           res1.should.have.status(200);
@@ -136,6 +139,9 @@ describe('Testing HappyHour API Routes', () => {
       chai
         .request(server)
         .delete(`/api/v1/happyhours/99`)
+        .send({
+          token: JWT_ADMIN_TOKEN
+        })
         .end((err, res) => {
           should.exist(err);
           res.should.have.status(404);
@@ -145,25 +151,6 @@ describe('Testing HappyHour API Routes', () => {
           done();
         });
     });
-
-    it.skip(
-      'should respond with a 404 status message if a FK restraint exists',
-      done => {
-        chai
-          .request(server)
-          .delete(`/api/v1/cameras/1/${token}`)
-          .end((err, res) => {
-            should.exist(err);
-            res.should.have.status(500);
-            res.body.data.code.should.equal('23503');
-            res.body.data.detail.should.equal(
-              'Key (id)=(1) is still referenced from table "photos".'
-            );
-            res.body.data.constraint.should.equal('photos_camera_id_foreign');
-            done();
-          });
-      }
-    );
   });
 
   describe('PUT /api/happyhours/:id', () => {
