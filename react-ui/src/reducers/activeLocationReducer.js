@@ -1,7 +1,8 @@
 const activeLocationReducer = (state={}, action) => {
   switch (action.type) {
-    case 'HANDLE_MARKER_CLICK':
-      return action.marker;
+    case 'UPDATE_DETAIL':
+      return Object.assign({}, action.location, { happyhours: action.happyhours})
+      // return action.detail;
     default:
       return state;
   }

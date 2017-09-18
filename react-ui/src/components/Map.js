@@ -60,7 +60,7 @@ export class Map extends Component {
     const request = {
       location,
       radius: '500',
-      type: ['restaurant'],
+      type: ['bar'],
       openNow: true
     };
 
