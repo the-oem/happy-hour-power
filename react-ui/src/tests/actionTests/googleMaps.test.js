@@ -1,9 +1,10 @@
 import * as actions from '../../actions';
 
 describe('googleMaps actions', () => {
-  it.skip('should create an action to find current location', () => {
+  it('should create an action to find current location', () => {
     const location = {
-      location
+      lat: 39.7506215,
+      lng: -104.99655489999999
     };
     const expectedAction = {
       type: 'CURRENT_LOCATION',
@@ -40,9 +41,10 @@ describe('googleMaps actions', () => {
     expect(actions.nearbyLocations(data)).toEqual(expectedAction);
   });
 
-  it.skip('should create an action to find map center', () => {
+  it('should create an action to find map center', () => {
     const position = {
-      position
+      lat: 39.75084,
+      lng: -104.99652900000001
     };
     const expectedAction = {
       type: 'CENTER',
