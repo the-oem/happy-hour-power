@@ -51,11 +51,11 @@ const getLocations = (req, res) => {
 
 const deleteLocation = (req, res) => {
   const businessName = req.headers.businessName;
-
-  if (req.headers.userStatus !== 'controller') {
-    return res.status(401).json({
-      message: 'You are not qualified to remove this business from the database'
-    });
+  console.log(req.headers);
+  if (req.headers.userStatus !== 'admin') {
+    return res
+      .status(401)
+      .json({ message: 'You are not authorized to remove this business.' });
   }
 
   db('locations')
@@ -75,19 +75,8 @@ const deleteLocation = (req, res) => {
     .catch(error => res.status(500).json({ error }));
 };
 
-const getHappyHoursByLocation = (req, res) => {
-  const locationId = parseInt(req.params.id, 10);
-
-  db('happy_hours')
-    .where('location_id', locationId)
-    .select()
-    .then(happyhours => res.status(200).json({ data: happyhours }))
-    .catch(error => res.status(500).json({ error }));
-};
-
 module.exports = {
   addLocation,
   getLocations,
-  deleteLocation,
-  getHappyHoursByLocation
+  deleteLocation
 };
