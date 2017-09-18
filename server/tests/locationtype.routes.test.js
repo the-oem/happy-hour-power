@@ -75,4 +75,52 @@ describe('Testing LocationType API Routes', () => {
         });
     });
   });
+
+  describe('POST /api/v1/locationtypes', () => {
+    it('should respond with a 201 status and the newly added location type', done => {
+      chai
+        .request(server)
+        .post('/api/v1/locationtypes')
+        .send({
+          type: 'beer festival',
+          token: JWT_ADMIN_TOKEN
+        })
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(201);
+          res.type.should.equal('application/json');
+          res.body.should.include.keys('data');
+          res.body.data.length.should.equal(1);
+          res.body.data[0].should.include.keys('id', 'type');
+          res.body.data.should.not.include.keys('token');
+          done();
+        });
+    });
+
+    it.skip(
+      'should respond with a 422 status if required parameters are missing.',
+      done => {
+        chai
+          .request(server)
+          .post('/api/v1/locations')
+          .send({
+            latitude: '123.0034',
+            longitude: '98.033',
+            phone_number: '303-999-9999',
+            website_url: 'http://www.google.com',
+            google_maps_id: 123456,
+            location_type_id: 2,
+            token: JWT_ADMIN_TOKEN
+          })
+          .end((err, res) => {
+            should.exist(err);
+            res.status.should.equal(422);
+            res.type.should.equal('application/json');
+            res.body.should.include.keys('error');
+            res.body.error.should.equal('Missing required parameter (name).');
+            done();
+          });
+      }
+    );
+  });
 });
