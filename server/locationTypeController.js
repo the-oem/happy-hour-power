@@ -7,6 +7,23 @@ const getLocationTypes = (req, res) => {
     .catch(error => res.status(500).json({ error }));
 };
 
+const addLocationType = (req, res) => {
+  const locType = req.body;
+
+  for (let requiredParams of ['type']) {
+    if (!locType[requiredParams]) {
+      return res
+        .status(422)
+        .json({ error: `Missing required parameter (${requiredParams}).` });
+    }
+  }
+
+  db('location_type')
+    .insert(locType, '*')
+    .then(locType => res.status(201).json({ data: locType }))
+    .catch(error => res.status(500).json({ error }));
+};
+
 const updateLocationType = (req, res) => {};
 
 const deleteLocationType = (req, res) => {
@@ -37,5 +54,6 @@ const deleteLocationType = (req, res) => {
 module.exports = {
   getLocationTypes,
   deleteLocationType,
-  updateLocationType
+  updateLocationType,
+  addLocationType
 };

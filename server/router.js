@@ -47,6 +47,11 @@ router.delete(
 );
 
 router.get('/v1/locationtypes', locationTypeController.getLocationTypes);
+router.post(
+  '/v1/locationtypes',
+  authController.checkAuth,
+  locationTypeController.addLocationType
+);
 router.delete(
   '/v1/locationtypes/:id',
   authController.checkAuth,
