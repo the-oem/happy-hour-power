@@ -114,4 +114,49 @@ describe('Testing LocationType API Routes', () => {
         });
     });
   });
+
+  describe('PUT /api/locationtypes/:id', () => {
+    it('should respond with a 200 status and a single location type that was updated', done => {
+      chai
+        .request(server)
+        .put('/api/v1/locationtypes/1')
+        .send({
+          type: 'Video Game Bar',
+          token: JWT_ADMIN_TOKEN
+        })
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(200);
+          res.type.should.equal('application/json');
+          res.body.data[0].should.include.keys('id', 'type');
+          res.body.data[0].id.should.equal(1);
+          res.body.data[0].type.should.equal('Video Game Bar');
+          res.body.data[0].should.not.include.keys('token');
+          done();
+        });
+    });
+
+    it.skip(
+      'should respond with a 404 status and message if the item doesnt exist',
+      done => {
+        chai
+          .request(server)
+          .put('/api/v1/happyhours/99')
+          .send({
+            timeslot: 'mon:1200-1650',
+            drink_specials: 'Draft beers $2.00 each',
+            token: JWT_ADMIN_TOKEN
+          })
+          .end((err, res) => {
+            should.exist(err);
+            res.status.should.equal(404);
+            res.type.should.equal('application/json');
+            res.body.data.message.should.equal(
+              'HappyHour with id (99) not found.'
+            );
+            done();
+          });
+      }
+    );
+  });
 });
