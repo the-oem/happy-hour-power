@@ -30,45 +30,6 @@ app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
 });
 
-//----> LOCATION_TYPE <----//
-
-//----??---> NOT WORKING AND I DON'T KNOW WHY <---??----//
-// app.route('/api/v1/locationtype/update/').patch(checkAuth, (req, res) => {
-//   const id = req.headers.businessID;
-//   const newLocationType = req.body;
-
-//   if (req.headers.statusType !== 'controller') {
-//     return res.status(401).json({
-//       message: 'you are not qualified to modify this business'
-//     });
-//   }
-
-//   for (let requiredParams of ['location_type']) {
-//     if (!newLocationType[requiredParams]) {
-//       return res.status(422).json({
-//         error: `Missing required parameter ${requiredParams}`
-//       });
-//     }
-//   }
-
-//   db('location_type')
-//     .where('id', id)
-//     .select('type')
-//     .update(newLocationType, 'type')
-//     .then(replacementType => res.status(200).json({ replacementType }))
-//     .catch(error => res.status(500).json({ error }));
-// });
-
-app.get('/api/v1/locationtype/:type', (req, res) => {
-  const newType = req.params.type;
-
-  db('location_type')
-    .where('type', newType)
-    .select('*')
-    .then(data => res.status(200).json({ data }))
-    .catch(error => res.status(400).json({ error }));
-});
-
 //----> STATUS_TYPE <----//
 app.route('/api/v1/statustype/update/').put(checkAuth, (req, res) => {
   const id = req.headers.businessID;

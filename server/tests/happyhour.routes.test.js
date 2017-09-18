@@ -7,7 +7,6 @@ const server = require('../index.js');
 
 const environment = process.env.NODE_ENV;
 const JWT_ADMIN_TOKEN = process.env.ADMIN_TOKEN;
-const JWT_NON_AMIN_TOKEN = process.env.NON_ADMIN_TOKEN;
 const configuration = require('../../knexfile.js')[environment];
 const db = require('knex')(configuration);
 

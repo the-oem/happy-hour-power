@@ -10,20 +10,28 @@ const getLocationTypes = (req, res) => {
 const updateLocationType = (req, res) => {};
 
 const deleteLocationType = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
   db('location_type')
     .del()
-    .where('id', parseInt(req.params.id, 10))
+    .where('id', id)
     .returning('*')
     .then(locationType => {
-      res.status(200).send({
-        data: {
-          message: `Location Type with id (${locationType[0].id}) was deleted.`
-        }
-      });
+      if (locationType.length) {
+        res.status(200).send({
+          data: {
+            message: `LocationType with id (${locationType[0].id}) was deleted.`
+          }
+        });
+      } else {
+        res.status(404).send({
+          data: {
+            message: `LocationType with id (${id}) not found.`
+          }
+        });
+      }
     })
-    .catch(error => {
-      res.status(500).send({ error });
-    });
+    .catch(error => res.status(500).json({ error }));
 };
 
 module.exports = {
