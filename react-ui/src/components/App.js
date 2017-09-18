@@ -1,7 +1,6 @@
 import React from 'react';
 import '../styles/App.css';
 import ControlsContainer from '../containers/ControlsContainer';
-import DetailsPageContainer from '../containers/DetailsPageContainer';
 
 const App = () => {
   return (
@@ -14,8 +13,6 @@ const App = () => {
           <ControlsContainer />
         </div>
       </main>
-
-      <DetailsPageContainer />
 
       <footer>
         <h6 className="footer-text">Copyright 2017</h6>

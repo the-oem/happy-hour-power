@@ -6,10 +6,23 @@ export class DetailsPage extends Component {
   }
 
   render() {
-    console.log('props in DetailsPage', this.props);
+    const { name } = this.props.locationDetails.location;
+    const happyHours = this.props.locationDetails.happyhours.map(hours => {
+      const { timeslot, drink_specials, food_specials, locations_id } = hours;
+      return (
+        <div key={locations_id}>
+          <p>{timeslot}</p>
+          <p>{drink_specials}</p>
+          <p>{food_specials}</p>
+        </div>
+      );
+    });
+
     return (
       <div>
-        <h2>Details</h2>
+        <h3>{name}</h3>
+
+        {happyHours}
       </div>
     );
   }

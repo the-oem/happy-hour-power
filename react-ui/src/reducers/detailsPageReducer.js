@@ -1,7 +1,10 @@
 const detailsPageReducer = (state = {}, action) => {
   switch (action.type) {
     case 'UPDATE_DETAIL':
-      return action.happyhours;
+      return {
+        location: action.location,
+        happyhours: action.happyhours
+      };
     default:
       return state;
   }
