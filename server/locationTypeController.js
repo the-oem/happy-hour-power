@@ -7,30 +7,72 @@ const getLocationTypes = (req, res) => {
     .catch(error => res.status(500).json({ error }));
 };
 
-const updateLocationType = (req, res) => {};
+const addLocationType = (req, res) => {
+  const locType = req.body;
 
-const deleteLocationType = (req, res) => {
+  for (let requiredParams of ['type']) {
+    if (!locType[requiredParams]) {
+      return res
+        .status(422)
+        .json({ error: `Missing required parameter (${requiredParams}).` });
+    }
+  }
+
   db('location_type')
-    .del()
-    .where('id', parseInt(req.params.id, 10))
+    .insert(locType, '*')
+    .then(locType => res.status(201).json({ data: locType }))
+    .catch(error => res.status(500).json({ error }));
+};
+
+const updateLocationType = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  db('location_type')
+    .update(req.body, '*')
+    .where('id', id)
     .returning('*')
-    .then(locationType => {
-      res
-        .status(200)
-        .send({
+    .then(locType => {
+      if (locType.length) {
+        res.status(200).json({ data: locType });
+      } else {
+        res.status(404).send({
           data: {
-            message: `Location Type with id (${locationType[0]
-              .id}) was deleted.`
+            message: `LocationType with id (${id}) not found.`
           }
         });
+      }
     })
-    .catch(error => {
-      res.status(500).send({ error });
-    });
+    .catch(error => console.log(error));
+};
+
+const deleteLocationType = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  db('location_type')
+    .del()
+    .where('id', id)
+    .returning('*')
+    .then(locationType => {
+      if (locationType.length) {
+        res.status(200).send({
+          data: {
+            message: `LocationType with id (${locationType[0].id}) was deleted.`
+          }
+        });
+      } else {
+        res.status(404).send({
+          data: {
+            message: `LocationType with id (${id}) not found.`
+          }
+        });
+      }
+    })
+    .catch(error => res.status(500).json({ error }));
 };
 
 module.exports = {
   getLocationTypes,
   deleteLocationType,
-  updateLocationType
+  updateLocationType,
+  addLocationType
 };
