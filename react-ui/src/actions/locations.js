@@ -19,7 +19,7 @@ export const getLocations = () => {
       .then(({data}) => {
         dispatch(databaseLocations(data));
       })
-      .catch(error => {
+      .catch((error) => {
         dispatch(locationsError(error))
       })
   }

@@ -1,8 +1,9 @@
 export default class Location {
-  constructor(location) {
-    this.name = location.name;
-    this.address = location.vicinity;
-    this.rating = location.rating;
-    this.id = location.id;
+  constructor(google_maps_location) {
+    this.google_maps_location = google_maps_location;
+    this.name = google_maps_location.name;
+    this.address = google_maps_location.vicinity;
+    this.rating = google_maps_location.rating;
+    this.google_maps_id = google_maps_location.id;
   }
 }
