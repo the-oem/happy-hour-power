@@ -24,7 +24,26 @@ const addLocationType = (req, res) => {
     .catch(error => res.status(500).json({ error }));
 };
 
-const updateLocationType = (req, res) => {};
+const updateLocationType = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  db('location_type')
+    .update(req.body, '*')
+    .where('id', id)
+    .returning('*')
+    .then(locType => {
+      if (locType.length) {
+        res.status(200).json({ data: locType });
+      } else {
+        res.status(404).send({
+          data: {
+            message: `LocationType with id (${id}) not found.`
+          }
+        });
+      }
+    })
+    .catch(error => console.log(error));
+};
 
 const deleteLocationType = (req, res) => {
   const id = parseInt(req.params.id, 10);
