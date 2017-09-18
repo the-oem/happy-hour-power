@@ -1,5 +1,17 @@
 .current-location {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background-color: #98b1bc;
+  height: 85px;
+  flex-grow: 1;
+  overflow-y: hidden;
+  transition: all .2s ease;
+}
+
+.current-location.hidden {
+  height: 0;
 }
 
 .loc-details {
@@ -14,4 +26,9 @@
 
 .loc-details {
   margin: 0;
+}
+
+.map-area {
+  height: calc(100vh - 195px);
+  position: relative;
 }
