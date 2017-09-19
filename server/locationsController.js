@@ -36,22 +36,6 @@ const getLocations = (req, res) => {
 const deleteLocation = (req, res) => {
   const locationId = parseInt(req.params.id, 10);
 
-  // db('happy_hours')
-  //   .del()
-  //   .where('location_id', locationId)
-  //   .then(data => {
-  //     db('locations')
-  //       .del()
-  //       .where('id', locationId)
-  //       // .catch(error => res.status(500).json({ error }))
-  //   })
-  //   .then(data => res.status(200).json({
-  //     data: {
-  //       message: `Location with ID (${locationId}) has been deleted.`
-  //     }
-  //   }))
-  //   .catch(error => res.status(500).json({ error }))
-
   db('happy_hours')
     .where('location_id', locationId)
     .del()
@@ -64,7 +48,11 @@ const deleteLocation = (req, res) => {
             .where('id', locationId)
             .del()
             .then(deletedCount => {
-              res.status(200).json({ deletedCount });
+              res.status(200).json({
+                data: {
+                  message: `Location with ID (${locationId}) has been deleted.`
+                }
+              });
             })
             .catch(error => res.status(500).json({ error }));
         })
