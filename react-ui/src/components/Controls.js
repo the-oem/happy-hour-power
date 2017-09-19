@@ -26,15 +26,15 @@ export default class Controls extends Component {
       <div>
         <Route exact path='/' render={(props) => (
           <div>
-            <div className="controls-container">
-              <p className="slogan">
+            <div className='controls-container'>
+              <p className='slogan'>
                 Search for the best Happy Hour deals near you!
               </p>
-              <button className="toggle-btn" onClick={() => this.toggleClass()}>
+              <button className='toggle-btn' onClick={() => this.toggleClass()}>
                 {buttonText}
               </button>
             </div>
-            <div className="map-list-view">
+            <div className='map-list-view'>
               {!!this.state.view
                 ? <RenderMapContainer {...props} />
                 : <RenderList {...props} />}
@@ -42,7 +42,8 @@ export default class Controls extends Component {
           </div>
         )}/>
 
-        <Route exact path='/detail' component={DetailsPageContainer}/>
+        <Route exact path='/detail/:id' component={DetailsPageContainer}/>
+        <Route exact path='/new-location' component={DetailsPageContainer}/>
 
       </div>
     );
