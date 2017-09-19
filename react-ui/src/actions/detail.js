@@ -20,18 +20,24 @@ export const updateDetail = (location, happyhours = null) => {
   };
 };
 
-export const fetchDetail = (id) => {
+export const fetchDetail = id => {
   return dispatch => {
     dispatch(detailLoading(true));
 
-    fetch(`/api/v1/locations/${id}/happyhours`)
+    const happyHours = fetch(`/api/v1/locations/${id}/happyhours`)
       .then(res => {
         dispatch(detailLoading(false));
         return res.json();
       })
-      .then(({ data }) => {
-        dispatch(updateDetail(location, data));
-      })
+      .then(({ data }) => data)
       .catch(error => dispatch(detailError(error)));
-  }
-}
+
+    const location = fetch(`/api/v1/locations/${id}`)
+      .then(res => res.json())
+      .then(({ data }) => data);
+
+    Promise.all([happyHours, location]).then(data => {
+      dispatch(updateDetail(data));
+    });
+  };
+};

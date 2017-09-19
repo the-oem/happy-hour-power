@@ -6,13 +6,17 @@ export class DetailsPage extends Component {
     super();
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    console.log('Hello');
     const { id } = this.props.match.params;
 
     this.props.fetchDetail(id);
   }
 
   render() {
+    return <p>Hi</p>;
+    console.log(this.props);
+
     const { name } = this.props.locationDetails.location;
     const happyHours = this.props.locationDetails.happyhours.map(hours => {
       const { timeslot, drink_specials, food_specials, id } = hours;
