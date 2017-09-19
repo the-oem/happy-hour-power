@@ -95,7 +95,6 @@ export class Map extends Component {
           DEFAULT_LOCATION.coordinates.lat,
           DEFAULT_LOCATION.coordinates.lng)
 
-
     return (
       <BaseMap
         ref={googleMap => (this.gmap = googleMap)}
@@ -107,8 +106,6 @@ export class Map extends Component {
         currentLocation={this.props.currentLocation}
         onIdle={this.onIdle}
         center={location}
-        // onMapClick={this.handleMapClick}
-        // onMarkerRightClick={this.handleMarkerRightClick}
       />
     );
   }

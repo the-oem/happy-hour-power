@@ -1,18 +1,16 @@
 import { connect } from 'react-redux';
 import { DetailsPage } from '../components/DetailsPage';
-import { handleMarkerClick } from '../actions';
+import { fetchDetail } from '../actions';
 
 const mapStateToProps = state => {
   return {
-    locationDetails: state.details
+    locationDetails: state.details,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    showDetails: data => {
-      dispatch(handleMarkerClick(data));
-    }
+    fetchDetail: id => dispatch(fetchDetail(id)),
   };
 };
 
