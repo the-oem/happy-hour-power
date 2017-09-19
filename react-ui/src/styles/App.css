@@ -3,23 +3,23 @@
 }
 
 .App-header {
-  background-color: #05344c;
   height: 60px;
   padding: 20px;
+  background-color: #05344c;
 }
 
 .title {
-  font-family: 'Poiret One', cursive;
-  font-size: 40px;
+  margin: 10px 0 0 0;
   letter-spacing: 0.05em;
   color: #dbb330;
-  margin: 10px 0 0 0;
+  font-family: 'Poiret One', cursive;
+  font-size: 40px;
 }
 
 footer {
-  background-color: #05344c;
   height: 40px;
   color: #dbb330;
+  background-color: #05344c;
 }
 
 h6 {
@@ -28,9 +28,9 @@ h6 {
 }
 
 .footer-text {
-  font-family: 'Poiret One', cursive;
+  padding-top: 10px;
   letter-spacing: 0.1em;
+  font-family: 'Poiret One', cursive;
   font-size: 14px;
   font-weight: 300;
-  padding-top: 10px;
 }
