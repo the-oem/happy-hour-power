@@ -20,6 +20,7 @@ router.post(
   locationsController.addLocation
 );
 router.get('/v1/locations', locationsController.getLocations);
+router.get('/v1/locations/:id', locationsController.getLocationById);
 router.delete(
   '/v1/locations/:id',
   authController.checkAuth,
