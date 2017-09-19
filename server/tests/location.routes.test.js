@@ -24,6 +24,46 @@ describe('Testing Location API Routes', () => {
     });
   });
 
+  describe('GET /api/v1/locations/:id', () => {
+    it('should respond with a 200 status and a specific location', done => {
+      chai
+        .request(server)
+        .get('/api/v1/locations/1')
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(200);
+          res.type.should.equal('application/json');
+          res.body.data.length.should.equal(1);
+          res.body.data[0].should.include.keys(
+            'id',
+            'name',
+            'latitude',
+            'longitude',
+            'phone_number',
+            'website_url',
+            'google_maps_id',
+            'created_at',
+            'updated_at',
+            'location_type_id'
+          );
+          done();
+        });
+    });
+
+    it('should respond with a 200 status and an empty array if location not found', done => {
+      chai
+        .request(server)
+        .get('/api/v1/locations/99')
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(200);
+          res.type.should.equal('application/json');
+          res.body.data.length.should.equal(0);
+          done();
+        });
+    });
+  });
+
   describe('GET /api/v1/locations', () => {
     it('should respond with a 200 status and all locations', done => {
       chai

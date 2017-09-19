@@ -74,5 +74,6 @@ const deleteLocation = (req, res) => {
 module.exports = {
   addLocation,
   getLocations,
-  deleteLocation
+  deleteLocation,
+  getLocationById
 };
