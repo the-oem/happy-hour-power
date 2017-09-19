@@ -1,4 +1,5 @@
 import React from 'react';
+import DetailsPageContainer from '../containers/DetailsPageContainer';
 
 export const DisplayLocationDetails = ({ location }) => {
   return (
@@ -7,6 +8,7 @@ export const DisplayLocationDetails = ({ location }) => {
       <p className="loc-details">
         <b>Address:</b> {location.vicinity}
       </p>
+      <DetailsPageContainer />
     </div>
   );
 };
