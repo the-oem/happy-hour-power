@@ -21,7 +21,7 @@ router.post(
 );
 router.get('/v1/locations', locationsController.getLocations);
 router.delete(
-  '/v1/locations/destroy',
+  '/v1/locations/:id',
   authController.checkAuth,
   locationsController.deleteLocation
 );

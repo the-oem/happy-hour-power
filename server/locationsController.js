@@ -25,22 +25,6 @@ const addLocation = (req, res) => {
     .catch(error => res.status(500).json({ error }));
 };
 
-const addItem = (req, res) => {
-  const item = req.body;
-  for (const requiredParameter of ['name', 'staleness_reason', 'cleanliness']) {
-    if (!item[requiredParameter]) {
-      return res.status(422).json({
-        error: `Missing required parameter of (${requiredParameter}).`
-      });
-    }
-  }
-
-  DB('items')
-    .insert(req.body, '*')
-    .then(item => res.status(201).json({ data: item[0] }))
-    .catch(error => res.status(500).json({ error }));
-};
-
 const getLocations = (req, res) => {
   db('locations')
     .where(req.query)
@@ -50,25 +34,39 @@ const getLocations = (req, res) => {
 };
 
 const deleteLocation = (req, res) => {
-  const businessName = req.headers.businessName;
-  console.log(req.headers);
-  if (req.headers.userStatus !== 'admin') {
-    return res
-      .status(401)
-      .json({ message: 'You are not authorized to remove this business.' });
-  }
+  const locationId = parseInt(req.params.id, 10);
 
-  db('locations')
-    .where('name', businessName)
-    .select('id')
-    .then(businessId => {
-      db('happy_hours')
-        .where('id', businessId[0].id)
+  // db('happy_hours')
+  //   .del()
+  //   .where('location_id', locationId)
+  //   .then(data => {
+  //     db('locations')
+  //       .del()
+  //       .where('id', locationId)
+  //       // .catch(error => res.status(500).json({ error }))
+  //   })
+  //   .then(data => res.status(200).json({
+  //     data: {
+  //       message: `Location with ID (${locationId}) has been deleted.`
+  //     }
+  //   }))
+  //   .catch(error => res.status(500).json({ error }))
+
+  db('happy_hours')
+    .where('location_id', locationId)
+    .del()
+    .then(deletedCount => {
+      db('social_media')
+        .where('location_id', locationId)
         .del()
-        .then(noMore => {
-          res.status(200).json({
-            deleted: `'${businessName}' with the id '${noMore}' has been deleted`
-          });
+        .then(deletedCount => {
+          db('locations')
+            .where('id', locationId)
+            .del()
+            .then(deletedCount => {
+              res.status(200).json({ deletedCount });
+            })
+            .catch(error => res.status(500).json({ error }));
         })
         .catch(error => res.status(500).json({ error }));
     })
