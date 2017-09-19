@@ -1,4 +1,4 @@
-const detailsPageReducer = (state = {}, action) => {
+const detailsPageReducer = (state = [], action) => {
   switch (action.type) {
     case 'UPDATE_DETAIL':
       return {

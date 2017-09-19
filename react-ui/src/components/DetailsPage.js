@@ -1,19 +1,28 @@
 import React, { Component } from 'react';
+import '../styles/DetailsPage.css';
 
 export class DetailsPage extends Component {
   constructor(props) {
     super();
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const { id } = this.props.match.params;
-
     this.props.fetchDetail(id);
   }
 
   render() {
-    const { name } = this.props.locationDetails.location;
-    const happyHours = this.props.locationDetails.happyhours.map(hours => {
+    if (!this.props.locationDetails.location) {
+      return <p>Loader</p>;
+    }
+
+    const hours = this.props.locationDetails.location.data[0];
+    const location = this.props.locationDetails.location.data[1];
+    const { name, phone_number, website_url } = location;
+
+    console.log(location);
+
+    const happyHours = hours.map(hours => {
       const { timeslot, drink_specials, food_specials, id } = hours;
 
       const day = timeslot.slice(0, 3).toUpperCase();
@@ -40,6 +49,9 @@ export class DetailsPage extends Component {
     return (
       <div>
         <h3>{name}</h3>
+        <p>{phone_number}</p>
+        <p>{website_url}</p>
+        <h4>Happy Hours</h4>
         {happyHours}
       </div>
     );
