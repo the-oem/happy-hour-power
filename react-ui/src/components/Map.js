@@ -2,20 +2,26 @@ import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import { DEFAULT_LOCATION } from '../utils/constants';
 
-const BaseMap = withGoogleMap((props) => {
-  const markers = props.locations.map((location) => (
-    <Marker {...location.marker} onClick={() => props.handleMarkerClick(location)}/>
+const BaseMap = withGoogleMap(props => {
+  const markers = props.locations.map(location => (
+    <Marker
+      {...location.marker}
+      key={location.id}
+      onClick={() => props.handleMarkerClick(location)}
+    />
   ));
   const currentLocation = props.currentLocation.lat ? (
     <Marker
       position={props.currentLocation}
-      defaultAnimation='3'
+      defaultAnimation="3"
       icon={{
         url: 'assets/current-location.png',
-        scaledSize: new window.google.maps.Size(75, 75),
+        scaledSize: new window.google.maps.Size(75, 75)
       }}
     />
-  ) : ''
+  ) : (
+    ''
+  );
 
   return (
     <GoogleMap
@@ -45,17 +51,19 @@ export class Map extends Component {
   handleMapLoad(googleMap) {
     if (!this.gmap) return;
 
-    this.nearbySearch()
+    this.nearbySearch();
   }
 
   nearbySearch() {
     const { map } = this.gmap.state;
     const { center } = this.props;
-    const location = (center.lat && center.lng)
-      ? center
-      : new window.google.maps.LatLng(
-          DEFAULT_LOCATION.coordinates.lat,
-          DEFAULT_LOCATION.coordinates.lng)
+    const location =
+      center.lat && center.lng
+        ? center
+        : new window.google.maps.LatLng(
+            DEFAULT_LOCATION.coordinates.lat,
+            DEFAULT_LOCATION.coordinates.lng
+          );
 
     const request = {
       location,
@@ -68,8 +76,7 @@ export class Map extends Component {
 
     service.nearbySearch(request, (results, status) => {
       if (status === 'OK') {
-        this.props.nearbyLocations(results);
-        this.props.getLocations();
+        this.props.getLocations(results);
       }
     });
   }
@@ -85,30 +92,32 @@ export class Map extends Component {
     this.props.geolocate();
   }
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps !== this.props;
+  }
+
   render() {
-    const { center } = this.props
+    const { center } = this.props;
 
     // TODO: THIS CODE IS DUPLICATED: WILL NEED TO REFACTOR
+
     const location = (center.lat && center.lng)
       ? center
       : new window.google.maps.LatLng(
           DEFAULT_LOCATION.coordinates.lat,
           DEFAULT_LOCATION.coordinates.lng)
 
-
     return (
       <BaseMap
         ref={googleMap => (this.gmap = googleMap)}
-        containerElement={<div className='map-container' />}
-        mapElement={<div className='map-element' />}
+        containerElement={<div className="map-container" />}
+        mapElement={<div className="map-element" />}
         onMapLoad={this.handleMapLoad}
         handleMarkerClick={this.props.handleMarkerClick}
         locations={this.props.locations}
         currentLocation={this.props.currentLocation}
         onIdle={this.onIdle}
         center={location}
-        // onMapClick={this.handleMapClick}
-        // onMarkerRightClick={this.handleMarkerRightClick}
       />
     );
   }

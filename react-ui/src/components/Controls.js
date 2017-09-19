@@ -52,7 +52,8 @@ export default class Controls extends Component {
             </div>
           )}
         />
-
+        <Route exact path='/detail/:id' component={DetailsPageContainer}/>
+        <Route exact path='/new-location' component={DetailsPageContainer}/>
         <Route exact path="/detail" component={DetailsPageContainer} />
       </div>
     );

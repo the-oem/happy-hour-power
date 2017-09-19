@@ -6,7 +6,8 @@ const locationsReducer = (state = [], action) => {
       return action.data;
 
     case 'DATABASE_LOCATIONS':
-      const newState = [...state].map((place) => {
+    // console.log(action);
+      return action.googleMapsLocations.map((place) => {
         const { lat, lng } = place.geometry.location;
         const position = { lat: lat(), lng: lng()}
         let location = {};
@@ -22,7 +23,6 @@ const locationsReducer = (state = [], action) => {
 
         return Object.assign({}, place, { marker },{ inTable },{ location })
       })
-      return newState;
 
     default:
       return state;
