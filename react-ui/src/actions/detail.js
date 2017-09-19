@@ -12,11 +12,10 @@ export const detailLoading = bool => {
   };
 };
 
-export const updateDetail = (location, happyhours = null) => {
+export const updateDetail = location => {
   return {
     type: 'UPDATE_DETAIL',
-    location,
-    happyhours
+    location
   };
 };
 
@@ -37,7 +36,7 @@ export const fetchDetail = id => {
       .then(({ data }) => data[0]);
 
     Promise.all([happyHours, location]).then(data => {
-      console.log(data);
+      dispatch(updateDetail({ data }));
     });
   };
 };

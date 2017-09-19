@@ -7,18 +7,20 @@ export class DetailsPage extends Component {
   }
 
   componentWillMount() {
-    console.log('Hello');
     const { id } = this.props.match.params;
-
     this.props.fetchDetail(id);
   }
 
   render() {
-    return <p>Hi</p>;
-    console.log(this.props);
+    if (!this.props.locationDetails.location) {
+      return <p>Loader</p>;
+    }
 
-    const { name } = this.props.locationDetails.location;
-    const happyHours = this.props.locationDetails.happyhours.map(hours => {
+    const hours = this.props.locationDetails.location.data[0];
+    const location = this.props.locationDetails.location.data[1];
+    const { name } = location;
+
+    const happyHours = hours.map(hours => {
       const { timeslot, drink_specials, food_specials, id } = hours;
 
       const day = timeslot.slice(0, 3).toUpperCase();
