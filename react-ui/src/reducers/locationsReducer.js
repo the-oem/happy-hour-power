@@ -6,7 +6,6 @@ const locationsReducer = (state = [], action) => {
       return action.data;
 
     case 'DATABASE_LOCATIONS':
-    // console.log(action);
       return action.googleMapsLocations.map((place) => {
         const { lat, lng } = place.geometry.location;
         const position = { lat: lat(), lng: lng()}
