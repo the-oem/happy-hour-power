@@ -33,6 +33,16 @@ const getLocations = (req, res) => {
     .catch(error => res.status(500).json({ error }));
 };
 
+const getLocationById = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  db('locations')
+    .where('id', id)
+    .select()
+    .then(location => res.status(200).json({ data: location }))
+    .catch(error => res.status(500).json({ error }));
+};
+
 const deleteLocation = (req, res) => {
   const locationId = parseInt(req.params.id, 10);
 
