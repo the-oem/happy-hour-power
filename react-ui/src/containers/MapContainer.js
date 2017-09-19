@@ -12,7 +12,7 @@ import {
 const mapDispatchToProps = dispatch => {
   return {
     geolocate: () => dispatch(geolocate()),
-    getLocations: () => dispatch(getLocations()),
+    getLocations: (googleMapsLocations) => dispatch(getLocations(googleMapsLocations)),
     nearbyLocations: (locations) => dispatch(nearbyLocations(locations)),
     handleMarkerClick: (position) => dispatch(handleMarkerClick(position)),
     mapCenter: (position) => dispatch(mapCenter(position))
