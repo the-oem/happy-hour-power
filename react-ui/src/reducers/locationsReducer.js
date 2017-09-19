@@ -22,7 +22,6 @@ const locationsReducer = (state = [], action) => {
 
         return Object.assign({}, place, { marker },{ inTable },{ location })
       })
-
       return newState;
 
     default:
