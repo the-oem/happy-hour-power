@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../styles/DetailsPage.css';
 
 export class DetailsPage extends Component {
   constructor(props) {
