@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RenderMapContainer from '../containers/RenderMapContainer';
 import RenderList from './RenderList';
+import DetailsPage from './DetailsPage';
 import '../styles/Controls.css';
 
 export default class Controls extends Component {
