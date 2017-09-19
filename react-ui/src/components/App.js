@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/App.css';
 import ControlsContainer from '../containers/ControlsContainer';
 
-const App = () => {
+const App = (props) => {
   return (
     <div className="App">
       <header className="App-header">
@@ -10,7 +10,7 @@ const App = () => {
       </header>
       <main className="main-content">
         <div className="controls">
-          <ControlsContainer />
+          <ControlsContainer {...props}/>
         </div>
       </main>
 

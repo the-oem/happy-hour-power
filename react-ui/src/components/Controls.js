@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import RenderMapContainer from '../containers/RenderMapContainer';
 import RenderList from './RenderList';
-import DetailsPage from './DetailsPage';
+import DetailsPageContainer from '../containers/DetailsPageContainer';
 import '../styles/Controls.css';
+import { Route } from 'react-router-dom'
 
 export default class Controls extends Component {
   constructor() {
@@ -19,21 +20,30 @@ export default class Controls extends Component {
   }
 
   render() {
-    const display =
-      this.state.view === true ? <RenderMapContainer /> : <RenderList />;
     const buttonText = this.state.view === true ? 'LIST' : 'MAP';
 
     return (
       <div>
-        <div className="controls-container">
-          <p className="slogan">
-            Search for the best Happy Hour deals near you!
-          </p>
-          <button className="toggle-btn" onClick={() => this.toggleClass()}>
-            {buttonText}
-          </button>
-        </div>
-        <div className="map-list-view">{display}</div>
+        <Route exact path='/' render={(props) => (
+          <div>
+            <div className="controls-container">
+              <p className="slogan">
+                Search for the best Happy Hour deals near you!
+              </p>
+              <button className="toggle-btn" onClick={() => this.toggleClass()}>
+                {buttonText}
+              </button>
+            </div>
+            <div className="map-list-view">
+              {!!this.state.view
+                ? <RenderMapContainer {...props} />
+                : <RenderList {...props} />}
+            </div>
+          </div>
+        )}/>
+
+        <Route exact path='/detail' component={DetailsPageContainer}/>
+
       </div>
     );
   }
