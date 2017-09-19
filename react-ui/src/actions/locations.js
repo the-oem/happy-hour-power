@@ -6,12 +6,19 @@ export const databaseLocations = (locations, googleMapsLocations) => {
   }
 }
 
-export const locationsError = (error) => {
+export const locationsError = error => {
   return {
     type: 'LOCATIONS_ERROR',
-    error,
-  }
-}
+    error
+  };
+};
+
+export const addHappyHours = data => {
+  return {
+    type: 'ADD_HAPPYHOURS',
+    data
+  };
+};
 
 export const getLocations = (googleMapsLocations) => {
   return (dispatch) => {
@@ -20,8 +27,8 @@ export const getLocations = (googleMapsLocations) => {
       .then(({data}) => {
         dispatch(databaseLocations(data, googleMapsLocations));
       })
-      .catch((error) => {
-        dispatch(locationsError(error))
-      })
-  }
-}
+      .catch(error => {
+        dispatch(locationsError(error));
+      });
+  };
+};

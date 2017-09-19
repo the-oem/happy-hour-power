@@ -1,0 +1,8 @@
+.hours {
+  display: flex;
+  justify-content: center;
+}
+
+.hour {
+  height: 25px;
+}
