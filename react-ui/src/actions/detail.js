@@ -34,10 +34,10 @@ export const fetchDetail = id => {
 
     const location = fetch(`/api/v1/locations/${id}`)
       .then(res => res.json())
-      .then(({ data }) => data);
+      .then(({ data }) => data[0]);
 
     Promise.all([happyHours, location]).then(data => {
-      dispatch(updateDetail(data));
+      console.log(data);
     });
   };
 };
