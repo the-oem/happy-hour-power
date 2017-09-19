@@ -1,9 +1,10 @@
-export const databaseLocations = locations => {
+export const databaseLocations = (locations, googleMapsLocations) => {
   return {
     type: 'DATABASE_LOCATIONS',
-    locations
-  };
-};
+    locations,
+    googleMapsLocations,
+  }
+}
 
 export const locationsError = error => {
   return {
@@ -19,12 +20,12 @@ export const addHappyHours = data => {
   };
 };
 
-export const getLocations = () => {
-  return dispatch => {
+export const getLocations = (googleMapsLocations) => {
+  return (dispatch) => {
     fetch('/api/v1/locations')
       .then(res => res.json())
-      .then(({ data }) => {
-        dispatch(databaseLocations(data));
+      .then(({data}) => {
+        dispatch(databaseLocations(data, googleMapsLocations));
       })
       .catch(error => {
         dispatch(locationsError(error));

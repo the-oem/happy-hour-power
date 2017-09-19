@@ -1,4 +1,4 @@
-import activeLocationReducer from '../../reducers/ activeLocationReducer';
+import activeLocationReducer from '../../reducers/activeLocationReducer';
 
 describe('activeLocationReducer', () => {
   it('should return a default state', () => {

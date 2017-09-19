@@ -33,6 +33,7 @@ export const geolocate = () => {
         }
 
         dispatch(currentLocation(coordinates));
+        dispatch(mapCenter(coordinates));
       });
     } else {
 

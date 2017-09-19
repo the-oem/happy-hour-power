@@ -76,8 +76,7 @@ export class Map extends Component {
 
     service.nearbySearch(request, (results, status) => {
       if (status === 'OK') {
-        this.props.nearbyLocations(results);
-        this.props.getLocations();
+        this.props.getLocations(results);
       }
     });
   }
@@ -91,6 +90,10 @@ export class Map extends Component {
 
   componentDidMount() {
     this.props.geolocate();
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return nextProps !== this.props;
   }
 
   render() {
