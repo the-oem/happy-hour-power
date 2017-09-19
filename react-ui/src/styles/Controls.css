@@ -3,6 +3,7 @@
 }
 
 .controls-container {
+  height: 55px;
   display: flex;
 }
 

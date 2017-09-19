@@ -7,6 +7,7 @@ const locationsController = require('./locationsController');
 const locationTypeController = require('./locationTypeController');
 const happyHoursController = require('./happyHoursController');
 
+// AUTH
 router.post('/v1/auth', authController.getAuth);
 router.post(
   '/v1/auth/test',
@@ -14,11 +15,14 @@ router.post(
   authController.testCheckAuth
 );
 
+// LOCATIONS
+router.get('/v1/locations', locationsController.getLocations);
 router.post(
   '/v1/locations',
   authController.checkAuth,
   locationsController.addLocation
 );
+
 router.get('/v1/locations', locationsController.getLocations);
 router.get('/v1/locations/:id', locationsController.getLocationById);
 router.delete(
@@ -27,6 +31,7 @@ router.delete(
   locationsController.deleteLocation
 );
 
+// HAPPY HOURS
 router.get(
   '/v1/locations/:id/happyhours',
   happyHoursController.getHappyHoursByLocation
@@ -47,6 +52,22 @@ router.delete(
   happyHoursController.deleteHappyHours
 );
 
+// LOCATION TYPES
 router.get('/v1/locationtypes', locationTypeController.getLocationTypes);
+router.post(
+  '/v1/locationtypes',
+  authController.checkAuth,
+  locationTypeController.addLocationType
+);
+router.put(
+  '/v1/locationtypes/:id',
+  authController.checkAuth,
+  locationTypeController.updateLocationType
+);
+router.delete(
+  '/v1/locationtypes/:id',
+  authController.checkAuth,
+  locationTypeController.deleteLocationType
+);
 
 module.exports = router;

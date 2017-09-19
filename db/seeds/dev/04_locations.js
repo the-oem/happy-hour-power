@@ -54,7 +54,7 @@ const locations = [
     longitude: 104.8921,
     phone_number: '(303)953-0229',
     website_url: 'www.doordash.com',
-    google_maps_id: '',
+    google_maps_id: '3e29986ae7134b063a8a2cfff7af0bad9321c7df',
     location_type_id: 2
   },
   {
