@@ -4,7 +4,7 @@ import { addHappyHours } from '../actions';
 
 const mapStateToProps = state => {
   return {
-    newLocation: state.newLocation
+    activeLocation: state.activeLocation
   };
 };
 

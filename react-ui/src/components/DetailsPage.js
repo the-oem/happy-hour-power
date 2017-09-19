@@ -16,8 +16,8 @@ export class DetailsPage extends Component {
       return <p>Loader</p>;
     }
 
-    const hours = this.props.locationDetails.location.data[0];
-    const location = this.props.locationDetails.location.data[1];
+    const hours = this.props.locationDetails.location[0];
+    const location = this.props.locationDetails.location[1];
     const { name, phone_number, website_url } = location;
 
     console.log(location);
