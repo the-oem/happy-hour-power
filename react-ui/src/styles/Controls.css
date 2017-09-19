@@ -3,33 +3,42 @@
 }
 
 .controls-container {
-  height: 55px;
   display: flex;
+  height: 55px;
 }
 
 .slogan {
-  padding: 0;
-  margin: 0 20px 10px 20px;
   width: 85%;
+  margin: 0 20px 10px 20px;
+  padding: 0;
+  color: #c5a12b;
   font-family: 'Architects Daughter', cursive;
   font-size: 20px;
-  color: #c5a12b;
 }
 
 .toggle-btn {
-  height: 40px;
   width: 70px;
-  width: 15%;
+  width: 125px;
+  height: 40px;
   margin: 0 18px 15px 0;
-  background-color: #dbb330;
-  font-size: 18px;
+  padding-left: 38px;
   letter-spacing: 0.2em;
   border: none;
   outline: none;
-  /*font-family: 'Josefin Slab', serif;*/
+  background-color: #dbb330;
+  background-position: 12px;
+  background-size: 25px 25px;
+  background-repeat: no-repeat;
   font-family: 'Poiret One', cursive;
+  font-size: 18px;
   font-weight: bold;
-  padding-left: 10px;
+  cursor: pointer;
 }
 
-/*font-family: 'Bubbler One', sans-serif;*/
+.btn-map {
+  background-image: url('../../public/assets/map-1.svg');
+}
+
+.btn-list {
+  background-image: url('../../public/assets/list-1.svg');
+}
