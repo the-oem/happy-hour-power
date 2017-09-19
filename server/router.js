@@ -22,8 +22,11 @@ router.post(
   authController.checkAuth,
   locationsController.addLocation
 );
+
+router.get('/v1/locations', locationsController.getLocations);
+router.get('/v1/locations/:id', locationsController.getLocationById);
 router.delete(
-  '/v1/locations/destroy',
+  '/v1/locations/:id',
   authController.checkAuth,
   locationsController.deleteLocation
 );

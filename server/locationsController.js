@@ -33,26 +33,38 @@ const getLocations = (req, res) => {
     .catch(error => res.status(500).json({ error }));
 };
 
-const deleteLocation = (req, res) => {
-  const businessName = req.headers.businessName;
-  console.log(req.headers);
-  if (req.headers.userStatus !== 'admin') {
-    return res
-      .status(401)
-      .json({ message: 'You are not authorized to remove this business.' });
-  }
+const getLocationById = (req, res) => {
+  const id = parseInt(req.params.id, 10);
 
   db('locations')
-    .where('name', businessName)
-    .select('id')
-    .then(businessId => {
-      db('happy_hours')
-        .where('id', businessId[0].id)
+    .where('id', id)
+    .select()
+    .then(location => res.status(200).json({ data: location }))
+    .catch(error => res.status(500).json({ error }));
+};
+
+const deleteLocation = (req, res) => {
+  const locationId = parseInt(req.params.id, 10);
+
+  db('happy_hours')
+    .where('location_id', locationId)
+    .del()
+    .then(deletedCount => {
+      db('social_media')
+        .where('location_id', locationId)
         .del()
-        .then(noMore => {
-          res.status(200).json({
-            deleted: `'${businessName}' with the id '${noMore}' has been deleted`
-          });
+        .then(deletedCount => {
+          db('locations')
+            .where('id', locationId)
+            .del()
+            .then(deletedCount => {
+              res.status(200).json({
+                data: {
+                  message: `Location with ID (${locationId}) has been deleted.`
+                }
+              });
+            })
+            .catch(error => res.status(500).json({ error }));
         })
         .catch(error => res.status(500).json({ error }));
     })
@@ -62,5 +74,6 @@ const deleteLocation = (req, res) => {
 module.exports = {
   addLocation,
   getLocations,
-  deleteLocation
+  deleteLocation,
+  getLocationById
 };
