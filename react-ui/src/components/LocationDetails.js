@@ -12,6 +12,7 @@ export default class LocationDetails extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
     const { name, vicinity } = nextProps.currentLocation;
 
     if (name && vicinity) {
@@ -25,7 +26,7 @@ export default class LocationDetails extends Component {
 
   render() {
     const status = this.state.hidden ? 'hidden' : 'shown';
-
+    console.log(this.props);
     const { name, vicinity, inTable } = this.props.currentLocation;
 
     const link = inTable
