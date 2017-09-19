@@ -18,15 +18,15 @@
 
 .toggle-btn {
   width: 70px;
-  width: 120px;
+  width: 125px;
   height: 40px;
   margin: 0 18px 15px 0;
-  padding-left: 35px;
+  padding-left: 38px;
   letter-spacing: 0.2em;
   border: none;
   outline: none;
   background-color: #dbb330;
-  background-position: 15px;
+  background-position: 12px;
   background-size: 25px 25px;
   background-repeat: no-repeat;
   font-family: 'Poiret One', cursive;
@@ -36,7 +36,7 @@
 }
 
 .btn-map {
-  background-image: url('../../public/assets/map-location.svg');
+  background-image: url('../../public/assets/map-1.svg');
 }
 
 .btn-list {
