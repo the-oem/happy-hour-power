@@ -36,7 +36,7 @@ export const fetchDetail = id => {
       .then(({ data }) => data[0]);
 
     Promise.all([happyHours, location]).then(data => {
-      dispatch(updateDetail({ data }));
+      dispatch(updateDetail(data));
     });
   };
 };

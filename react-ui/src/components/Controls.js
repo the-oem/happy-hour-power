@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import RenderMapContainer from '../containers/RenderMapContainer';
 import RenderList from './RenderList';
 import DetailsPageContainer from '../containers/DetailsPageContainer';
+import NewLocationContainer from '../containers/NewLocationContainer';
 import '../styles/Controls.css';
 import { Route } from 'react-router-dom';
 
@@ -52,9 +53,9 @@ export default class Controls extends Component {
             </div>
           )}
         />
-        <Route exact path='/detail/:id' component={DetailsPageContainer}/>
-        <Route exact path='/new-location' component={DetailsPageContainer}/>
-        <Route exact path="/detail" component={DetailsPageContainer} />
+
+        <Route exact path="/detail/:id" component={DetailsPageContainer} />
+        <Route exact path="/new-location" component={NewLocationContainer} />
       </div>
     );
   }
