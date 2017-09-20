@@ -23,7 +23,12 @@ export class NewLocation extends Component {
     // console.log(this.state);
   }
 
+  componentDidMount(){
+    this.props.generateToken()
+  }
+
   render() {
+    console.log(this.props.token);
     if (!this.props.activeLocation) {
       return <p>Not here yet</p>;
     }
