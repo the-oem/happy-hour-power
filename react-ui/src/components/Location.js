@@ -1,23 +1,29 @@
 import React from 'react';
 import '../styles/List.css';
+import { Link } from 'react-router-dom'
 
-const Location = ({ name, vicinity, rating }) => {
+const Location = props => {
+  const link = props.inTable
+    ? `/detail/${props.location.id}`
+    : `/new-location`;
+
+
   return (
     <div className="location">
       <div className="location-container">
-        <h2 className="location-name">{name}</h2>
+        <h2 className="location-name">{props.name}</h2>
         <p>
-          <b>Address:</b> {vicinity}
+          <b>Address:</b> {props.vicinity}
         </p>
         <p>
-          <b>Rating:</b> {rating}
+          <b>Rating:</b> {props.rating}
         </p>
       </div>
-      <img
+      <Link
+        to={link}
         className="see-more-icon"
-        src={require('../../public/assets/right-arrow-light.svg')}
-        alt="link to see more details"
-      />
+      >
+      </Link>
     </div>
   );
 };
