@@ -74,8 +74,7 @@ export class Map extends Component {
     const request = {
       location,
       radius: '500',
-      type: ['bar'],
-      openNow: true
+      type: ['bar']
     };
 
     const service = new window.google.maps.places.PlacesService(map);

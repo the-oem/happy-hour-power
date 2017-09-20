@@ -5,9 +5,8 @@ p {
 }
 
 .details-page-container {
-  min-height: 460px;
-  padding-top: 3px;
-  padding-bottom: 20px;
+  height: calc(100vh - 160px);
+  padding: 10px;
   font-family: 'Josefin Slab', serif;
   font-size: 20px;
   background-color: #6b8b9b;
