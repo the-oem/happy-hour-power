@@ -58,6 +58,10 @@ select {
   width: 120px;
 }
 
+select.day {
+  width: 140px;
+}
+
 .form-piece select {
   margin: 0 10px;
 }

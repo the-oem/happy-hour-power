@@ -107,6 +107,7 @@ export class NewLocation extends Component {
           <div className="form-piece">
             <p className="day-name">Day</p>
             <select className="day" onChange={e => this.updateInput(e, 'day')}>
+              <option>Day of the Week</option>
               <option value="mon">Monday</option>
               <option value="tue">Tuesday</option>
               <option value="wed">Wednesday</option>
@@ -123,6 +124,7 @@ export class NewLocation extends Component {
               className="start"
               onChange={e => this.updateInput(e, 'startingHour')}
             >
+              <option>-- Start Time --</option>
               <option>01:00</option>
               <option>02:00</option>
               <option>03:00</option>
@@ -154,6 +156,7 @@ export class NewLocation extends Component {
               className="end"
               onChange={e => this.updateInput(e, 'endingHour')}
             >
+              <option>-- End Time --</option>
               <option>01:00</option>
               <option>02:00</option>
               <option>03:00</option>
