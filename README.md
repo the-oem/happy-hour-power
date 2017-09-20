@@ -10,7 +10,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 [![CircleCI](https://circleci.com/gh/the-oem/happy-hour-power/tree/master.svg?style=svg)](https://circleci.com/gh/the-oem/happy-hour-power/tree/master)
 
-### Prerequisites
+### Prerequisites & Installation
 
 This application is broken up into two distinct pieces, the server and the client. In order to get this running locally, you need to install dependencies for both the client and the server.
 
@@ -30,68 +30,65 @@ cd react-ui
 npm install
 ```
 
-### Installing
+## Running the Application
 
-A step by step series of examples that tell you have to get a development env running
+_Running the front end application:_
 
-Say what the step will be
-
+From the root of the project...
 ```
-Give the example
-```
-
-And repeat
-
-```
-until finished
+cd react-ui
+npm start
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+_Running the server back-end application:_
+
+From the root of the project...
+```
+npm start
+```
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+There are two distinct test suites for this application, one for the front-end and one for the back-end.
 
-### Break down into end to end tests
+_Running the front end tests:_
 
-Explain what these tests test and why
-
+From the root of the project...
 ```
-Give an example
+cd react-ui
+npm test
 ```
 
-### And coding style tests
+_Running the server back-end tests:_
 
-Explain what these tests test and why
-
+From the root of the project...
 ```
-Give an example
+npm test
 ```
 
 ## Deployment
 
-This application is currently configured with [CircleCI], and automated [Heroku]() deployments from the master branch. The production URL of the application can be found at [http://happyhourpower.herokuapp.com](http://happyhourpower.herokuapp.com).
+This application is currently configured with [CircleCI], and automated [Heroku](https://www.heroku.com/) deployments from the master branch. The production URL of the application can be found at [https://happyhourpower.herokuapp.com/](https://happyhourpower.herokuapp.com/).
 
 ## Built With
 
 #### Front-End Application
+_Created from a base clone of [this repo](https://github.com/mars/heroku-cra-node)._
 * [React](https://facebook.github.io/react/) - A JavaScript library for building user interfaces
 * [Redux](http://redux.js.org/) - a predictable state container for JavaScript apps
 
-### Back-End Application
+#### Back-End Application
 * [NodeJS](https://nodejs.org/en/) - JavaScript runtime
 * [ExpressJS](https://expressjs.com/) - a minimal and flexible Node.js web application used to build the server endpoints
 * [KNEX](http://knexjs.org/) - a "batteries included" SQL query builder for Postgres
 
-_Created from a base clone of [this repo](https://github.com/mars/heroku-cra-node)._
-
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+TODO: Add a CONTRIBUTING.md file for future contributors.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
+The API is currently version 1. Future versioning strategies/tools will be documented here.
 
 ## API Usage
 Explanation coming
