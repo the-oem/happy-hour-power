@@ -46,6 +46,7 @@
   margin: auto;
   background-color: #9eb4bc;
   border: 2px solid #9eb4bc;
+  cursor: pointer;
 }
 
 .submit-hours:hover {
@@ -83,7 +84,6 @@ select {
   outline: 1px solid #dbb330;
 }
 
-
 .location-uploaded {
   height: 0;
   margin: 0;
@@ -96,7 +96,7 @@ select {
   z-index: 3;
   background-color: #dbb330;
   color: #000;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   content: '';
 }
 
