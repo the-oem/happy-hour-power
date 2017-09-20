@@ -1,26 +1,74 @@
 import React, { Component } from 'react';
 import '../styles/NewLocation.css';
+import Location from '../model/Location';
+import HappyHour from '../model/HappyHour';
+
+const initialState = {
+  inputs: {
+    day: '',
+    startingHour: '',
+    endingHour: '',
+    drinkSpecials: '',
+    foodSpecials: '',
+  },
+  uploaded: '',
+};
+
 
 export class NewLocation extends Component {
   constructor(props) {
     super();
-    this.state = {
-      day: '',
-      startingHour: '',
-      endingHour: '',
-      drinkSpecials: '',
-      foodSpecials: ''
-    };
+    this.state = initialState
     this.updateInput = this.updateInput.bind(this);
     this.submitForm = this.submitForm.bind(this);
   }
 
   updateInput(e, key) {
-    this.setState({ [key]: e.target.value });
+    this.setState({
+      inputs: Object.assign({}, this.state.inputs, {[key]: e.target.value})
+    });
   }
 
   submitForm() {
-    // console.log(this.state);
+    const { activeLocation } = this.props;
+
+    const location = new Location(this.props.activeLocation, 'website', 'phone_number', 2)
+
+    this.postRequest('api/v1/locations', location)
+      .then(locationResponse => {
+        const location = locationResponse.data[0];
+        const happyHourInput = new HappyHour(location.id, this.state.inputs)
+
+        return this.postRequest('api/v1/happyhours', happyHourInput)
+          .then(happyHourResponse => {
+            this.setState(Object.assign({}, initialState, { uploaded: location.name }));
+            this.resetLocation();
+          })
+      })
+  }
+
+  postRequest(endpoint, content) {
+    const { token } = this.props;
+    const body = Object.assign(content, token);
+
+    return fetch(endpoint, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(body),
+    })
+    .then(res => res.json());
+  }
+
+  componentDidMount(){
+    this.props.generateToken()
+  }
+
+  resetLocation() {
+    setTimeout(() => {
+      this.setState({ uploaded: '' })
+    }, 5000)
   }
 
   render() {
@@ -29,8 +77,14 @@ export class NewLocation extends Component {
     }
     const { name, rating, vicinity } = this.props.activeLocation;
 
+    const disabled = Object.keys(this.state.inputs)
+      .findIndex(key => this.state.inputs[key].length < 1) >= 0;
+
     return (
       <div className="details-page-container">
+        <p className={`location-uploaded ${this.state.uploaded !== '' ? 'active' : ''}`}>
+          {this.state.uploaded} was uploaded.
+        </p>
         <h3 className="google-location-name">{name}</h3>
         <p className="info">
           There are no happy hours listed for this location.
@@ -38,7 +92,7 @@ export class NewLocation extends Component {
         <p className="add">Add Happy Hour Information</p>
 
         <div className="form">
-          <div className=" form-piece">
+          <div className="form-piece">
             <p className="day-name">Day</p>
             <select className="day" onChange={e => this.updateInput(e, 'day')}>
               <option>mon</option>
@@ -55,7 +109,7 @@ export class NewLocation extends Component {
             <label>Start Time</label>
             <select
               className="start"
-              onChange={e => this.updateInput(e, 'startinghour')}
+              onChange={e => this.updateInput(e, 'startingHour')}
             >
               <option>01:00</option>
               <option>02:00</option>
@@ -136,7 +190,10 @@ export class NewLocation extends Component {
               onChange={e => this.updateInput(e, 'foodSpecials')}
             />
           </div>
-          <button className="submit-hours" onClick={() => this.submitForm()}>
+          <button
+            className="submit-hours"
+            onClick={() => this.submitForm()}
+            disabled={disabled}>
             Submit
           </button>
         </div>

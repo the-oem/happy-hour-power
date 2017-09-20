@@ -5,8 +5,10 @@ import activeLocationReducer from './activeLocationReducer';
 import mapCenterReducer from './mapCenterReducer';
 import detailsPageReducer from './detailsPageReducer';
 import newLocationReducer from './newLocationReducer';
+import authReducer from './authReducer';
 
 const rootReducer = combineReducers({
+  token: authReducer,
   currentLocation: currentLocationReducer,
   locations: locationsReducer,
   activeLocation: activeLocationReducer,

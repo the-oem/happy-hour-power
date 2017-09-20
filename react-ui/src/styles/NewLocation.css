@@ -82,3 +82,25 @@ select {
 .food-specials:focus {
   outline: 1px solid #dbb330;
 }
+
+
+.location-uploaded {
+  height: 0;
+  margin: 0;
+  padding: 0 10px;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 3;
+  background-color: #dbb330;
+  color: #000;
+  transition: all .3s ease;
+  content: '';
+}
+
+.location-uploaded.active {
+  height: 24px;
+  line-height: 24px;
+}
