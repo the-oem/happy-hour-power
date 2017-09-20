@@ -39,7 +39,7 @@ export class NewLocation extends Component {
       2
     );
 
-    this.postRequest('api/v1/locations', location).then(locationResponse => {
+    this.postRequest('/api/v1/locations', location).then(locationResponse => {
       const location = locationResponse.data[0];
       const happyHourInput = new HappyHour(location.id, this.state.inputs);
       return this.postRequest(

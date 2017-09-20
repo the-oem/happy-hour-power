@@ -15,17 +15,17 @@ export default class LocationDetails extends Component {
     const { name, vicinity } = nextProps.currentLocation;
 
     if (name && vicinity) {
-      this.setState({ hidden: false })
+      this.setState({ hidden: false });
     }
   }
 
   toggleHidden() {
-    this.setState({ hidden: !this.state.hidden })
+    this.setState({ hidden: !this.state.hidden });
   }
 
   render() {
-    const status = this.state.hidden ? 'hidden' : 'shown';
-    
+    const status = this.state.hidden ? ' hidden' : '';
+
     const { name, vicinity, inTable } = this.props.currentLocation;
 
     const link = inTable
@@ -33,7 +33,7 @@ export default class LocationDetails extends Component {
       : `/new-location`;
 
     return (
-      <div className={`current-location ${status}`}>
+      <div className={`current-location${status}`}>
         <div className='current-location__content'>
           <h3 className='current-location__name'>{name}</h3>
           <p className='current-location__address'>Address: {vicinity}</p>
