@@ -6,22 +6,22 @@ const locationsReducer = (state = [], action) => {
       return action.data;
 
     case 'DATABASE_LOCATIONS':
-      return action.googleMapsLocations.map((place) => {
+      return action.googleMapsLocations.map(place => {
         const { lat, lng } = place.geometry.location;
-        const position = { lat: lat(), lng: lng()}
+        const position = { lat: lat(), lng: lng() };
         let location = {};
 
-        const inTable = !! action.locations.find((databaseLocation) => {
+        const inTable = !!action.locations.find(databaseLocation => {
           if (databaseLocation.google_maps_id === place.id) {
             location = databaseLocation;
             return true;
           }
         });
 
-        const marker = new Marker(position, place.id, place.name, inTable, 2)
+        const marker = new Marker(position, place.id, place.name, inTable, 2);
 
-        return Object.assign({}, place, { marker },{ inTable },{ location })
-      })
+        return Object.assign({}, place, { marker }, { inTable }, { location });
+      });
 
     default:
       return state;
