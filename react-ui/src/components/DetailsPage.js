@@ -20,7 +20,6 @@ export class DetailsPage extends Component {
     const location = this.props.locationDetails.location[1];
     const { name, phone_number, website_url } = location;
 
-    console.log(location);
 
     const happyHours = hours.map(hours => {
       const { timeslot, drink_specials, food_specials, id } = hours;
