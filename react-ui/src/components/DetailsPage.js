@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { DAYS_OF_WEEK } from '../utils/constants';
 import '../styles/DetailsPage.css';
 
 export class DetailsPage extends Component {
@@ -28,7 +29,7 @@ export class DetailsPage extends Component {
       const endTime = timeslot.slice(10, 15);
       const happyHourTimes = (
         <div>
-          <p>{day}</p>
+          <p>{DAYS_OF_WEEK[day]}</p>
           <p>
             {beginTime} - {endTime}
           </p>

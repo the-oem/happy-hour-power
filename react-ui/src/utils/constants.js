@@ -5,3 +5,13 @@ export const DEFAULT_LOCATION = {
     lng: -104.996529
   }
 };
+
+export const DAYS_OF_WEEK = {
+  mon: 'Monday',
+  tue: 'Tuesday',
+  wed: 'Wednesday',
+  thu: 'Thursday',
+  fri: 'Friday',
+  sat: 'Saturday',
+  sun: 'Sunday'
+};
