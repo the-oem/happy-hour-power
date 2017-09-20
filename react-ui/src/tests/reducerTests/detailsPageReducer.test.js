@@ -8,7 +8,7 @@ describe('detailsPageReducer', () => {
     expect(detailsPageReducer(undefined, {})).toEqual({});
   });
 
-  it.only('should return ', () => {
+  it.only('should update the state with happy hours and locations', () => {
     const locations = stubDBLocations;
     const happyhours = stubDBHappyHours;
 
