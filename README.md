@@ -70,13 +70,20 @@ Give an example
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+This application is currently configured with [CircleCI], and automated [Heroku]() deployments from the master branch. The production URL of the application can be found at [http://happyhourpower.herokuapp.com](http://happyhourpower.herokuapp.com).
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+#### Front-End Application
+* [React](https://facebook.github.io/react/) - A JavaScript library for building user interfaces
+* [Redux](http://redux.js.org/) - a predictable state container for JavaScript apps
+
+### Back-End Application
+* [NodeJS](https://nodejs.org/en/) - JavaScript runtime
+* [ExpressJS](https://expressjs.com/) - a minimal and flexible Node.js web application used to build the server endpoints
+* [KNEX](http://knexjs.org/) - a "batteries included" SQL query builder for Postgres
+
+_Created from a base clone of [this repo](https://github.com/mars/heroku-cra-node)._
 
 ## Contributing
 
@@ -144,16 +151,15 @@ When data is returned from a successful API request, the data will be formatted 
 ## Authors
 
 * **Jason Collins** - [GitHub](https://github.com/the-oem)
-* **Cole Worsley** - [GitHub](https://github.com/PurpleBooth)
-* **Justyna Field** - [GitHub](https://github.com/PurpleBooth)
-* **Daniel Bucket** - [GitHub](https://github.com/PurpleBooth)
+* **Cole Worsley** - [GitHub](https://github.com/coleworsley)
+* **Justyna Field** - [GitHub](https://github.com/JustynaField)
+* **Daniel Bucket** - [GitHub](https://github.com/danielbucket)
 
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/the-oem/happy-hour-power/graphs/contributors) who participated in this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License
 
 ## Acknowledgments
 
