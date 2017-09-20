@@ -3,13 +3,19 @@ import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import { DEFAULT_LOCATION } from '../utils/constants';
 
 const BaseMap = withGoogleMap(props => {
+  const active = id => {
+    return id === props.activeLocation.id ? 1.0 : 0.65;
+  };
+
   const markers = props.locations.map(location => (
     <Marker
       {...location.marker}
       key={location.id}
+      opacity={active(location.id)}
       onClick={() => props.handleMarkerClick(location)}
     />
   ));
+
   const currentLocation = props.currentLocation.lat ? (
     <Marker
       position={props.currentLocation}
@@ -29,7 +35,6 @@ const BaseMap = withGoogleMap(props => {
       defaultZoom={16}
       defaultCenter={DEFAULT_LOCATION.coordinates}
       center={props.center || DEFAULT_LOCATION.coordinates}
-      onClick={props.onMapClick}
       onIdle={props.onIdle}
     >
       {currentLocation}
@@ -101,11 +106,13 @@ export class Map extends Component {
 
     // TODO: THIS CODE IS DUPLICATED: WILL NEED TO REFACTOR
 
-    const location = (center.lat && center.lng)
-      ? center
-      : new window.google.maps.LatLng(
-          DEFAULT_LOCATION.coordinates.lat,
-          DEFAULT_LOCATION.coordinates.lng)
+    const location =
+      center.lat && center.lng
+        ? center
+        : new window.google.maps.LatLng(
+            DEFAULT_LOCATION.coordinates.lat,
+            DEFAULT_LOCATION.coordinates.lng
+          );
 
     return (
       <BaseMap
@@ -116,6 +123,7 @@ export class Map extends Component {
         handleMarkerClick={this.props.handleMarkerClick}
         locations={this.props.locations}
         currentLocation={this.props.currentLocation}
+        activeLocation={this.props.activeLocation}
         onIdle={this.onIdle}
         center={location}
       />

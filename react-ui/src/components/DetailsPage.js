@@ -20,8 +20,6 @@ export class DetailsPage extends Component {
     const location = this.props.locationDetails.location[1];
     const { name, phone_number, website_url } = location;
 
-    console.log(location);
-
     const happyHours = hours.map(hours => {
       const { timeslot, drink_specials, food_specials, id } = hours;
 
@@ -38,7 +36,7 @@ export class DetailsPage extends Component {
       );
 
       return (
-        <div key={id}>
+        <div key={id} className="happy-hr-block">
           {happyHourTimes}
           <p>{drink_specials}</p>
           <p>{food_specials}</p>
@@ -47,12 +45,14 @@ export class DetailsPage extends Component {
     });
 
     return (
-      <div>
-        <h3>{name}</h3>
-        <p>{phone_number}</p>
-        <p>{website_url}</p>
-        <h4>Happy Hours</h4>
-        {happyHours}
+      <div className="details-page-container">
+        <div className="basic-info">
+          <h3 className="detail-name">{name}</h3>
+          <p>{phone_number}</p>
+          <p>{website_url}</p>
+        </div>
+        <h4 className="detail-hours-name">Happy Hours</h4>
+        <div>{happyHours}</div>
       </div>
     );
   }

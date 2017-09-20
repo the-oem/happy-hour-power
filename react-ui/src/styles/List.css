@@ -13,6 +13,11 @@
   text-align: left;
   border: 2px solid #dbb330;
   background-color: #98b1bc;
+  /*max-width: 900px;*/
+}
+
+.location-container {
+  padding-bottom: 15px;
 }
 
 .location-header {
@@ -21,6 +26,7 @@
 
 .location-name {
   font-family: 'Poiret One', cursive;
+  margin-bottom: 10px;
 }
 
 .see-more-icon {
