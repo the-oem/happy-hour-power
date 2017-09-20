@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { DAYS_OF_WEEK } from '../utils/constants';
 import '../styles/NewLocation.css';
 import Location from '../model/Location';
 import HappyHour from '../model/HappyHour';
@@ -9,42 +10,48 @@ const initialState = {
     startingHour: '',
     endingHour: '',
     drinkSpecials: '',
-    foodSpecials: '',
+    foodSpecials: ''
   },
-  uploaded: '',
+  uploaded: ''
 };
-
 
 export class NewLocation extends Component {
   constructor(props) {
     super();
-    this.state = initialState
+    this.state = initialState;
     this.updateInput = this.updateInput.bind(this);
     this.submitForm = this.submitForm.bind(this);
   }
 
   updateInput(e, key) {
     this.setState({
-      inputs: Object.assign({}, this.state.inputs, {[key]: e.target.value})
+      inputs: Object.assign({}, this.state.inputs, { [key]: e.target.value })
     });
   }
 
   submitForm() {
     const { activeLocation } = this.props;
 
-    const location = new Location(this.props.activeLocation, 'website', 'phone_number', 2)
+    const location = new Location(
+      this.props.activeLocation,
+      'website',
+      'phone_number',
+      2
+    );
 
-    this.postRequest('api/v1/locations', location)
-      .then(locationResponse => {
-        const location = locationResponse.data[0];
-        const happyHourInput = new HappyHour(location.id, this.state.inputs)
-
-        return this.postRequest('api/v1/happyhours', happyHourInput)
-          .then(happyHourResponse => {
-            this.setState(Object.assign({}, initialState, { uploaded: location.name }));
-            this.resetLocation();
-          })
-      })
+    this.postRequest('api/v1/locations', location).then(locationResponse => {
+      const location = locationResponse.data[0];
+      const happyHourInput = new HappyHour(location.id, this.state.inputs);
+      return this.postRequest(
+        'api/v1/happyhours',
+        happyHourInput
+      ).then(happyHourResponse => {
+        this.setState(
+          Object.assign({}, initialState, { uploaded: location.name })
+        );
+        this.resetLocation();
+      });
+    });
   }
 
   postRequest(endpoint, content) {
@@ -56,19 +63,18 @@ export class NewLocation extends Component {
         'Content-Type': 'application/json'
       },
       method: 'POST',
-      body: JSON.stringify(body),
-    })
-    .then(res => res.json());
+      body: JSON.stringify(body)
+    }).then(res => res.json());
   }
 
-  componentDidMount(){
-    this.props.generateToken()
+  componentDidMount() {
+    this.props.generateToken();
   }
 
   resetLocation() {
     setTimeout(() => {
-      this.setState({ uploaded: '' })
-    }, 5000)
+      this.setState({ uploaded: '' });
+    }, 5000);
   }
 
   render() {
@@ -77,12 +83,18 @@ export class NewLocation extends Component {
     }
     const { name, rating, vicinity } = this.props.activeLocation;
 
-    const disabled = Object.keys(this.state.inputs)
-      .findIndex(key => this.state.inputs[key].length < 1) >= 0;
+    const disabled =
+      Object.keys(this.state.inputs).findIndex(
+        key => this.state.inputs[key].length < 1
+      ) >= 0;
 
     return (
       <div className="details-page-container">
-        <p className={`location-uploaded ${this.state.uploaded !== '' ? 'active' : ''}`}>
+        <p
+          className={`location-uploaded ${this.state.uploaded !== ''
+            ? 'active'
+            : ''}`}
+        >
           {this.state.uploaded} was uploaded.
         </p>
         <h3 className="google-location-name">{name}</h3>
@@ -95,13 +107,14 @@ export class NewLocation extends Component {
           <div className="form-piece">
             <p className="day-name">Day</p>
             <select className="day" onChange={e => this.updateInput(e, 'day')}>
-              <option>mon</option>
-              <option>tue</option>
-              <option>wed</option>
-              <option>thu</option>
-              <option>fri</option>
-              <option>sat</option>
-              <option>sun</option>
+              <option>Day of the Week</option>
+              <option value="mon">Monday</option>
+              <option value="tue">Tuesday</option>
+              <option value="wed">Wednesday</option>
+              <option value="thu">Thursday</option>
+              <option value="fri">Friday</option>
+              <option value="sat">Saturday</option>
+              <option value="sun">Sunday</option>
             </select>
           </div>
 
@@ -111,6 +124,7 @@ export class NewLocation extends Component {
               className="start"
               onChange={e => this.updateInput(e, 'startingHour')}
             >
+              <option>-- Start Time --</option>
               <option>01:00</option>
               <option>02:00</option>
               <option>03:00</option>
@@ -142,6 +156,7 @@ export class NewLocation extends Component {
               className="end"
               onChange={e => this.updateInput(e, 'endingHour')}
             >
+              <option>-- End Time --</option>
               <option>01:00</option>
               <option>02:00</option>
               <option>03:00</option>
@@ -193,7 +208,8 @@ export class NewLocation extends Component {
           <button
             className="submit-hours"
             onClick={() => this.submitForm()}
-            disabled={disabled}>
+            disabled={disabled}
+          >
             Submit
           </button>
         </div>

@@ -51,6 +51,7 @@
   height: 30px;
   background-image: url('../../public/assets/close.svg');
   background-size: 25px;
+  cursor: pointer;
 }
 
 .current-location__show-details {
