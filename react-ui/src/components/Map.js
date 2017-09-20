@@ -3,10 +3,9 @@ import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import { DEFAULT_LOCATION } from '../utils/constants';
 
 const BaseMap = withGoogleMap(props => {
-
-  const active = (id) => {
-    return id === props.activeLocation.id ? 1.0 : .65
-  }
+  const active = id => {
+    return id === props.activeLocation.id ? 1.0 : 0.65;
+  };
 
   const markers = props.locations.map(location => (
     <Marker
@@ -107,11 +106,13 @@ export class Map extends Component {
 
     // TODO: THIS CODE IS DUPLICATED: WILL NEED TO REFACTOR
 
-    const location = (center.lat && center.lng)
-      ? center
-      : new window.google.maps.LatLng(
-          DEFAULT_LOCATION.coordinates.lat,
-          DEFAULT_LOCATION.coordinates.lng)
+    const location =
+      center.lat && center.lng
+        ? center
+        : new window.google.maps.LatLng(
+            DEFAULT_LOCATION.coordinates.lat,
+            DEFAULT_LOCATION.coordinates.lng
+          );
 
     return (
       <BaseMap
