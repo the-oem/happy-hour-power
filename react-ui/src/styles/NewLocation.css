@@ -1,0 +1,80 @@
+.info {
+  font-weight: 600;
+  font-weight: 24px;
+  padding: 15px;
+}
+
+.add {
+  font-weight: bold;
+  font-size: 24px;
+  font-family: 'Poiret One', cursive;
+}
+
+.form {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-piece {
+  margin: 12px;
+}
+
+.times,
+.day-name {
+  display: inline;
+}
+
+.drink-specials,
+.food-specials,
+.submit-hours {
+  font-size: 18px;
+  width: 400px;
+  padding: 10px;
+}
+
+.drink {
+  margin-bottom: 0;
+}
+
+.submit-hours {
+  width: 422px;
+  margin: auto;
+  background-color: #9eb4bc;
+  border: 2px solid #9eb4bc;
+}
+
+.submit-hours:hover {
+  background-color: #8ca4ad;
+  border: 2px solid #8ca4ad;
+}
+
+select {
+  width: 80px;
+}
+
+.form-piece select {
+  margin: 0 10px;
+}
+
+.start,
+.end,
+.day {
+  font-size: 15px;
+}
+
+.start,
+.end,
+.day,
+.drink-specials,
+.food-specials {
+  background-color: #c5d1d6;
+}
+
+.start:focus,
+.end:focus,
+.day:focus,
+.drink-specials:focus,
+.food-specials:focus {
+  outline: 1px solid #dbb330;
+}
