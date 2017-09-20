@@ -20,7 +20,7 @@ export class NewLocation extends Component {
   }
 
   submitForm() {
-    console.log(this.state);
+    // console.log(this.state);
   }
 
   render() {
@@ -31,7 +31,7 @@ export class NewLocation extends Component {
 
     return (
       <div className="details-page-container">
-        <h3>{name}</h3>
+        <h3 className="google-location-name">{name}</h3>
         <p className="info">
           There are no happy hours listed for this location.
         </p>
