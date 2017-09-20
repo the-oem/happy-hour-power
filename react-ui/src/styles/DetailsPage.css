@@ -1,8 +1,46 @@
-.hours {
+h3,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.details-page-container {
+  min-height: 460px;
+  padding-top: 3px;
+  padding-bottom: 20px;
+  font-family: 'Josefin Slab', serif;
+  font-size: 20px;
+  background-color: #6b8b9b;
+}
+
+.hr-details-pg {
+  border: 0;
+  height: 1px;
+  background-color: #dbb330;
+}
+
+.basic-info {
+  margin-top: 30px;
+}
+
+.detail-name {
+  font-size: 26px;
+  margin-bottom: 15px;
+}
+
+.detail-hours-name {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.happy-hr-block {
+  margin: 15px;
+}
+/*.hours {
   display: flex;
   justify-content: center;
 }
 
 .hour {
   height: 25px;
-}
+}*/
