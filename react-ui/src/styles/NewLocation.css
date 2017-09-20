@@ -46,7 +46,6 @@
   margin: auto;
   background-color: #9eb4bc;
   border: 2px solid #9eb4bc;
-  cursor: pointer;
 }
 
 .submit-hours:hover {
@@ -55,11 +54,7 @@
 }
 
 select {
-  width: 120px;
-}
-
-select.day {
-  width: 140px;
+  width: 80px;
 }
 
 .form-piece select {
@@ -86,25 +81,4 @@ select.day {
 .drink-specials:focus,
 .food-specials:focus {
   outline: 1px solid #dbb330;
-}
-
-.location-uploaded {
-  height: 0;
-  margin: 0;
-  padding: 0 10px;
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 3;
-  background-color: #dbb330;
-  color: #000;
-  transition: all 0.3s ease;
-  content: '';
-}
-
-.location-uploaded.active {
-  height: 24px;
-  line-height: 24px;
 }
